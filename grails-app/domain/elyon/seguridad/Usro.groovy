@@ -8,7 +8,6 @@ class Usro implements Serializable {
     Date fechaNacimiento
     Date fechaInicio
     Date fechaFin
-    String cargo
 
     String login
     String password
@@ -32,7 +31,6 @@ class Usro implements Serializable {
             fechaNacimiento column: 'usrofcna'
             fechaInicio column: 'usrofcin'
             fechaFin column: 'usrofcfn'
-            cargo column: 'usrocrgo'
 
             login column: 'usrologn'
             password column: 'usropass'
@@ -43,15 +41,14 @@ class Usro implements Serializable {
     }
 
     static constraints = {
-        cedula(size: 1..10, attributes: [title: 'cedula'])
-        nombre(size: 1..30, attributes: [title: 'nombre'])
-        apellido(size: 1..30, attributes: [title: 'apellido'])
-        fechaNacimiento(blank: true, nullable: true, attributes: [title: 'fechaNacimiento'])
-        fechaInicio(blank: true, nullable: true, attributes: [title: 'fechaInicio'])
-        fechaFin(blank: true, nullable: true, attributes: [title: 'fechaFin'])
-        cargo(size: 1..50, blank: true, nullable: true, attributes: [title: 'cargo'])
+        cedula(size: 1..10, blank: false, nullable:false, attributes: [title: 'Cédula'])
+        nombre(size: 1..30, blank: false, nullable:false, attributes: [title: 'Nombre'])
+        apellido(size: 1..30, blank: false, nullable:false, attributes: [title: 'Apellido'])
+        fechaNacimiento(blank: true, nullable: true, attributes: [title: 'Fecha de Nacimiento'])
+        fechaInicio(blank: true, nullable: true, attributes: [title: 'Fecha de Inicio'])
+        fechaFin(blank: true, nullable: true, attributes: [title: 'Fecha de Fin'])
 
-        login(size: 1..15, blank: false, nullable: false, unique: true, attributes: [title: 'Nombre de usuario'])
+        login(size: 3..15, blank: false, nullable: false, unique: true, attributes: [title: 'Nombre de usuario'])
         password(size: 1..64, blank: false, nullable: false, password: true, attributes: [title: 'Contraseña para el ingreso al sistema'])
         observaciones(size: 1..255, blank: true, nullable: true, attributes: [title: 'Observaciones'])
 
