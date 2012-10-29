@@ -38,15 +38,17 @@
                 <thead>
                     <tr>
                     
-                        <th>Persona</th>
+                        <g:sortableColumn property="cedula" title="Cedula" />
                     
-                        <g:sortableColumn property="login" title="Login" />
+                        <g:sortableColumn property="nombre" title="Nombre" />
                     
-                        <g:sortableColumn property="password" title="Password" />
+                        <g:sortableColumn property="apellido" title="Apellido" />
                     
-                        <g:sortableColumn property="autorizacion" title="Autorizacion" />
+                        <g:sortableColumn property="fechaNacimiento" title="Fecha Nacimiento" />
                     
-                        <g:sortableColumn property="sigla" title="Sigla" />
+                        <g:sortableColumn property="fechaInicio" title="Fecha Inicio" />
+                    
+                        <g:sortableColumn property="fechaFin" title="Fecha Fin" />
                     
                         <th width="150">Acciones</th>
                     </tr>
@@ -55,17 +57,17 @@
                 <g:each in="${usroInstanceList}" status="i" var="usroInstance">
                     <tr>
                     
-                        <td>${fieldValue(bean: usroInstance, field: "persona")}</td>
+                        <td>${fieldValue(bean: usroInstance, field: "cedula")}</td>
                     
-                        <td>${fieldValue(bean: usroInstance, field: "login")}</td>
+                        <td>${fieldValue(bean: usroInstance, field: "nombre")}</td>
                     
-                        <td>${fieldValue(bean: usroInstance, field: "password")}</td>
+                        <td>${fieldValue(bean: usroInstance, field: "apellido")}</td>
                     
-                        <td>${fieldValue(bean: usroInstance, field: "autorizacion")}</td>
+                        <td><g:formatDate date="${usroInstance.fechaNacimiento}" /></td>
                     
-                        <td>${fieldValue(bean: usroInstance, field: "sigla")}</td>
+                        <td><g:formatDate date="${usroInstance.fechaInicio}" /></td>
                     
-                        <td>${fieldValue(bean: usroInstance, field: "activo")}</td>
+                        <td><g:formatDate date="${usroInstance.fechaFin}" /></td>
                     
                         <td>
                             <a class="btn btn-small btn-show btn-ajax" href="#" rel="tooltip" title="Ver" data-id="${usroInstance.id}">

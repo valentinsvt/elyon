@@ -8,16 +8,124 @@
         <div class="control-group">
             <div>
                 <span class="control-label label label-inverse">
-                    Persona
+                    Cedula
                 </span>
             </div>
 
             <div class="controls">
-                <g:select id="persona" name="persona.id" from="${elyon.seguridad.Persona.list()}" optionKey="id" class="many-to-one  required" value="${usroInstance?.persona?.id}"/>
-                <span class="mandatory">*</span>
+                <g:textField name="cedula" maxlength="10" class="" value="${usroInstance?.cedula}"/>
+                
                 <p class="help-block ui-helper-hidden"></p>
             </div>
         </div>
+
+        
+
+                
+        <div class="control-group">
+            <div>
+                <span class="control-label label label-inverse">
+                    Nombre
+                </span>
+            </div>
+
+            <div class="controls">
+                <g:textField name="nombre" maxlength="30" class="" value="${usroInstance?.nombre}"/>
+                
+                <p class="help-block ui-helper-hidden"></p>
+            </div>
+        </div>
+
+        
+
+                
+        <div class="control-group">
+            <div>
+                <span class="control-label label label-inverse">
+                    Apellido
+                </span>
+            </div>
+
+            <div class="controls">
+                <g:textField name="apellido" maxlength="30" class="" value="${usroInstance?.apellido}"/>
+                
+                <p class="help-block ui-helper-hidden"></p>
+            </div>
+        </div>
+
+        
+
+                
+        <div class="control-group">
+            <div>
+                <span class="control-label label label-inverse">
+                    Fecha Nacimiento
+                </span>
+            </div>
+
+            <div class="controls">
+                <elm:datepicker name="fechaNacimiento" class="" value="${usroInstance?.fechaNacimiento}"/>
+
+                
+                <p class="help-block ui-helper-hidden"></p>
+            </div>
+        </div>
+
+        
+
+                
+        <div class="control-group">
+            <div>
+                <span class="control-label label label-inverse">
+                    Fecha Inicio
+                </span>
+            </div>
+
+            <div class="controls">
+                <elm:datepicker name="fechaInicio" class="" value="${usroInstance?.fechaInicio}"/>
+
+                
+                <p class="help-block ui-helper-hidden"></p>
+            </div>
+        </div>
+
+        
+
+                
+        <div class="control-group">
+            <div>
+                <span class="control-label label label-inverse">
+                    Fecha Fin
+                </span>
+            </div>
+
+            <div class="controls">
+                <elm:datepicker name="fechaFin" class="" value="${usroInstance?.fechaFin}"/>
+
+                
+                <p class="help-block ui-helper-hidden"></p>
+            </div>
+        </div>
+
+        
+
+                
+        <div class="control-group">
+            <div>
+                <span class="control-label label label-inverse">
+                    Cargo
+                </span>
+            </div>
+
+            <div class="controls">
+                <g:textField name="cargo" maxlength="50" class="" value="${usroInstance?.cargo}"/>
+                
+                <p class="help-block ui-helper-hidden"></p>
+            </div>
+        </div>
+
+        
+
                 
         <div class="control-group">
             <div>
@@ -32,6 +140,9 @@
                 <p class="help-block ui-helper-hidden"></p>
             </div>
         </div>
+
+        
+
                 
         <div class="control-group">
             <div>
@@ -46,71 +157,23 @@
                 <p class="help-block ui-helper-hidden"></p>
             </div>
         </div>
-                
+
+        
         <div class="control-group">
             <div>
                 <span class="control-label label label-inverse">
-                    Autorizacion
+                   Verificar Password
                 </span>
             </div>
 
             <div class="controls">
-                <g:field type="password" name="autorizacion" maxlength="255" class=" required" value="${usroInstance?.autorizacion}"/>
+                <g:field type="password" name="password" maxlength="64" class=" required" value="${usroInstance?.password}"/>
                 <span class="mandatory">*</span>
                 <p class="help-block ui-helper-hidden"></p>
             </div>
         </div>
-                
-        <div class="control-group">
-            <div>
-                <span class="control-label label label-inverse">
-                    Sigla
-                </span>
-            </div>
+        
 
-            <div class="controls">
-                <g:textField name="sigla" maxlength="8" class=" required" value="${usroInstance?.sigla}"/>
-                <span class="mandatory">*</span>
-                <p class="help-block ui-helper-hidden"></p>
-            </div>
-        </div>
-                
-        <div class="control-group">
-            <div>
-                <span class="control-label label label-inverse">
-                    Activo
-                </span>
-            </div>
-
-            <div class="controls">
-                <g:field type="number" name="activo" class=" required" value="${fieldValue(bean: usroInstance, field: 'activo')}"/>
-                <span class="mandatory">*</span>
-                <p class="help-block ui-helper-hidden"></p>
-            </div>
-        </div>
-                
-        <div class="control-group">
-            <div>
-                <span class="control-label label label-inverse">
-                    Fecha Pass
-                </span>
-            </div>
-
-            <div class="controls">
-                <g:textField name="fechaPass" class="datepicker" value="${usroInstance?.fechaPass}"/>
-<script type="text/javascript">
-$("#fechaPass").datepicker({
-changeMonth: true,
-changeYear: true,
-showOn: "both",
-buttonImage: "${resource(dir:'images', file:'calendar.png')}",
-buttonImageOnly: true
-});
-</script>
-                
-                <p class="help-block ui-helper-hidden"></p>
-            </div>
-        </div>
                 
         <div class="control-group">
             <div>
@@ -125,6 +188,26 @@ buttonImageOnly: true
                 <p class="help-block ui-helper-hidden"></p>
             </div>
         </div>
+
+        
+
+                
+        <div class="control-group">
+            <div>
+                <span class="control-label label label-inverse">
+                    Activo
+                </span>
+            </div>
+
+            <div class="controls">
+                <g:field type="number" name="activo" class=" required" value="${fieldValue(bean: usroInstance, field: 'activo')}"/>
+                <span class="mandatory">*</span>
+                <p class="help-block ui-helper-hidden"></p>
+            </div>
+        </div>
+
+        
+
                 
     </g:form>
 

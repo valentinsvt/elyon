@@ -29,6 +29,22 @@ class UsroController extends Shield {
     } //form_ajax
 
     def save() {
+        if (params.fechaInicio) {
+            params.fechaInicio = new Date().parse("dd-MM-yyyy", params.fechaInicio)
+        }
+        if (params.fechaFin) {
+            params.fechaFin = new Date().parse("dd-MM-yyyy", params.fechaFin)
+        }
+        if (params.fechaNacimiento) {
+            params.fechaNacimiento = new Date().parse("dd-MM-yyyy", params.fechaNacimiento)
+        }
+        if (params.password) {
+            params.password = params.password.encodeAsMD5()
+        }
+        if (params.autorizacion) {
+            params.autorizacion = params.autorizacion.encodeAsMD5()
+        }
+
         def usroInstance
         if (params.id) {
             usroInstance = Usro.get(params.id)

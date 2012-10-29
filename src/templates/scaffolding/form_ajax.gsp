@@ -50,6 +50,27 @@
                 <p class="help-block ui-helper-hidden"></p>
             </div>
         </div>
+
+        <%
+            if(cp.password) {
+                %>
+        <div class="control-group">
+            <div>
+                <span class="control-label label label-inverse">
+                   Verificar ${p.naturalName}
+                </span>
+            </div>
+
+            <div class="controls">
+                ${renderEditor(p)}
+                <% if (required) { %><span class="mandatory">*</span><% } %>
+                <p class="help-block ui-helper-hidden"></p>
+            </div>
+        </div>
+        <%
+            }
+        %>
+
                 <% }
                 } %>
     </g:form>

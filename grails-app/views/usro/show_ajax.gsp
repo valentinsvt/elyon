@@ -5,19 +5,119 @@
 
     <form class="form-horizontal">
     
-    <g:if test="${usroInstance?.persona}">
+    <g:if test="${usroInstance?.cedula}">
         <div class="control-group">
             <div>
-                <span id="persona-label" class="control-label label label-inverse">
-                    Persona
+                <span id="cedula-label" class="control-label label label-inverse">
+                    Cedula
                 </span>
             </div>
             <div class="controls">
         
-                <span aria-labelledby="persona-label">
-        %{--<g:link controller="persona" action="show" id="${usroInstance?.persona?.id}">--}%
-                    ${usroInstance?.persona?.encodeAsHTML()}
-        %{--</g:link>--}%
+                <span aria-labelledby="cedula-label">
+                    <g:fieldValue bean="${usroInstance}" field="cedula"/>
+                </span>
+        
+            </div>
+        </div>
+    </g:if>
+    
+    <g:if test="${usroInstance?.nombre}">
+        <div class="control-group">
+            <div>
+                <span id="nombre-label" class="control-label label label-inverse">
+                    Nombre
+                </span>
+            </div>
+            <div class="controls">
+        
+                <span aria-labelledby="nombre-label">
+                    <g:fieldValue bean="${usroInstance}" field="nombre"/>
+                </span>
+        
+            </div>
+        </div>
+    </g:if>
+    
+    <g:if test="${usroInstance?.apellido}">
+        <div class="control-group">
+            <div>
+                <span id="apellido-label" class="control-label label label-inverse">
+                    Apellido
+                </span>
+            </div>
+            <div class="controls">
+        
+                <span aria-labelledby="apellido-label">
+                    <g:fieldValue bean="${usroInstance}" field="apellido"/>
+                </span>
+        
+            </div>
+        </div>
+    </g:if>
+    
+    <g:if test="${usroInstance?.fechaNacimiento}">
+        <div class="control-group">
+            <div>
+                <span id="fechaNacimiento-label" class="control-label label label-inverse">
+                    Fecha Nacimiento
+                </span>
+            </div>
+            <div class="controls">
+        
+                <span aria-labelledby="fechaNacimiento-label">
+                    <g:formatDate date="${usroInstance?.fechaNacimiento}" />
+                </span>
+        
+            </div>
+        </div>
+    </g:if>
+    
+    <g:if test="${usroInstance?.fechaInicio}">
+        <div class="control-group">
+            <div>
+                <span id="fechaInicio-label" class="control-label label label-inverse">
+                    Fecha Inicio
+                </span>
+            </div>
+            <div class="controls">
+        
+                <span aria-labelledby="fechaInicio-label">
+                    <g:formatDate date="${usroInstance?.fechaInicio}" />
+                </span>
+        
+            </div>
+        </div>
+    </g:if>
+    
+    <g:if test="${usroInstance?.fechaFin}">
+        <div class="control-group">
+            <div>
+                <span id="fechaFin-label" class="control-label label label-inverse">
+                    Fecha Fin
+                </span>
+            </div>
+            <div class="controls">
+        
+                <span aria-labelledby="fechaFin-label">
+                    <g:formatDate date="${usroInstance?.fechaFin}" />
+                </span>
+        
+            </div>
+        </div>
+    </g:if>
+    
+    <g:if test="${usroInstance?.cargo}">
+        <div class="control-group">
+            <div>
+                <span id="cargo-label" class="control-label label label-inverse">
+                    Cargo
+                </span>
+            </div>
+            <div class="controls">
+        
+                <span aria-labelledby="cargo-label">
+                    <g:fieldValue bean="${usroInstance}" field="cargo"/>
                 </span>
         
             </div>
@@ -58,34 +158,17 @@
         </div>
     </g:if>
     
-    <g:if test="${usroInstance?.autorizacion}">
+    <g:if test="${usroInstance?.observaciones}">
         <div class="control-group">
             <div>
-                <span id="autorizacion-label" class="control-label label label-inverse">
-                    Autorizacion
+                <span id="observaciones-label" class="control-label label label-inverse">
+                    Observaciones
                 </span>
             </div>
             <div class="controls">
         
-                <span aria-labelledby="autorizacion-label">
-                    <g:fieldValue bean="${usroInstance}" field="autorizacion"/>
-                </span>
-        
-            </div>
-        </div>
-    </g:if>
-    
-    <g:if test="${usroInstance?.sigla}">
-        <div class="control-group">
-            <div>
-                <span id="sigla-label" class="control-label label label-inverse">
-                    Sigla
-                </span>
-            </div>
-            <div class="controls">
-        
-                <span aria-labelledby="sigla-label">
-                    <g:fieldValue bean="${usroInstance}" field="sigla"/>
+                <span aria-labelledby="observaciones-label">
+                    <g:fieldValue bean="${usroInstance}" field="observaciones"/>
                 </span>
         
             </div>
@@ -103,40 +186,6 @@
         
                 <span aria-labelledby="activo-label">
                     <g:fieldValue bean="${usroInstance}" field="activo"/>
-                </span>
-        
-            </div>
-        </div>
-    </g:if>
-    
-    <g:if test="${usroInstance?.fechaPass}">
-        <div class="control-group">
-            <div>
-                <span id="fechaPass-label" class="control-label label label-inverse">
-                    Fecha Pass
-                </span>
-            </div>
-            <div class="controls">
-        
-                <span aria-labelledby="fechaPass-label">
-                    <g:formatDate date="${usroInstance?.fechaPass}" />
-                </span>
-        
-            </div>
-        </div>
-    </g:if>
-    
-    <g:if test="${usroInstance?.observaciones}">
-        <div class="control-group">
-            <div>
-                <span id="observaciones-label" class="control-label label label-inverse">
-                    Observaciones
-                </span>
-            </div>
-            <div class="controls">
-        
-                <span aria-labelledby="observaciones-label">
-                    <g:fieldValue bean="${usroInstance}" field="observaciones"/>
                 </span>
         
             </div>
