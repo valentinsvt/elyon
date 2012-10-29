@@ -11,7 +11,8 @@ class ActividadEconomicaController extends elyon.seguridad.Shield {
     } //index
 
     def list() {
-        [actividadEconomicaInstanceList: ActividadEconomica.list(params), params: params]
+        [actividadEconomicaInstanceList: ActividadEconomica.list(params), params: params1]
+
 
     } //list
 
