@@ -19,7 +19,7 @@ class Parroquia implements Serializable {
     static constraints = {
         ciudad( blank:true, nullable:true ,attributes:[title:'ciudad'])
         codigo(size:1..6,blank:false,attributes:[title:'codigo'])
-        descripcion(size:1..63,blank:false,attributes:[title:'descripcion'])
+        descripcion(size:1..150,blank:false,attributes:[title:'descripcion'])
     }
 
     String toString(){

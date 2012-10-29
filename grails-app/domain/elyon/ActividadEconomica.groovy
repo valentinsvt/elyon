@@ -19,7 +19,7 @@ class ActividadEconomica {
 
     static constraints = {
         codigo(maxSize: 7, blank: false, nullable: false, attributes: [title: 'codigo'])
-        descripcion(maxSize: 63, blank: false, nullable: false, attributes: [title: 'descripcion'])
+        descripcion(maxSize: 150, blank: false, nullable: false, attributes: [title: 'descripcion'])
     }
 
     String toString(){

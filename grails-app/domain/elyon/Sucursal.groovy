@@ -19,7 +19,7 @@ class Sucursal implements Serializable {
     static constraints = {
         ciudad(blank: true, nullable: true, attributes: [title: 'ciudad'])
         codigo(size: 1..3, blank: false, attributes: [title: 'codigo'])
-        descripcion(size: 1..31, blank: true, nullable: true, attributes: [title: 'descripcion'])
+        descripcion(size: 1..100, blank: true, nullable: true, attributes: [title: 'descripcion'])
     }
 
     String toString(){
