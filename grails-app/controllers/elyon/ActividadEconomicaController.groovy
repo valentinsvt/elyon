@@ -7,11 +7,11 @@ class ActividadEconomicaController extends elyon.seguridad.Shield {
     static allowedMethods = [save: "POST", update: "POST", delete: "POST"]
 
     def index() {
-        redirect(action: "list", params: params2)
+        redirect(action: "list", params: params)
     } //index
 
     def list() {
-        [actividadEconomicaInstanceList: ActividadEconomica.list(params), params: params1]
+        [actividadEconomicaInstanceList: ActividadEconomica.list(params), params: params2]
 
 
     } //list
