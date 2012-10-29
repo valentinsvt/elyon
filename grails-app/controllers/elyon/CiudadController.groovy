@@ -14,6 +14,7 @@ class CiudadController extends elyon.seguridad.Shield {
         [ciudadInstanceList: Ciudad.list(params), params: params]
     } //list
 
+
     def form_ajax() {
         def ciudadInstance = new Ciudad(params)
         if(params.id) {
