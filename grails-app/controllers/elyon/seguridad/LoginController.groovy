@@ -2,118 +2,57 @@ package elyon.seguridad
 
 class LoginController {
 
-    def index = {
-        println "index login"
+    def index() {
+        redirect(action: "login")
     }
 
-    def login = {
-
-    }
-
-    def validar = {
-
-        def login
-        def password
-
-        login = params.login
-        password = params.password?.encodeAsMD5()
-
-//        println(params)
-
-        def usuario = Usro.findWhere(login: login, password: password)
-
-
-        if (usuario) {
-
-            session.usuario = usuario
-            session.empresa = usuario.persona.empresa
-            println "empresa " + session.empresa
-            redirect(action: "perfiles")
-
-
-        }
-        else {
-
-            redirect(action: "login")
-            println "Usuario - Password Incorrecto"
-
-            flash.message = 'Usuario o Password Incorrecto'
-            flash.clase = "error"
-            flash.ico = "ss_delete"
-        }
+    def inicio() {
 
     }
 
-    def perfiles = {
-//        def usuarioLog = session.usuario
-//        def perfilesUsr = Sesn.findAllByUsuario(usuarioLog)
-
-        def perfilesUsr = []
-
-        return [perfilesUsr: perfilesUsr]
-    }
-
-
-    def savePer = {
-//        println params
-
-
-        def sesn = Sesn.get(params.perfiles)
-        def perf = sesn.perfil
-//        println perf
-
-        if (perf) {
-
-            def usuario = Usro.get(session.usuario.id)
-
-            def empresa = usuario.persona.empresa
-
-            session.empresa = empresa
-
-            println "login EMPRESA!! " + empresa
-            println "session empresa login: " + session.empresa
-
-            session.perfil = perf
-            def ahora = new Date()
-            session.contabilidad = Contabilidad.findByFechaInicioLessThanEqualsAndFechaCierreGreaterThanEquals(ahora, ahora)
-            if (!session.contabilidad) {
-                def conts = Contabilidad.list([sort: "fechaCierre", order: "desc"])
-                if (conts) {
-                    session.contabilidad = conts[0]
-                }
-            }
-//            println "contabilidad  " + session.contabilidad
-
-            if (session.an && session.cn) {
-//                println "si session url " + session.an + " " + session.cn
-                redirect(controller: session.cn, action: session.an, params: session.pr)
-            } else {
-                redirect(controller: "inicio", action: "index")
-            }
-//            redirect(controller: 'inicio', action: "index")
-        }
-        else {
-            redirect(action: "login")
-
-
-        }
-    }
-
-
-    def logout = {
+    def login() {
         if (session.usuario) {
-            session.usuario = null
-            session.perfil = null
-            session.permisos = null
-            session.menu = null
-            session.an = null
-            session.cn = null
-            session.invalidate()
-            redirect(controller: 'inicio', action: 'index')
-        } else {
-            redirect(controller: 'inicio', action: 'index')
+            if (session.controller && session.action) {
+                redirect(controller: session.controller, action: session.action, params: session.params)
+            } else {
+                redirect(action: "inicio")
+            }
         }
     }
 
+    def validarLogin() {
+        def user = Usro.findAllByLoginAndPassword(params.login, params.pass.encodeAsMD5())
+
+        if (user.size() == 0) {
+            flash.message = "No se ha encontrado el usuario"
+        } else if (user.size() > 1) {
+            flash.message = "Ha ocurrido un error grave"
+        } else {
+            user = user[0]
+
+            session.usuario = user
+            redirect(controller: "pelicula", action: "list")
+            return
+        }
+        redirect(controller: "login", action: "login")
+    }
+
+    def validarSesion() {
+        if (session.usuario) {
+            render "OK"
+        } else {
+            render "NO"
+        }
+    }
+
+    def logout() {
+        session.usuario = null
+
+        session.controller = null
+        session.action = null
+        session.params = null
+
+        redirect(action: "login")
+    }
 
 }

@@ -35,7 +35,7 @@ class MenuTagLib {
         html += '<ul class="nav">'
         html += strItems
         html += ' <li class="divider-vertical"></li>'
-        html += '<li><a href="' + g.createLink(controller: 'loginLuz', action: 'logout') + '"><i class="icon-off icon-white"></i> Salir</a></li>'
+        html += '<li><a href="' + g.createLink(controller: 'login', action: 'logout') + '"><i class="icon-off icon-white"></i> Salir</a></li>'
 //        html += '<li><a href="#contact">Contact</a></li>'
         html += '</ul>'
         html += '<p class="navbar-text pull-right" id="countdown"></p>'

@@ -16,12 +16,12 @@ class AfinidadController extends elyon.seguridad.Shield {
 
     def form_ajax() {
         def afinidadInstance = new Afinidad(params)
-        if (params.id) {
+        if(params.id) {
             afinidadInstance = Afinidad.get(params.id)
-            if (!afinidadInstance) {
+            if(!afinidadInstance) {
                 flash.clase = "alert-error"
-                flash.message = "No se encontró  Afinidad con id " + params.id
-                redirect(action: "list")
+                flash.message =  "No se encontró Afinidad con id " + params.id
+                redirect(action:  "list")
                 return
             } //no existe el objeto
         } //es edit
@@ -30,11 +30,11 @@ class AfinidadController extends elyon.seguridad.Shield {
 
     def save() {
         def afinidadInstance
-        if (params.id) {
+        if(params.id) {
             afinidadInstance = Afinidad.get(params.id)
-            if (!afinidadInstance) {
+            if(!afinidadInstance) {
                 flash.clase = "alert-error"
-                flash.message = "No se encontró  Afinidad con id " + params.id
+                flash.message = "No se encontró Afinidad con id " + params.id
                 redirect(action: 'list')
                 return
             }//no existe el objeto
@@ -45,7 +45,7 @@ class AfinidadController extends elyon.seguridad.Shield {
         } //es create
         if (!afinidadInstance.save(flush: true)) {
             flash.clase = "alert-error"
-            def str = "<h4>No se pudo guardar  Afinidad " + (afinidadInstance.id ? afinidadInstance.id : "") + "</h4>"
+            def str = "<h4>No se pudo guardar Afinidad " + (afinidadInstance.id ? afinidadInstance.id : "") + "</h4>"
 
             str += "<ul>"
             afinidadInstance.errors.allErrors.each { err ->
@@ -62,12 +62,12 @@ class AfinidadController extends elyon.seguridad.Shield {
             return
         }
 
-        if (params.id) {
+        if(params.id) {
             flash.clase = "alert-success"
-            flash.message = "Se ha actualizado correctamente  Afinidad " + afinidadInstance.id
+            flash.message = "Se ha actualizado correctamente Afinidad " + afinidadInstance.id
         } else {
             flash.clase = "alert-success"
-            flash.message = "Se ha creado correctamente  Afinidad " + afinidadInstance.id
+            flash.message = "Se ha creado correctamente Afinidad " + afinidadInstance.id
         }
         redirect(action: 'list')
     } //save
@@ -76,7 +76,7 @@ class AfinidadController extends elyon.seguridad.Shield {
         def afinidadInstance = Afinidad.get(params.id)
         if (!afinidadInstance) {
             flash.clase = "alert-error"
-            flash.message = "No se encontró  Afinidad con id " + params.id
+            flash.message =  "No se encontró Afinidad con id " + params.id
             redirect(action: "list")
             return
         }
@@ -87,7 +87,7 @@ class AfinidadController extends elyon.seguridad.Shield {
         def afinidadInstance = Afinidad.get(params.id)
         if (!afinidadInstance) {
             flash.clase = "alert-error"
-            flash.message = "No se encontró  Afinidad con id " + params.id
+            flash.message =  "No se encontró Afinidad con id " + params.id
             redirect(action: "list")
             return
         }
@@ -95,12 +95,12 @@ class AfinidadController extends elyon.seguridad.Shield {
         try {
             afinidadInstance.delete(flush: true)
             flash.clase = "alert-success"
-            flash.message = "Se ha eliminado correctamente  Afinidad " + afinidadInstance.id
+            flash.message =  "Se ha eliminado correctamente Afinidad " + afinidadInstance.id
             redirect(action: "list")
         }
         catch (DataIntegrityViolationException e) {
             flash.clase = "alert-error"
-            flash.message = "No se pudo eliminar  Afinidad " + (afinidadInstance.id ? afinidadInstance.id : "")
+            flash.message =  "No se pudo eliminar Afinidad " + (afinidadInstance.id ? afinidadInstance.id : "")
             redirect(action: "list")
         }
     } //delete

@@ -11,7 +11,7 @@ class ActividadEconomicaController extends elyon.seguridad.Shield {
     } //index
 
     def list() {
-        return [actividadEconomicaInstanceList: ActividadEconomica.list(), params: params]
+        [actividadEconomicaInstanceList: ActividadEconomica.list(params), params: params]
     } //list
 
 
@@ -22,7 +22,7 @@ class ActividadEconomicaController extends elyon.seguridad.Shield {
             actividadEconomicaInstance = ActividadEconomica.get(params.id)
             if(!actividadEconomicaInstance) {
                 flash.clase = "alert-error"
-                flash.message =  "No se encontró  Actividad Economica con id " + params.id
+                flash.message =  "No se encontró Actividad Economica con id " + params.id
                 redirect(action:  "list")
                 return
             } //no existe el objeto
@@ -36,7 +36,7 @@ class ActividadEconomicaController extends elyon.seguridad.Shield {
             actividadEconomicaInstance = ActividadEconomica.get(params.id)
             if(!actividadEconomicaInstance) {
                 flash.clase = "alert-error"
-                flash.message = "No se encontró  Actividad Economica con id " + params.id
+                flash.message = "No se encontró Actividad Economica con id " + params.id
                 redirect(action: 'list')
                 return
             }//no existe el objeto
@@ -47,7 +47,7 @@ class ActividadEconomicaController extends elyon.seguridad.Shield {
         } //es create
         if (!actividadEconomicaInstance.save(flush: true)) {
             flash.clase = "alert-error"
-            def str = "<h4>No se pudo guardar  Actividad Economica " + (actividadEconomicaInstance.id ? actividadEconomicaInstance.id : "") + "</h4>"
+            def str = "<h4>No se pudo guardar Actividad Economica " + (actividadEconomicaInstance.id ? actividadEconomicaInstance.id : "") + "</h4>"
 
             str += "<ul>"
             actividadEconomicaInstance.errors.allErrors.each { err ->
@@ -66,10 +66,10 @@ class ActividadEconomicaController extends elyon.seguridad.Shield {
 
         if(params.id) {
             flash.clase = "alert-success"
-            flash.message = "Se ha actualizado correctamente  Actividad Economica " + actividadEconomicaInstance.id
+            flash.message = "Se ha actualizado correctamente Actividad Economica " + actividadEconomicaInstance.id
         } else {
             flash.clase = "alert-success"
-            flash.message = "Se ha creado correctamente  Actividad Economica " + actividadEconomicaInstance.id
+            flash.message = "Se ha creado correctamente Actividad Economica " + actividadEconomicaInstance.id
         }
         redirect(action: 'list')
     } //save
@@ -78,7 +78,7 @@ class ActividadEconomicaController extends elyon.seguridad.Shield {
         def actividadEconomicaInstance = ActividadEconomica.get(params.id)
         if (!actividadEconomicaInstance) {
             flash.clase = "alert-error"
-            flash.message =  "No se encontró  Actividad Economica con id " + params.id
+            flash.message =  "No se encontró Actividad Economica con id " + params.id
             redirect(action: "list")
             return
         }
@@ -89,7 +89,7 @@ class ActividadEconomicaController extends elyon.seguridad.Shield {
         def actividadEconomicaInstance = ActividadEconomica.get(params.id)
         if (!actividadEconomicaInstance) {
             flash.clase = "alert-error"
-            flash.message =  "No se encontró  Actividad Economica con id " + params.id
+            flash.message =  "No se encontró Actividad Economica con id " + params.id
             redirect(action: "list")
             return
         }
@@ -97,12 +97,12 @@ class ActividadEconomicaController extends elyon.seguridad.Shield {
         try {
             actividadEconomicaInstance.delete(flush: true)
             flash.clase = "alert-success"
-            flash.message =  "Se ha eliminado correctamente  Actividad Economica " + actividadEconomicaInstance.id
+            flash.message =  "Se ha eliminado correctamente Actividad Economica " + actividadEconomicaInstance.id
             redirect(action: "list")
         }
         catch (DataIntegrityViolationException e) {
             flash.clase = "alert-error"
-            flash.message =  "No se pudo eliminar  Actividad Economica " + (actividadEconomicaInstance.id ? actividadEconomicaInstance.id : "")
+            flash.message =  "No se pudo eliminar Actividad Economica " + (actividadEconomicaInstance.id ? actividadEconomicaInstance.id : "")
             redirect(action: "list")
         }
     } //delete

@@ -16,7 +16,7 @@ class TipoVivienda implements Serializable {
     }
     static constraints = {
         codigo(size: 1..2, blank: false, attributes: [title: 'codigo'])
-        descripcion(size: 1..15, blank: false, attributes: [title: 'descripcion'])
+        descripcion(size: 1..31, blank: false, attributes: [title: 'descripcion'])
     }
 
 

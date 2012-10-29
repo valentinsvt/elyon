@@ -1,6 +1,6 @@
 package elyon
 class Data implements Serializable {
-    Lote lote
+
     TipoDeIdentificacion tipoDeIdentificacion
     Ruta rutaEntrega
     TipoDeIdentificacion tipoDeIdentificacionReferenciaPersonal
@@ -51,6 +51,9 @@ class Data implements Serializable {
     String direccionReferenciaPersonal
     String telefonoReferenciaPersonal
     String indicadorPrincipal
+    LoteOrdenTrabajo loteOrdenTrabajo
+
+
     static mapping = {
         table 'data'
         cache usage:'read-write', include:'non-lazy'
@@ -59,7 +62,7 @@ class Data implements Serializable {
         version false
         columns {
             id column:'data__id'
-            lote column: 'lote__id'
+
             tipoDeIdentificacion column: 'tpid__id'
             rutaEntrega column: 'ruta__id'
             tipoDeIdentificacionReferenciaPersonal column: 'rfprtpid'
@@ -110,10 +113,11 @@ class Data implements Serializable {
             direccionReferenciaPersonal column: 'datadrrp'
             telefonoReferenciaPersonal column: 'datatfrp'
             indicadorPrincipal column: 'datainpr'
+            loteOrdenTrabajo column: 'otlt__id'
         }
     }
     static constraints = {
-        lote( blank:true, nullable:true ,attributes:[title:'lote'])
+
         tipoDeIdentificacion( blank:true, nullable:true ,attributes:[title:'tipoDeIdentificacion'])
         rutaEntrega( blank:true, nullable:true ,attributes:[title:'ruta'])
         tipoDeIdentificacionReferenciaPersonal( blank:true, nullable:true ,attributes:[title:'tipoDeIdentificacionReferenciaPersonal'])
@@ -164,6 +168,7 @@ class Data implements Serializable {
         direccionReferenciaPersonal(size:1..150, blank:true, nullable:true ,attributes:[title:'direccionReferenciaPersonal'])
         telefonoReferenciaPersonal(size:1..20, blank:true, nullable:true ,attributes:[title:'telefonoReferenciaPersonal'])
         indicadorPrincipal(size:1..10, blank:true, nullable:true ,attributes:[title:'indicadorPrincipal'])
+        loteOrdenTrabajo(blank:true, attributes:[title: 'loteOrdenTrabajo'])
     }
 
     String toString(){

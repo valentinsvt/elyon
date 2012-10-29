@@ -87,10 +87,10 @@
 
             function validarSesion() {
                 $.ajax({
-                    url     : '${createLink(controller: "login")}',
+                    url     : '${createLink(controller: "login2")}',
                     success : function (msg) {
                         if (msg == "NO") {
-                            location.href = "${g.createLink(controller: 'login', action: 'login')}";
+                            location.href = "${g.createLink(controller: 'login2', action: 'login')}";
                         } else {
                             resetTimer();
                         }

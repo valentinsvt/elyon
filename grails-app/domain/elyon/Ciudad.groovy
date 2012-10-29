@@ -17,7 +17,7 @@ class Ciudad {
         }
     }
     static constraints = {
-        codigo(size:1..2,blank:false,attributes:[title:'codigo'])
+        codigo(size:1..8,blank:false,attributes:[title:'codigo'])
         descripcion(size:1..50,blank:false,attributes:[title:'descripcion'])
     }
 

@@ -221,25 +221,35 @@
             return "<g:textField name=\"${property.name}\" value=\"\${${domainInstance}?.${property.name}}\" />"
         } else {
             def sb = new StringBuilder("")
-            sb << '<g:textField'
-
+            sb << "<elm:datepicker"
             sb << ' name="' << property.name << '"'
             if (!cp.editable) sb << ' readonly="readonly"'
-            sb << ' class="datepicker'
+            sb << ' class="'
             if (isRequired()) sb << ' required'
             sb << '"'
             sb << ' value="${' << "${domainInstance}?.${property.name}" << '}"'
             sb << "/>\n"
 
-            sb << "<script type=\"text/javascript\">\n"
-            sb << "\$(\"#${property.name}\").datepicker({\n"
-            sb << "changeMonth: true,\n"
-            sb << "changeYear: true,\n"
-            sb << "showOn: \"both\",\n"
-            sb << "buttonImage: \"\${resource(dir:'images', file:'calendar.png')}\",\n"
-            sb << "buttonImageOnly: true\n"
-            sb << "});\n"
-            sb << "</script>"
+
+//            sb << '<g:textField'
+//
+//            sb << ' name="' << property.name << '"'
+//            if (!cp.editable) sb << ' readonly="readonly"'
+//            sb << ' class="datepicker'
+//            if (isRequired()) sb << ' required'
+//            sb << '"'
+//            sb << ' value="${' << "${domainInstance}?.${property.name}" << '}"'
+//            sb << "/>\n"
+//
+//            sb << "<script type=\"text/javascript\">\n"
+//            sb << "\$(\"#${property.name}\").datepicker({\n"
+//            sb << "changeMonth: true,\n"
+//            sb << "changeYear: true,\n"
+//            sb << "showOn: \"both\",\n"
+//            sb << "buttonImage: \"\${resource(dir:'images', file:'calendar.png')}\",\n"
+//            sb << "buttonImageOnly: true\n"
+//            sb << "});\n"
+//            sb << "</script>"
 
             sb as String
         }

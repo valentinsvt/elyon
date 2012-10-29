@@ -5,7 +5,7 @@
     <head>
         <meta name="layout" content="main">
         <title>
-            Lista de Actividad Economica
+            Lista de Actividad Economicas
         </title>
         <script src="${resource(dir: 'js/jquery/plugins/jquery-validation-1.9.0', file: 'jquery.validate.min.js')}"></script>
         <script src="${resource(dir: 'js/jquery/plugins/jquery-validation-1.9.0', file: 'messages_es.js')}"></script>
@@ -24,7 +24,7 @@
         <div class="span12 btn-group" role="navigation">
             <a href="#" class="btn btn-ajax btn-new">
                 <i class="icon-file"></i>
-                Nuevo  Actividad Economica
+                Crear  Actividad Economica
             </a>
         </div>
 
@@ -166,7 +166,6 @@
                         },
                         success : function (msg) {
                             var btnOk = $('<a href="#" data-dismiss="modal" class="btn btn-primary">Aceptar</a>');
-
                             $("#modalHeader").removeClass("btn-edit btn-show btn-delete").addClass("btn-show");
                             $("#modalTitle").html("Ver Actividad Economica");
                             $("#modalBody").html(msg);
@@ -191,7 +190,7 @@
 
                     $("#modalHeader").removeClass("btn-edit btn-show btn-delete").addClass("btn-delete");
                     $("#modalTitle").html("Eliminar Actividad Economica");
-                    $("#modalBody").html("<p>¿Está seguro de querer eliminar este Actividad Economica?</p>");
+                    $("#modalBody").html("<p>¿Está seguro de querer eliminar esta Actividad Economica?</p>");
                     $("#modalFooter").html("").append(btnOk).append(btnDelete);
                     $("#modal-ActividadEconomica").modal("show");
                     return false;
