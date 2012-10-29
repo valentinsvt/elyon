@@ -12,7 +12,7 @@ class ActividadEconomicaController extends elyon.seguridad.Shield {
 
     def list() {
         [actividadEconomicaInstanceList: ActividadEconomica.list(params), params: params]
-        /*commit gato   cambio svt!!!*/
+
     } //list
 
     def form_ajax() {
