@@ -15,6 +15,7 @@ class ActividadEconomicaController extends elyon.seguridad.Shield {
     } //list
 
 
+
     def form_ajax() {
         def actividadEconomicaInstance = new ActividadEconomica(params)
         if(params.id) {
