@@ -12,7 +12,7 @@ class CiudadController extends elyon.seguridad.Shield {
 
     def list() {
         [ciudadInstanceList: Ciudad.list(params), params: params]
-        /*focking commit */
+        /*focking commit luz */
     } //list
 
 
