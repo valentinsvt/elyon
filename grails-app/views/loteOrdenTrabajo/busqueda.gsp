@@ -57,7 +57,7 @@
             %{--<th>Id</th>--}%
             <th>Campaña</th>
             <th>Orden</th>
-            <th>Codigo</th>
+            <th>Codigo/Cedula</th>
             <th>Cliente</th>
             <th>Direccion 1</th>
             <th>Direccion 2</th>
