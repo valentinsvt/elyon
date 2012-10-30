@@ -13,7 +13,8 @@ class Usro implements Serializable {
     String password
     String observaciones
 
-    int activo
+    String activo
+    String tipo //a-> admin, u->usuario normal
 
     static auditable = [ignore: ['password']]
 
@@ -37,13 +38,14 @@ class Usro implements Serializable {
             observaciones column: 'usroobsr'
 
             activo column: 'usroactv'
+            tipo column: 'usrotipo'
         }
     }
 
     static constraints = {
-        cedula(size: 1..10, blank: false, nullable:false, attributes: [title: 'Cédula'])
-        nombre(size: 1..30, blank: false, nullable:false, attributes: [title: 'Nombre'])
-        apellido(size: 1..30, blank: false, nullable:false, attributes: [title: 'Apellido'])
+        cedula(size: 1..10, blank: false, nullable: false, unique: true, attributes: [title: 'Cédula'])
+        nombre(size: 1..30, blank: false, nullable: false, attributes: [title: 'Nombre'])
+        apellido(size: 1..30, blank: false, nullable: false, attributes: [title: 'Apellido'])
         fechaNacimiento(blank: true, nullable: true, attributes: [title: 'Fecha de Nacimiento'])
         fechaInicio(blank: true, nullable: true, attributes: [title: 'Fecha de Inicio'])
         fechaFin(blank: true, nullable: true, attributes: [title: 'Fecha de Fin'])
@@ -53,6 +55,7 @@ class Usro implements Serializable {
         observaciones(size: 1..255, blank: true, nullable: true, attributes: [title: 'Observaciones'])
 
         activo(size: 1..1, blank: false, nullable: false, attributes: [title: 'Usuario activo o no'])
+        tipo(blank: false, nullable: false, inList: ["a", "u"], attributes: [title: 'Tipo de usuario: admin o normal'])
     }
 
 

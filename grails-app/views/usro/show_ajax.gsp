@@ -107,23 +107,6 @@
         </div>
     </g:if>
     
-    <g:if test="${usroInstance?.cargo}">
-        <div class="control-group">
-            <div>
-                <span id="cargo-label" class="control-label label label-inverse">
-                    Cargo
-                </span>
-            </div>
-            <div class="controls">
-        
-                <span aria-labelledby="cargo-label">
-                    <g:fieldValue bean="${usroInstance}" field="cargo"/>
-                </span>
-        
-            </div>
-        </div>
-    </g:if>
-    
     <g:if test="${usroInstance?.login}">
         <div class="control-group">
             <div>

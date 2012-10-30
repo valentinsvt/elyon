@@ -37,6 +37,76 @@ class UsroController extends Shield {
         }
     }
 
+    def checkUniqueCi() {
+//        println params
+        if (params.id) {
+//            println "EDIT"
+            def user = Usro.get(params.id)
+            if (user.cedula.trim() == params.cedula.trim()) {
+//                println "1"
+                render true
+            } else {
+                def users = Usro.countByCedula(params.cedula.trim())
+                if (users == 0) {
+//                    println "2"
+                    render true
+                } else {
+//                    println "3"
+                    render false
+                }
+            }
+        } else {
+//            println "CREATE"
+            def users = Usro.countByCedula(params.cedula.trim())
+            if (users == 0) {
+//                println "4"
+                render true
+            } else {
+//                println "5"
+                render false
+            }
+        }
+    }
+
+    def checkUserPass() {
+//        println params
+        if (params.id) {
+//            println "EDIT"
+            def user = Usro.get(params.id)
+            if (user.password == params.passwordAct.trim().encodeAsMD5()) {
+//                println "1"
+                render true
+            } else {
+                render false
+            }
+        } else {
+            render false
+        }
+    }
+
+    /*
+    rules          : {
+            login : {
+                remote : {
+                    url  : "${createLink(action:'checkUniqueUser')}",
+                    type : "post",
+                    data : {
+                        id   : "${usroInstance?.id}",
+                        user : $("#login").val()
+                    }
+                }
+            }
+        },
+        messages       : {
+            login : {
+                remote : "Login ya utilizado"
+            }
+        }
+
+
+        name="passwordVerif" equalTo="#password"
+     */
+
     def index() {
         redirect(action: "list", params: params)
     } //index
@@ -51,7 +121,7 @@ class UsroController extends Shield {
             usroInstance = Usro.get(params.id)
             if (!usroInstance) {
                 flash.clase = "alert-error"
-                flash.message = "No se encontró Usro con id " + params.id
+                flash.message = "No se encontró Usuario con id " + params.id
                 redirect(action: "list")
                 return
             } //no existe el objeto
@@ -81,7 +151,7 @@ class UsroController extends Shield {
             usroInstance = Usro.get(params.id)
             if (!usroInstance) {
                 flash.clase = "alert-error"
-                flash.message = "No se encontró Usro con id " + params.id
+                flash.message = "No se encontró Usuario con id " + params.id
                 redirect(action: 'list')
                 return
             }//no existe el objeto
@@ -92,7 +162,7 @@ class UsroController extends Shield {
         } //es create
         if (!usroInstance.save(flush: true)) {
             flash.clase = "alert-error"
-            def str = "<h4>No se pudo guardar Usro " + (usroInstance.id ? usroInstance.id : "") + "</h4>"
+            def str = "<h4>No se pudo Usuario Usro " + (usroInstance.id ? usroInstance.login : "") + "</h4>"
 
             str += "<ul>"
             usroInstance.errors.allErrors.each { err ->
@@ -111,30 +181,50 @@ class UsroController extends Shield {
 
         if (params.id) {
             flash.clase = "alert-success"
-            flash.message = "Se ha actualizado correctamente Usro " + usroInstance.id
+            flash.message = "Se ha actualizado correctamente Usuario " + usroInstance.login
         } else {
             flash.clase = "alert-success"
-            flash.message = "Se ha creado correctamente Usro " + usroInstance.id
+            flash.message = "Se ha creado correctamente Usuario " + usroInstance.login
         }
         redirect(action: 'list')
     } //save
+
+    def savePass() {
+        println params
+        def user = Usro.get(params.id)
+        user.password = params.password.encodeAsMD5()
+        if (!user.save(flush: true)) {
+
+        }
+    }
 
     def show_ajax() {
         def usroInstance = Usro.get(params.id)
         if (!usroInstance) {
             flash.clase = "alert-error"
-            flash.message = "No se encontró Usro con id " + params.id
+            flash.message = "No se encontró Usuario con id " + params.id
             redirect(action: "list")
             return
         }
         [usroInstance: usroInstance]
     } //show
 
+    def pass_ajax() {
+        def usroInstance = Usro.get(params.id)
+        if (!usroInstance) {
+            flash.clase = "alert-error"
+            flash.message = "No se encontró Usuario con id " + params.id
+            redirect(action: "list")
+            return
+        }
+        [usroInstance: usroInstance]
+    } //pass
+
     def delete() {
         def usroInstance = Usro.get(params.id)
         if (!usroInstance) {
             flash.clase = "alert-error"
-            flash.message = "No se encontró Usro con id " + params.id
+            flash.message = "No se encontró Usuario con id " + params.id
             redirect(action: "list")
             return
         }
@@ -142,12 +232,12 @@ class UsroController extends Shield {
         try {
             usroInstance.delete(flush: true)
             flash.clase = "alert-success"
-            flash.message = "Se ha eliminado correctamente Usro " + usroInstance.id
+            flash.message = "Se ha eliminado correctamente Usuario " + usroInstance.login
             redirect(action: "list")
         }
         catch (DataIntegrityViolationException e) {
             flash.clase = "alert-error"
-            flash.message = "No se pudo eliminar Usro " + (usroInstance.id ? usroInstance.id : "")
+            flash.message = "No se pudo eliminar Usuario " + (usroInstance.id ? usroInstance.login : "")
             redirect(action: "list")
         }
     } //delete

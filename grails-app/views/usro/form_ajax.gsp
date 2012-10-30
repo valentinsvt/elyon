@@ -12,7 +12,8 @@
         </div>
 
         <div class="controls">
-            <g:textField name="cedula" maxlength="10" class="" value="${usroInstance?.cedula}"/>
+            <g:textField name="cedula" maxlength="10" class=" required" value="${usroInstance?.cedula}"/>
+            <span class="mandatory">*</span>
 
             <p class="help-block ui-helper-hidden"></p>
         </div>
@@ -27,7 +28,8 @@
         </div>
 
         <div class="controls">
-            <g:textField name="nombre" maxlength="30" class="" value="${usroInstance?.nombre}"/>
+            <g:textField name="nombre" maxlength="30" class=" required" value="${usroInstance?.nombre}"/>
+            <span class="mandatory">*</span>
 
             <p class="help-block ui-helper-hidden"></p>
         </div>
@@ -42,7 +44,8 @@
         </div>
 
         <div class="controls">
-            <g:textField name="apellido" maxlength="30" class="" value="${usroInstance?.apellido}"/>
+            <g:textField name="apellido" maxlength="30" class=" required" value="${usroInstance?.apellido}"/>
+            <span class="mandatory">*</span>
 
             <p class="help-block ui-helper-hidden"></p>
         </div>
@@ -100,21 +103,6 @@
     <div class="control-group">
         <div>
             <span class="control-label label label-inverse">
-                Cargo
-            </span>
-        </div>
-
-        <div class="controls">
-            <g:textField name="cargo" maxlength="50" class="" value="${usroInstance?.cargo}"/>
-
-            <p class="help-block ui-helper-hidden"></p>
-        </div>
-    </div>
-
-
-    <div class="control-group">
-        <div>
-            <span class="control-label label label-inverse">
                 Login
             </span>
         </div>
@@ -127,38 +115,38 @@
         </div>
     </div>
 
+    <g:if test="${!usroInstance?.id}">
+        <div class="control-group">
+            <div>
+                <span class="control-label label label-inverse">
+                    Password
+                </span>
+            </div>
 
-    <div class="control-group">
-        <div>
-            <span class="control-label label label-inverse">
-                Password
-            </span>
+            <div class="controls">
+                <g:field type="password" name="password" maxlength="64" class=" required" value="${usroInstance?.password}"/>
+                <span class="mandatory">*</span>
+
+                <p class="help-block ui-helper-hidden"></p>
+            </div>
         </div>
 
-        <div class="controls">
-            <g:field type="password" name="password" maxlength="64" class=" required" value="${usroInstance?.password}"/>
-            <span class="mandatory">*</span>
 
-            <p class="help-block ui-helper-hidden"></p>
+        <div class="control-group">
+            <div>
+                <span class="control-label label label-inverse">
+                    Verificar Password
+                </span>
+            </div>
+
+            <div class="controls">
+                <g:field type="password" name="passwordVerif" equalTo="#password" maxlength="64" class=" required" value="${usroInstance?.password}"/>
+                <span class="mandatory">*</span>
+
+                <p class="help-block ui-helper-hidden"></p>
+            </div>
         </div>
-    </div>
-
-
-    <div class="control-group">
-        <div>
-            <span class="control-label label label-inverse">
-                Verificar Password
-            </span>
-        </div>
-
-        <div class="controls">
-            <g:field type="password" name="passwordVerif" equalTo="#password" maxlength="64" class=" required" value="${usroInstance?.password}"/>
-            <span class="mandatory">*</span>
-
-            <p class="help-block ui-helper-hidden"></p>
-        </div>
-    </div>
-
+    </g:if>
 
     <div class="control-group">
         <div>
@@ -183,7 +171,12 @@
         </div>
 
         <div class="controls">
-            <g:field type="number" name="activo" class=" required" value="${fieldValue(bean: usroInstance, field: 'activo')}"/>
+            %{--<g:field type="number" name="activo" class=" required" value="${fieldValue(bean: usroInstance, field: 'activo')}"/>--}%
+
+            <g:radioGroup name="activo" values="['1', '0']" labels="['Sí', 'No']" value="${usroInstance?.id ? usroInstance.activo : '0'}">
+                ${it.label} ${it.radio}
+            </g:radioGroup>
+
             <span class="mandatory">*</span>
 
             <p class="help-block ui-helper-hidden"></p>
@@ -211,15 +204,26 @@
                     url  : "${createLink(action:'checkUniqueUser')}",
                     type : "post",
                     data : {
-                        id   : "${usroInstance?.id}",
-                        user : $("#login").val()
+                        id   : "${usroInstance?.id}"
+                    }
+                }
+            },
+            cedula : {
+                remote : {
+                    url  : "${createLink(action:'checkUniqueCi')}",
+                    type : "post",
+                    data : {
+                        id   : "${usroInstance?.id}"
                     }
                 }
             }
         },
         messages       : {
             login : {
-                remote : "Login ya utilizado"
+                remote : "Seleccione otro login"
+            },
+            cedula : {
+                remote : "Ingrese otra cédula"
             }
         }
     });
