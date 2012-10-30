@@ -59,9 +59,9 @@
                         <td>\${fieldValue(bean: ${propertyName}, field: "${p.name}")}</td>
                     <%      } else if (i < 6) {
                                 if (p.type == Boolean || p.type == boolean) { %>
-                        <td><g:formatBoolean boolean="\${${propertyName}.${p.name}}" /></td>
+                        <td><g:formatBoolean boolean="\${${propertyName}.${p.name}}" true="Sí" false="No" /></td>
                     <%          } else if (p.type == Date || p.type == java.sql.Date || p.type == java.sql.Time || p.type == Calendar) { %>
-                        <td><g:formatDate date="\${${propertyName}.${p.name}}" /></td>
+                        <td><g:formatDate date="\${${propertyName}.${p.name}}" format="dd-MM-yyyy" /></td>
                     <%          } else { %>
                         <td>\${fieldValue(bean: ${propertyName}, field: "${p.name}")}</td>
                     <%  }   }   } %>

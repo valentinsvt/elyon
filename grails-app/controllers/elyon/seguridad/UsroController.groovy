@@ -6,6 +6,37 @@ class UsroController extends Shield {
 
     static allowedMethods = [save: "POST", update: "POST", delete: "POST"]
 
+    def checkUniqueUser() {
+//        println params
+        if (params.id) {
+//            println "EDIT"
+            def user = Usro.get(params.id)
+            if (user.login.trim() == params.login.trim()) {
+//                println "1"
+                render true
+            } else {
+                def users = Usro.countByLogin(params.login.trim())
+                if (users == 0) {
+//                    println "2"
+                    render true
+                } else {
+//                    println "3"
+                    render false
+                }
+            }
+        } else {
+//            println "CREATE"
+            def users = Usro.countByLogin(params.login.trim())
+            if (users == 0) {
+//                println "4"
+                render true
+            } else {
+//                println "5"
+                render false
+            }
+        }
+    }
+
     def index() {
         redirect(action: "list", params: params)
     } //index

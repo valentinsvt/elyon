@@ -63,11 +63,11 @@
                     
                         <td>${fieldValue(bean: usroInstance, field: "apellido")}</td>
                     
-                        <td><g:formatDate date="${usroInstance.fechaNacimiento}" /></td>
+                        <td><g:formatDate date="${usroInstance.fechaNacimiento}" format="dd-MM-yyyy" /></td>
                     
-                        <td><g:formatDate date="${usroInstance.fechaInicio}" /></td>
+                        <td><g:formatDate date="${usroInstance.fechaInicio}" format="dd-MM-yyyy" /></td>
                     
-                        <td><g:formatDate date="${usroInstance.fechaFin}" /></td>
+                        <td><g:formatDate date="${usroInstance.fechaFin}" format="dd-MM-yyyy" /></td>
                     
                         <td>
                             <a class="btn btn-small btn-show btn-ajax" href="#" rel="tooltip" title="Ver" data-id="${usroInstance.id}">
