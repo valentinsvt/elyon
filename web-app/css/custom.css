@@ -1,6 +1,10 @@
 /* Custom styling */
 body {
-    font-size : 13px;
+    font-size : 13px !important;
+}
+
+.ui-widget {
+    font-size : 13px !important;
 }
 
 .table th {
@@ -19,6 +23,10 @@ body {
 .ui-datepicker-calendar {
     font-size   : 12px;
     line-height : 12px;
+}
+
+.datepicker {
+    background : url(../images/calendar.png) right no-repeat !important;
 }
 
 /***************************** TABLAS **********************************/

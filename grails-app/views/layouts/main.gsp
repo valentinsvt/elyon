@@ -21,7 +21,6 @@
         <link href="${resource(dir: 'css/bootstrap/css', file: 'bootstrap.css')}" rel="stylesheet">
         <link href="${resource(dir: 'css', file: 'customButtons.css')}" rel="stylesheet">
 
-        <link href="${resource(dir: 'css', file: 'custom.css')}" rel="stylesheet">
 
         <link href="${resource(dir: 'css', file: 'font-awesome.css')}" rel="stylesheet">
 
@@ -54,6 +53,8 @@
         %{--<link rel="shortcut icon" href="${resource(dir: 'images/ico', file: 'janus_16.png')}">--}%
 
         <script src="${resource(dir: 'js', file: 'functions.js')}"></script>
+
+        <link href="${resource(dir: 'css', file: 'custom.css')}" rel="stylesheet">
         <g:layoutHead/>
     </head>
 
