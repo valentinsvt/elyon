@@ -16,12 +16,12 @@ class OrdenDeTrabajoController extends elyon.seguridad.Shield {
 
     def form_ajax() {
         def ordenDeTrabajoInstance = new OrdenDeTrabajo(params)
-        if (params.id) {
+        if(params.id) {
             ordenDeTrabajoInstance = OrdenDeTrabajo.get(params.id)
-            if (!ordenDeTrabajoInstance) {
+            if(!ordenDeTrabajoInstance) {
                 flash.clase = "alert-error"
-                flash.message = "No se encontró Orden De Trabajo con id " + params.id
-                redirect(action: "list")
+                flash.message =  "No se encontró Orden De Trabajo con id " + params.id
+                redirect(action:  "list")
                 return
             } //no existe el objeto
         } //es edit
@@ -30,9 +30,9 @@ class OrdenDeTrabajoController extends elyon.seguridad.Shield {
 
     def save() {
         def ordenDeTrabajoInstance
-        if (params.id) {
+        if(params.id) {
             ordenDeTrabajoInstance = OrdenDeTrabajo.get(params.id)
-            if (!ordenDeTrabajoInstance) {
+            if(!ordenDeTrabajoInstance) {
                 flash.clase = "alert-error"
                 flash.message = "No se encontró Orden De Trabajo con id " + params.id
                 redirect(action: 'list')
@@ -62,7 +62,7 @@ class OrdenDeTrabajoController extends elyon.seguridad.Shield {
             return
         }
 
-        if (params.id) {
+        if(params.id) {
             flash.clase = "alert-success"
             flash.message = "Se ha actualizado correctamente Orden De Trabajo " + ordenDeTrabajoInstance.id
         } else {
@@ -76,7 +76,7 @@ class OrdenDeTrabajoController extends elyon.seguridad.Shield {
         def ordenDeTrabajoInstance = OrdenDeTrabajo.get(params.id)
         if (!ordenDeTrabajoInstance) {
             flash.clase = "alert-error"
-            flash.message = "No se encontró Orden De Trabajo con id " + params.id
+            flash.message =  "No se encontró Orden De Trabajo con id " + params.id
             redirect(action: "list")
             return
         }
@@ -87,7 +87,7 @@ class OrdenDeTrabajoController extends elyon.seguridad.Shield {
         def ordenDeTrabajoInstance = OrdenDeTrabajo.get(params.id)
         if (!ordenDeTrabajoInstance) {
             flash.clase = "alert-error"
-            flash.message = "No se encontró Orden De Trabajo con id " + params.id
+            flash.message =  "No se encontró Orden De Trabajo con id " + params.id
             redirect(action: "list")
             return
         }
@@ -95,12 +95,12 @@ class OrdenDeTrabajoController extends elyon.seguridad.Shield {
         try {
             ordenDeTrabajoInstance.delete(flush: true)
             flash.clase = "alert-success"
-            flash.message = "Se ha eliminado correctamente Orden De Trabajo " + ordenDeTrabajoInstance.id
+            flash.message =  "Se ha eliminado correctamente Orden De Trabajo " + ordenDeTrabajoInstance.id
             redirect(action: "list")
         }
         catch (DataIntegrityViolationException e) {
             flash.clase = "alert-error"
-            flash.message = "No se pudo eliminar Orden De Trabajo " + (ordenDeTrabajoInstance.id ? ordenDeTrabajoInstance.id : "")
+            flash.message =  "No se pudo eliminar Orden De Trabajo " + (ordenDeTrabajoInstance.id ? ordenDeTrabajoInstance.id : "")
             redirect(action: "list")
         }
     } //delete
