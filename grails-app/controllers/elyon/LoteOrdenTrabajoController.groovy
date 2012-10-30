@@ -17,9 +17,9 @@ class LoteOrdenTrabajoController extends elyon.seguridad.Shield {
 
     def busqueda(){
 
-        def loteOrdenTrabajo = new LoteOrdenTrabajo(params)
+      def loteOrdenTrabajo = LoteOrdenTrabajo.get(1)
 
-        [loteOrdenTrabajo: LoteOrdenTrabajo]
+        [loteOrdenTrabajo: loteOrdenTrabajo]
     }
 
     def form_ajax() {
