@@ -1,11 +1,12 @@
 package elyon
 
+import elyon.seguridad.Usro
+
 class OrdenDeTrabajo {
 
     Campana campana
-    Operador operador
+    Usro usro
     int numero
-
 
     static mapping = {
         table 'ortb'
@@ -16,13 +17,13 @@ class OrdenDeTrabajo {
         columns {
             id column:'ortb__id'
             campana column: 'camp__id'
-            operador column: 'oprd__id'
+            usro column: 'usro__id'
             numero column: 'ortbnmro'
         }
     }
     static constraints = {
         campana(blank:false,attributes:[title:'campaña'])
-        operador(blank:false,attributes:[title:'operador'])
+        usro(blank:false,attributes:[title:'usuario'])
         numero(blank:false, attributes:[title: 'numero'])
     }
 

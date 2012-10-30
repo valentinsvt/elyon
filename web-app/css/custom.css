@@ -29,6 +29,15 @@ body {
     background : url(../images/calendar.png) right no-repeat !important;
 }
 
+fieldset.borde {
+    border: 1px solid #999;
+}
+
+fieldset.borde legend {
+    width: auto;
+    border: none;
+}
+
 /***************************** TABLAS **********************************/
 th.sortable a {
     background-position : right;

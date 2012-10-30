@@ -18,6 +18,8 @@ class Lote implements Serializable {
     double cupo2
     String tipoCliente
     String observaciones
+
+    Campana campana
     static mapping = {
         table 'lote'
         cache usage: 'read-write', include: 'non-lazy'
@@ -44,6 +46,7 @@ class Lote implements Serializable {
             cupo2 column: 'lotecup2'
             tipoCliente column: 'lotetpcl'
             observaciones column: 'loteobsr'
+            campana column: 'camp__id'
         }
     }
     static constraints = {
@@ -65,6 +68,7 @@ class Lote implements Serializable {
         cupo2(blank: true, nullable: true, attributes: [title: 'cupo2'])
         tipoCliente(size: 1..15, blank: true, nullable: true, attributes: [title: 'tipoCliente'])
         observaciones(size: 1..127, blank: true, nullable: true, attributes: [title: 'observaciones'])
+        campana(blank: true, nullable: true, attributes:[title: 'campana'])
     }
 
     String toString(){
