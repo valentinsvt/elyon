@@ -22,7 +22,7 @@ class LoteOrdenTrabajo {
     static constraints = {
         lote(blank:false,attributes:[title:'lote'])
         ordenDeTrabajo(blank:false,attributes:[title:'ordendeTrabajo'])
-        estadoGestion(blank:false, attributes:[title: 'estadoGestion'])
+        estadoGestion(blank:true,nullable: true, attributes:[title: 'estadoGestion'])
     }
 
 //    String toString() {

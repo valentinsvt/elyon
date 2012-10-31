@@ -2,13 +2,13 @@
 <%@ page import="elyon.OrdenDeTrabajo" %>
 
 <div id="create-OrdenDeTrabajo" class="span" role="main">
-    <g:form class="form-horizontal" name="frmSave-OrdenDeTrabajo" action="save">
+    <g:form class="form-horizontal" name="frmSave-OrdenDeTrabajo" action="procesa" controller="lote" enctype="multipart/form-data">
         <g:hiddenField name="id" value="${ordenDeTrabajoInstance?.id}"/>
                 
         <div class="control-group">
             <div>
                 <span class="control-label label label-inverse">
-                    Campana
+                    Campaña
                 </span>
             </div>
 
@@ -53,6 +53,18 @@
             </div>
         </div>
 
+        <div class="control-group">
+            <div>
+                <span class="control-label label label-inverse " style="height:25px;">
+                    Lote
+                </span>
+            </div>
+
+            <div class="controls">
+                <input type="file" name="archivo">
+                <p class="help-block ui-helper-hidden"></p>
+            </div>
+        </div>
         
 
                 

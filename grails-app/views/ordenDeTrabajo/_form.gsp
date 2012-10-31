@@ -4,7 +4,7 @@
 
 <div class="fieldcontain ${hasErrors(bean: ordenDeTrabajoInstance, field: 'campana', 'error')} required">
     <label for="campana">
-        <g:message code="ordenDeTrabajo.campana.label" default="Campana"/>
+        Campaña
         <span class="required-indicator">*</span>
     </label>
     <g:select id="campana" name="campana.id" from="${elyon.Campana.list()}" optionKey="id" class="many-to-one  required"
@@ -29,3 +29,9 @@
              value="${fieldValue(bean: ordenDeTrabajoInstance, field: 'numero')}"/>
 </div>
 
+<div class="fieldcontain ${hasErrors(bean: ordenDeTrabajoInstance, field: 'numero', 'error')} required">
+    <label for="lote">
+        Lote
+    </label>
+    <input type="file" name="archivo" id=lote>
+</div>

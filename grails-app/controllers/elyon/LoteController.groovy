@@ -10,59 +10,117 @@ class LoteController {
 
 
     def procesa(){
+        def path = servletContext.getRealPath("/") + "lotes/"
+        def f = request.getFile('archivo')
+        def inputStream = new ByteArrayInputStream(f.getBytes())
+        if (f && !f.empty) {
+            Workbook workbook = Workbook.getWorkbook(inputStream)
 
+            def campos =[:]
+            def mapa = toMap(Lote)
+            def error  =""
 
-        def file = new File("/home/svt/Downloads/cargaDatos.xls")
-        def campos =[:]
-        def mapa = toMap(Lote)
-        def error  =""
-        Workbook workbook = Workbook.getWorkbook(file)
+            def ordenDeTrabajoInstance
+            if(params.id) {
+                ordenDeTrabajoInstance = OrdenDeTrabajo.get(params.id)
+                if(!ordenDeTrabajoInstance) {
+                    flash.clase = "alert-error"
+                    flash.message = "No se encontró Orden De Trabajo con id " + params.id
+                    redirect(action: 'list')
+                    return
+                }//no existe el objeto
+                ordenDeTrabajoInstance.properties = params
+            }//es edit
+            else {
+                ordenDeTrabajoInstance = new OrdenDeTrabajo(params)
+            } //es create
+            if (!ordenDeTrabajoInstance.save(flush: true)) {
+                flash.clase = "alert-error"
+                def str = "<h4>No se pudo guardar Orden De Trabajo " + (ordenDeTrabajoInstance.id ? ordenDeTrabajoInstance.id : "") + "</h4>"
 
-        workbook.getNumberOfSheets().times { sheet ->
-            Sheet s = workbook.getSheet(sheet)
-
-
-            if (!s.getSettings().isHidden()) {
-                println "hoja"+ s.getName()
-                Cell[] row = null
-                s.getRows().times { i ->
-                    row = s.getRow(i)
-                    if (row.length > 0) {
-                        if (i == 0) {
-                            row.length.times { j ->
-                                campos.put(row[j].getContents().trim().toLowerCase().replaceAll(" ","").replaceAll("\\.",""),j)
-
-                            }
-                            campos = compare(campos,mapa)
-                            println "headers "+campos
-                            if (campos.size()<8){
-                                error = "Error: No se pudo procesar los nombres de las columnas en el archivo exel"
-                            }
-
-                        }else {
-                            def registro = new Lote()
-                            def parametros=[:]
-                            campos.each {cmp->
-                                if (row[cmp.value.toInteger()].getContents()){
-                                    if (mapa[cmp.key]=~"elyon")
-                                        parametros[cmp.key+".id"]=row[cmp.value.toInteger()].getContents()
-                                    else
-                                        parametros[cmp.key]=row[cmp.value.toInteger()].getContents()
-                                }
-
-                            }
-//                            println "paremtros "+parametros
-                            registro.properties=parametros
-                            if (!registro.save(flush: true)){
-                                println "error save "+registro.errors
-                            }
-                        }
+                str += "<ul>"
+                ordenDeTrabajoInstance.errors.allErrors.each { err ->
+                    def msg = err.defaultMessage
+                    err.arguments.eachWithIndex {  arg, i ->
+                        msg = msg.replaceAll("\\{" + i + "}", arg.toString())
                     }
+                    str += "<li>" + msg + "</li>"
+                }
+                str += "</ul>"
 
+                flash.message = str
+                redirect(action: 'list')
+                return
+            } else{
+
+                workbook.getNumberOfSheets().times { sheet ->
+                    Sheet s = workbook.getSheet(sheet)
+
+
+                    if (!s.getSettings().isHidden()) {
+//                println "hoja"+ s.getName()
+                        Cell[] row = null
+                        s.getRows().times { i ->
+                            row = s.getRow(i)
+                            if (row.length > 0) {
+                                if (i == 0) {
+                                    row.length.times { j ->
+                                        campos.put(row[j].getContents().trim().toLowerCase().replaceAll(" ","").replaceAll("\\.",""),j)
+
+                                    }
+                                    campos = compare(campos,mapa)
+//                            println "headers "+campos
+                                    if (campos.size()<8){
+                                        error = "Error: No se pudo procesar los nombres de las columnas en el archivo exel"
+                                    }
+
+                                }else {
+                                    def registro = new Lote()
+                                    def parametros=[:]
+                                    campos.each {cmp->
+                                        if (row[cmp.value.toInteger()].getContents()){
+                                            if (mapa[cmp.key]=~"elyon")
+                                                parametros[cmp.key+".id"]=row[cmp.value.toInteger()].getContents()
+                                            else
+                                                parametros[cmp.key]=row[cmp.value.toInteger()].getContents()
+                                        }
+
+                                    }
+                                    registro.properties=parametros
+                                    if (!registro.save(flush: true)){
+                                        println "error save "+registro.errors
+                                    }else{
+                                        def lo = new LoteOrdenTrabajo()
+                                        lo.ordenDeTrabajo=ordenDeTrabajoInstance
+                                        lo.lote=registro
+                                        if (!lo.save(flush: true))
+                                            println "error lo "+lo.errors
+                                    }
+                                }
+                            }
+
+                        }
+
+
+                    }
                 }
 
-
+                if(params.id) {
+                    flash.clase = "alert-success"
+                    flash.message = "Se ha actualizado correctamente Orden De Trabajo " + ordenDeTrabajoInstance.id
+                } else {
+                    flash.clase = "alert-success"
+                    flash.message = "Se ha creado correctamente Orden De Trabajo " + ordenDeTrabajoInstance.id
+                }
             }
+
+
+            redirect(action: 'list',controller: "ordenDeTrabajo")
+
+
+
+
+
         }
 
     }
