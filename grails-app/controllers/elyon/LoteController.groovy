@@ -7,7 +7,7 @@ import jxl.Cell
 class LoteController {
 
     def index() { }
-
+    def buscadorService
 
     def procesa(){
         def path = servletContext.getRealPath("/") + "lotes/"
@@ -90,11 +90,7 @@ class LoteController {
                                     if (!registro.save(flush: true)){
                                         println "error save "+registro.errors
                                     }else{
-                                        def lo = new LoteOrdenTrabajo()
-                                        lo.ordenDeTrabajo=ordenDeTrabajoInstance
-                                        lo.lote=registro
-                                        if (!lo.save(flush: true))
-                                            println "error lo "+lo.errors
+
                                     }
                                 }
                             }
@@ -124,6 +120,35 @@ class LoteController {
         }
 
     }
+
+
+    def busqueda(){
+
+        def camposLote = ["nombre": ["Nombre", "string"], "cedula": ["Cédula", "string"]]
+
+        [camposLote:camposLote]
+    }
+
+
+    def buscarLote(){
+
+        def closure = {lote->
+            return lote.ordenDeTrabajo.campana+" #"+ lote.ordenDeTrabajo.numero
+        }
+        def listaTitulos = ["Cédula", "Nombre","Código","O. de trabajo","Ciudad","Teléfono 1","Teléfono 2","Teléfono 3","Teléfono 4","Tipo","Tarjeta","Cupo","Cupo Total"]
+        def listaCampos = ["cedula", "nombre","codigo","orden","ciudad","telefono1","telefono2","telefono3","telefono4","tipoCliente","tipoTarjeta","cupoNormal","cupoTotal"]
+        def funciones = [null, null,null,["closure": [closure, "&"]], null,null,null, null,null,null, null,null,null]
+        def url = g.createLink(action: "listarClientes", controller: "reportes")
+        def show ="pantallaGato"
+        def link = "cedula"
+        def numRegistros = 20
+        def lista = buscadorService.buscar(Lote, "Lote", "excluyente", params, true) /* Dominio, nombre del dominio , excluyente o incluyente ,params tal cual llegan de la interfaz del buscador, ignore case */
+        lista.pop()
+        render(view: '../lstaTbla', model: [listaTitulos: listaTitulos, listaCampos: listaCampos, lista: lista, funciones: funciones, url: url,show:show,link:link,numRegistros:numRegistros])
+
+
+    }
+
 
     HashMap toMap(dominio) {
         def mapa = [:]

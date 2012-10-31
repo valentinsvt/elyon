@@ -3,7 +3,7 @@ package elyon
 class GestionTelefonica {
 
     EstadoLlamada estadoLlamada
-    LoteOrdenTrabajo loteOrdenTrabajo
+    Lote lote
     String telefono
     Date fecha
     String observaciones
@@ -17,7 +17,7 @@ class GestionTelefonica {
         columns {
             id column:'gstf__id'
             estadoLlamada column: 'edtf__id'
-            loteOrdenTrabajo column: 'otlt__id'
+            lote column: 'lote__id'
             telefono column: 'gstftelf'
             fecha column: 'gstffcha'
             observaciones column: 'gstfobsr'
@@ -25,7 +25,7 @@ class GestionTelefonica {
     }
     static constraints = {
         estadoLlamada(blank:false,attributes:[title:'estadoLlamada'])
-        loteOrdenTrabajo(blank:false,attributes:[title:'loteOrdenTrabajo'])
+        lote(blank:false,attributes:[title:'lote'])
         telefono(blank: false, attributes:[title: 'telefono'])
         fecha(blank:false, attributes:[title: 'fecha'])
         observaciones(blank: true, attributes:[title: 'observaciones'])

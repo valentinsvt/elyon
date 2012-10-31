@@ -6,7 +6,7 @@ class OrdenDeTrabajo {
 
     Campana campana
     Usro usro
-    int numero
+    int numero =0
 
     static mapping = {
         table 'ortb'

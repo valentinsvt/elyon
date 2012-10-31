@@ -76,7 +76,7 @@ class Data implements Serializable {
     double tiempoUltimoTrabajo
     double cupo
     String indicadorPrincipal
-    LoteOrdenTrabajo loteOrdenTrabajo
+    Lote lote
 
 
     static mapping = {
@@ -138,7 +138,7 @@ class Data implements Serializable {
             direccionReferenciaPersonal column: 'datadrrp'
             telefonoReferenciaPersonal column: 'datatfrp'
             indicadorPrincipal column: 'datainpr'
-            loteOrdenTrabajo column: 'otlt__id'
+            lote column: 'lote__id'
 
             empresa column: 'dataempr'
             celular column: 'datacllr'
@@ -202,8 +202,7 @@ class Data implements Serializable {
         direccionReferenciaPersonal(size: 1..150, blank: true, nullable: true, attributes: [title: 'direccionReferenciaPersonal'])
         telefonoReferenciaPersonal(size: 1..20, blank: true, nullable: true, attributes: [title: 'telefonoReferenciaPersonal'])
         indicadorPrincipal(size: 1..10, blank: true, nullable: true, attributes: [title: 'indicadorPrincipal'])
-        loteOrdenTrabajo(blank: true, attributes: [title: 'loteOrdenTrabajo'])
-
+        lote(blank: true, attributes: [title: 'lote'])
         empresa(blank: true, nullable: true, attributes: [title: 'empresa'])
         celular(blank: true, nullable: true, attributes: [title: 'celular'])
         telefonoTrabajo(blank: true, nullable: true, attributes: [title: 'celular'])

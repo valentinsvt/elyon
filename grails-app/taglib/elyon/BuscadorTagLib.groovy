@@ -33,7 +33,7 @@ class BuscadorTagLib {
                     result=""
             }
         }else{
-            //println "closure "+parametros[0]
+//            println "closure "+parametros[0]
             def cl = parametros[0]
             parametros.remove(0)
             result=cl parametros[0]
@@ -71,8 +71,8 @@ class BuscadorTagLib {
 
     def lista(name, value, campos, controlador, accion){
         def salida = ""
-        salida += '<div style="border:1px solid black;margin-top:10px;float:left" class="ui-corner-all">'
-        salida += '<div class="filaBuscador ui-corner-all" style="margin-left:15px;margin-top:10px;" >'
+        salida += '<div style="border:1px solid black;margin-top:10px;float:left;width:100%" class="ui-corner-all">'
+        salida += '<div class="filaBuscador ui-corner-all" style="margin-left:15px;margin-top:10px;width:100%" >'
         salida += '<div id="campo" style="float: left; margin-right:  5px;">'
         salida += 'Buscar por: <select name="campo" id="campo" style="width: 100px;" >'
         def i = 0
@@ -103,13 +103,13 @@ class BuscadorTagLib {
         salida += '<select name="orden" id="orden" style="width: 100px;" ><option value="asc" selected>Ascendente</option><option value="desc">Descendente</option></select>'
         salida += '<a href="#" id="mas" style="margin-left:5px">Agregar condición</a>'
         salida += '<a href="#" id="reset" style="margin-left:5px">Resetear</a>'
-        salida += '<input id="buscarDialog" type="button" value="Buscar" style="width:80px;margin-left:10px" class="tbbtn fg-button ui-state-default fg-button-icon-left ui-corner-all" >'
+        salida += '<input id="buscarDialog" type="button" value="Buscar" style="width:80px;margin-left:10px" class="tbbtn " >'
         salida += '</div>'
-        salida += '<div id="criterios" style="width:850px;height:35px;float:left"></div>'
-        salida += '<div class="contenidoBuscador  ui-corner-all" id="contenidoBuscador" style="float:left;width:860px;margin-top:5px;margin-left:10px;"></div>'
+        salida += '<div id="criterios" style="width:95%;height:35px;float:left"></div>'
+        salida += '<div class="contenidoBuscador  ui-corner-all" id="contenidoBuscador" style="float:left;width:95%;margin-top:5px;margin-left:20px;"></div>'
         salida += '<a href="#" id="btn_reporte" style="margin:10px;margin-left:20px;color:white">Reporte</a>'
         salida += '</div>'
-        salida += "<script type='text/javascript' src='${createLinkTo(dir: 'js/aplicacion', file: 'buscador.js')}' ></script>"
+        salida += "<script type='text/javascript' src='${createLinkTo(dir: 'js', file: 'buscador.js')}' ></script>"
         salida += "<script type='text/javascript'>"
 
         salida += 'function enviar() {'
@@ -138,7 +138,7 @@ class BuscadorTagLib {
         salida += '});'
         salida += '};'
         salida += 'cambiaOperador();'
-        salida += '$("#buscarDialog").click(function(){'
+        salida += '$("#buscarDialog").button().click(function(){'
         salida += ' enviar();'
         salida += '});'
 
