@@ -8,7 +8,17 @@
 
 <g:form class="form-horizontal" name="frmSave-Usro" action="savePass">
     <g:hiddenField name="id" value="${usroInstance?.id}"/>
+    <div class="control-group">
+        <div>
+            <span class="control-label label label-inverse">
+                Usuario
+            </span>
+        </div>
 
+        <div class="controls">
+            ${usroInstance.login}
+        </div>
+    </div>
     <g:if test="${usroInstance?.id}">
         <div class="control-group">
             <div>
@@ -73,7 +83,7 @@
             form.submit();
         },
         rules          : {
-            passwordAct  : {
+            passwordAct : {
                 remote : {
                     url  : "${createLink(action:'checkUserPass')}",
                     type : "post",
@@ -84,7 +94,7 @@
             }
         },
         messages       : {
-            passwordAct  : {
+            passwordAct : {
                 remote : "El password actual no coincide"
             }
         }

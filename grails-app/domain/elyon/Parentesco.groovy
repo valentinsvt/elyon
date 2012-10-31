@@ -1,5 +1,5 @@
 package elyon
-class Pariente implements Serializable {
+class Parentesco implements Serializable {
     String codigo
     String descripcion
     static mapping = {

@@ -40,6 +40,7 @@
                         <g:sortableColumn property="nombre" title="Nombre"/>
                         <g:sortableColumn property="apellido" title="Apellido"/>
                         <g:sortableColumn property="login" title="Login"/>
+                        <g:sortableColumn property="tipo" title="Tipo"/>
                         <g:sortableColumn property="activo" title="Activo"/>
                         <th width="150">Acciones</th>
                     </tr>
@@ -51,6 +52,7 @@
                             <td>${fieldValue(bean: usroInstance, field: "nombre")}</td>
                             <td>${fieldValue(bean: usroInstance, field: "apellido")}</td>
                             <td>${fieldValue(bean: usroInstance, field: "login")}</td>
+                            <td><g:message code="usro.tipo.${usroInstance.tipo}" /></td>
                             <td><g:formatBoolean boolean="${usroInstance.activo == '1'}" true="Sí" false="No"/></td>
                             <td>
                                 <a class="btn btn-small btn-show btn-ajax" href="#" rel="tooltip" title="Ver" data-id="${usroInstance.id}">

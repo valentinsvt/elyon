@@ -55,7 +55,7 @@ class Usro implements Serializable {
         observaciones(size: 1..255, blank: true, nullable: true, attributes: [title: 'Observaciones'])
 
         activo(size: 1..1, blank: false, nullable: false, attributes: [title: 'Usuario activo o no'])
-        tipo(blank: false, nullable: false, inList: ["a", "u"], attributes: [title: 'Tipo de usuario: admin o normal'])
+        tipo(size: 1..1, blank: false, nullable: false, inList: ["a", "u"], attributes: [title: 'Tipo de usuario: admin o normal'])
     }
 
 

@@ -162,7 +162,7 @@ class UsroController extends Shield {
         } //es create
         if (!usroInstance.save(flush: true)) {
             flash.clase = "alert-error"
-            def str = "<h4>No se pudo Usuario Usro " + (usroInstance.id ? usroInstance.login : "") + "</h4>"
+            def str = "<h4>No se pudo guardar Usuario " + (usroInstance.id ? usroInstance.login : "") + "</h4>"
 
             str += "<ul>"
             usroInstance.errors.allErrors.each { err ->
@@ -194,8 +194,25 @@ class UsroController extends Shield {
         def user = Usro.get(params.id)
         user.password = params.password.encodeAsMD5()
         if (!user.save(flush: true)) {
+            flash.clase = "alert-error"
+            def str = "<h4>No se pudo guardar Usuario " + (user.id ? user.login : "") + "</h4>"
 
+            str += "<ul>"
+            user.errors.allErrors.each { err ->
+                def msg = err.defaultMessage
+                err.arguments.eachWithIndex {  arg, i ->
+                    msg = msg.replaceAll("\\{" + i + "}", arg.toString())
+                }
+                str += "<li>" + msg + "</li>"
+            }
+            str += "</ul>"
+
+            flash.message = str
+        } else {
+            flash.clase = "alert-success"
+            flash.message = "Se ha guardado correctamente Usuario " + user.login
         }
+        redirect(action: 'list')
     }
 
     def show_ajax() {

@@ -151,12 +151,14 @@
     <div class="control-group">
         <div>
             <span class="control-label label label-inverse">
-                Observaciones
+                Tipo
             </span>
         </div>
 
         <div class="controls">
-            <g:textArea name="observaciones" cols="40" rows="5" maxlength="255" class="" value="${usroInstance?.observaciones}"/>
+           <g:select name="tipo" from="${usroInstance?.constraints.tipo.inList}" valueMessagePrefix="usro.tipo" value="${usroInstance.tipo}" />
+
+            <span class="mandatory">*</span>
 
             <p class="help-block ui-helper-hidden"></p>
         </div>
@@ -178,6 +180,20 @@
             </g:radioGroup>
 
             <span class="mandatory">*</span>
+
+            <p class="help-block ui-helper-hidden"></p>
+        </div>
+    </div>
+
+    <div class="control-group">
+        <div>
+            <span class="control-label label label-inverse">
+                Observaciones
+            </span>
+        </div>
+
+        <div class="controls">
+            <g:textArea name="observaciones" cols="40" rows="5" maxlength="255" class="" value="${usroInstance?.observaciones}"/>
 
             <p class="help-block ui-helper-hidden"></p>
         </div>

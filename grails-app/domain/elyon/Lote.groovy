@@ -13,9 +13,9 @@ class Lote implements Serializable {
     String telefonoTrabajoAnterior
     String ciudad
     String tipoTarjeta
-    double cupo1
+    double cupoNormal
     String codigo
-    double cupo2
+    double cupoTotal
     String tipoCliente
     String observaciones
 
@@ -41,9 +41,9 @@ class Lote implements Serializable {
             telefonoTrabajoAnterior column: 'lotetban'
             ciudad column: 'lotecdad'
             tipoTarjeta column: 'lotetptj'
-            cupo1 column: 'lotecup1'
+            cupoNormal column: 'lotecup1'
             codigo column: 'lotecdgo'
-            cupo2 column: 'lotecup2'
+            cupoTotal column: 'lotecup2'
             tipoCliente column: 'lotetpcl'
             observaciones column: 'loteobsr'
             campana column: 'camp__id'
@@ -63,9 +63,9 @@ class Lote implements Serializable {
         telefonoTrabajoAnterior(size: 1..15, blank: true, nullable: true, attributes: [title: 'telefonoTrabajoAnterior'])
         ciudad(size: 1..63, blank: true, nullable: true, attributes: [title: 'ciudad'])
         tipoTarjeta(size: 1..15, blank: true, nullable: true, attributes: [title: 'tipoTarjeta'])
-        cupo1(blank: true, nullable: true, attributes: [title: 'cupo1'])
+        cupoNormal(blank: true, nullable: true, attributes: [title: 'cupoNormal'])
         codigo(size: 1..15, blank: true, nullable: true, attributes: [title: 'codigo'])
-        cupo2(blank: true, nullable: true, attributes: [title: 'cupo2'])
+        cupoTotal(blank: true, nullable: true, attributes: [title: 'cupoTotal'])
         tipoCliente(size: 1..15, blank: true, nullable: true, attributes: [title: 'tipoCliente'])
         observaciones(size: 1..127, blank: true, nullable: true, attributes: [title: 'observaciones'])
         campana(blank: true, nullable: true, attributes:[title: 'campana'])
