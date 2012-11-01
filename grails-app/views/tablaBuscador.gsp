@@ -1,6 +1,6 @@
 
 <g:if test="${lista?.size()>0}">
-    <table width="400px" id="tablaBuscador">
+    <table width="400px" id="tablaBuscador" class="table table-bordered table-striped table-condensed table-hover">
         <thead>
         <g:each in="${listaTitulos}">
             <th>${it}</th>

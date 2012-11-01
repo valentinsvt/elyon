@@ -29,9 +29,4 @@
              value="${fieldValue(bean: ordenDeTrabajoInstance, field: 'numero')}"/>
 </div>
 
-<div class="fieldcontain ${hasErrors(bean: ordenDeTrabajoInstance, field: 'numero', 'error')} required">
-    <label for="lote">
-        Lote
-    </label>
-    <input type="file" name="archivo" id=lote>
-</div>
+

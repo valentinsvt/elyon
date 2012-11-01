@@ -3,6 +3,7 @@ package elyon
 import jxl.Workbook
 import jxl.Sheet
 import jxl.Cell
+import elyon.seguridad.Usro
 
 class LoteController {
 
@@ -20,26 +21,26 @@ class LoteController {
             def mapa = toMap(Lote)
             def error  =""
 
-            def ordenDeTrabajoInstance
+            def campanaInstace
             if(params.id) {
-                ordenDeTrabajoInstance = OrdenDeTrabajo.get(params.id)
-                if(!ordenDeTrabajoInstance) {
+                campanaInstace = Campana.get(params.id)
+                if(!campanaInstace) {
                     flash.clase = "alert-error"
                     flash.message = "No se encontró Orden De Trabajo con id " + params.id
                     redirect(action: 'list')
                     return
                 }//no existe el objeto
-                ordenDeTrabajoInstance.properties = params
+                campanaInstace.properties = params
             }//es edit
             else {
-                ordenDeTrabajoInstance = new OrdenDeTrabajo(params)
+                campanaInstace = new Campana(params)
             } //es create
-            if (!ordenDeTrabajoInstance.save(flush: true)) {
+            if (!campanaInstace.save(flush: true)) {
                 flash.clase = "alert-error"
                 def str = "<h4>No se pudo guardar Orden De Trabajo " + (ordenDeTrabajoInstance.id ? ordenDeTrabajoInstance.id : "") + "</h4>"
 
                 str += "<ul>"
-                ordenDeTrabajoInstance.errors.allErrors.each { err ->
+                campanaInstace.errors.allErrors.each { err ->
                     def msg = err.defaultMessage
                     err.arguments.eachWithIndex {  arg, i ->
                         msg = msg.replaceAll("\\{" + i + "}", arg.toString())
@@ -87,11 +88,16 @@ class LoteController {
 
                                     }
                                     registro.properties=parametros
-                                    if (!registro.save(flush: true)){
-                                        println "error save "+registro.errors
+                                    registro.campana=campanaInstace
+                                    def verificacion = Lote.findAllByCampanaAndCedula(campanaInstace,registro.cedula)
+                                    if (verificacion.size()==0){
+                                        if (!registro.save(flush: true)){
+                                            println "error save "+registro.errors
+                                        }
                                     }else{
-
+                                        println "no isert por repetido dentro de la campaña"
                                     }
+
                                 }
                             }
 
@@ -103,15 +109,15 @@ class LoteController {
 
                 if(params.id) {
                     flash.clase = "alert-success"
-                    flash.message = "Se ha actualizado correctamente Orden De Trabajo " + ordenDeTrabajoInstance.id
+                    flash.message = "Se ha actualizado correctamente Orden De Trabajo " + campanaInstace.id
                 } else {
                     flash.clase = "alert-success"
-                    flash.message = "Se ha creado correctamente Orden De Trabajo " + ordenDeTrabajoInstance.id
+                    flash.message = "Se ha creado correctamente Orden De Trabajo " + campanaInstace.id
                 }
             }
 
 
-            redirect(action: 'list',controller: "ordenDeTrabajo")
+            redirect(action: 'list',controller: "campana")
 
 
 
@@ -131,20 +137,43 @@ class LoteController {
 
 
     def buscarLote(){
-
+        session.usuario=Usro.get(5)
         def closure = {lote->
-            return lote.ordenDeTrabajo.campana+" #"+ lote.ordenDeTrabajo.numero
+            return ""+lote.ordenDeTrabajo.campana+" #"+ lote.ordenDeTrabajo.numero
+        }
+        def numeros = {numero->
+            return g.formatNumber(number:numero,format:"###,##0",minFractionDigits:2,maxFractionDigits:2)
         }
         def listaTitulos = ["Cédula", "Nombre","Código","O. de trabajo","Ciudad","Teléfono 1","Teléfono 2","Teléfono 3","Teléfono 4","Tipo","Tarjeta","Cupo","Cupo Total"]
         def listaCampos = ["cedula", "nombre","codigo","orden","ciudad","telefono1","telefono2","telefono3","telefono4","tipoCliente","tipoTarjeta","cupoNormal","cupoTotal"]
-        def funciones = [null, null,null,["closure": [closure, "&"]], null,null,null, null,null,null, null,null,null]
-        def url = g.createLink(action: "listarClientes", controller: "reportes")
+        def funciones = [null, null,null,["closure": [closure, "&"]], null,null,null, null,null,null, null,["closure": [numeros, "?"]],["closure": [numeros, "?"]]]
+        def url = g.createLink(action: "buscarLote", controller: "lote")
         def show ="pantallaGato"
         def link = "cedula"
         def numRegistros = 20
-        def lista = buscadorService.buscar(Lote, "Lote", "excluyente", params, true) /* Dominio, nombre del dominio , excluyente o incluyente ,params tal cual llegan de la interfaz del buscador, ignore case */
+        def extras =" and ordenDeTrabajo in ("
+        def ordenes = OrdenDeTrabajo.findAllByUsro(session.usuario)
+        if (ordenes.size()==0)
+            extras += "-1)"
+        ordenes.eachWithIndex {o,i->
+            extras+=""+o.id
+            if(i<ordenes.size()-1)
+                extras+=","
+
+        }
+        extras+=")"
+        def lista = buscadorService.buscar(Lote, "Lote", "excluyente", params, true,extras) /* Dominio, nombre del dominio , excluyente o incluyente ,params tal cual llegan de la interfaz del buscador, ignore case */
         lista.pop()
-        render(view: '../lstaTbla', model: [listaTitulos: listaTitulos, listaCampos: listaCampos, lista: lista, funciones: funciones, url: url,show:show,link:link,numRegistros:numRegistros])
+        if(!params.reporte){
+            render(view: '../lstaTbla', model: [listaTitulos: listaTitulos, listaCampos: listaCampos, lista: lista, funciones: funciones, url: url,show:show,link:link,numRegistros:numRegistros])
+        } else{
+            println "entro reporte"
+            /*De esto solo cambiar el dominio, el parametro tabla, el paramtero titulo y el tamaño de las columnas (anchos)*/
+            session.dominio=Lote
+            session.funciones=funciones
+            def anchos = [7,18,7,7,7,7,7,7,7,7,7,7,7] /*el ancho de las columnas en porcentajes... solo enteros*/
+            redirect(controller: "reportes",action: "reporteBuscador",params: [listaCampos: listaCampos,listaTitulos: listaTitulos,tabla:"Lote",orden:params.orden,ordenado:params.ordenado,criterios:params.criterios,operadores:params.operadores,campos: params.campos,titulo:"Lotes",anchos:anchos,extras:extras,landscape:true])
+        }
 
 
     }

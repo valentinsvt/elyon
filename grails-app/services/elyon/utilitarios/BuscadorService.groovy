@@ -18,7 +18,7 @@ class BuscadorService {
     }
 
     def filtro(operador, parametros, common, mapa, ignoreCase) {
-       // println "mapa "+mapa
+        // println "mapa "+mapa
         def parts = []
         parts.add(" where ")
         def comparador =""
@@ -153,7 +153,7 @@ class BuscadorService {
         return  parts
     }
 
-    List buscar(dominio, tabla, tipo, params, ignoreCase) {
+    List buscar(dominio, tabla, tipo, params, ignoreCase,extras="") {
         def sql = "from " + tabla
         def mapa = toMap(dominio)
         def parametros =[:]
@@ -194,6 +194,10 @@ class BuscadorService {
 
         sql += res[0]
         res.remove(0)
+        if(sql=~"where")
+            sql += extras
+        else
+            sql+= " where "+extras.replaceFirst(" and ","").replaceFirst(" or ","")
         println "sql " + sql  + orderby+" pars "+res
         lista = dominio.findAll(sql+orderby, res)
         lista.add(lista.size())

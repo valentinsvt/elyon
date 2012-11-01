@@ -27,9 +27,5 @@ class OrdenDeTrabajo {
         numero(blank:false, attributes:[title: 'numero'])
     }
 
-//    String toString() {
-//
-//        return this.numero
-//
-//    }
+
 }
