@@ -71,7 +71,7 @@
                     </a>
                 </td>
 
-                <td>
+                <td style="text-align: center">
                     <a class="btn btn-small btn-show btn-ajax" href="#" rel="tooltip" title="Ver" data-id="${ordenDeTrabajoInstance.id}">
                         <i class="icon-zoom-in icon-large"></i>
                     </a>
@@ -142,7 +142,7 @@
                 data    : "orden="+$(this).attr("iden"),
                 success : function (msg) {
                     var btnOk = $('<a href="#" data-dismiss="modal" class="btn">Cancelar</a>');
-                    var btnSave = $('<a href="#"  class="btn btn-success"><i class="icon-save"></i> Guardar</a>');
+                    var btnSave = $('<a href="#"  class="btn btn-primary"><i class="icon-save"></i> Guardar</a>');
 
                     btnSave.click(function () {
                         var data ="orden="+orden+"&lote="
@@ -161,7 +161,7 @@
                             }
                         });
                     });
-                    $("#modalHeader").removeClass("btn-edit btn-show btn-delete").addClass("btn-inverse");
+                    $("#modalHeader").removeClass("btn-edit btn-show btn-delete").addClass("btn-warning");
                     $("#modalTitle").html("Asignar lote");
                     $("#modalBody").html(msg);
                     $("#modalFooter").html("").append(btnOk).append(btnSave)

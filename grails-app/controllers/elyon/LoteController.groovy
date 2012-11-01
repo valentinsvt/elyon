@@ -137,7 +137,7 @@ class LoteController extends elyon.seguridad.Shield {
 
 
     def buscarLote(){
-        session.usuario=Usro.get(5)
+//        session.usuario=Usro.get(5)
         def closure = {lote->
             return ""+lote.ordenDeTrabajo.campana+" #"+ lote.ordenDeTrabajo.numero
         }

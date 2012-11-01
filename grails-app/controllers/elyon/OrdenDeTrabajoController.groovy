@@ -25,7 +25,8 @@ class OrdenDeTrabajoController extends elyon.seguridad.Shield {
 
     def listaAsignar = {
         def orden = OrdenDeTrabajo.get(params.orden)
-        def lote = Lote.findAllByOrdenDeTrabajoIsNull()
+        def campana = orden.campana
+        def lote = Lote.findAllByOrdenDeTrabajoIsNullAndCampana(campana)
         [lote:lote,orden:orden]
     }
 
