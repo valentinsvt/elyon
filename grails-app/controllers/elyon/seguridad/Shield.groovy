@@ -23,9 +23,9 @@ class Shield {
         } else {//            println "2"
             //verificacion de permisos
             if (!session.unidad) {
-                if (this.isAllowed())
+                if (this.isAllowed()) {
                     return true
-
+                }
                 response.sendError(403)
                 return false
             }
@@ -35,15 +35,33 @@ class Shield {
 
     boolean isAllowed() {
 
-//        try {
-//            if (session.permisos[actionName] == controllerName)
-//                return true
-//        } catch (e) {
-//            println "Shield execption e: " + e
-//            return true
-//        }
-//        return true
-        return true
+        def usr = Usro.get(session.usuario.id)
+
+//        println "AQUI " + usr.tipo
+        if (usr.tipo == 'a') {
+            return true
+        } else {
+            def allowedUser = [:]
+            allowedUser.lote = ["busqueda", "buscarLote"]
+            allowedUser.gestionTelefonica = ["gestion", "saveGestion"]
+            allowedUser.llamada = ["registro", "saveRegistro"]
+            allowedUser.inicio = ["index"]
+
+            if (allowedUser[controllerName]) {
+//                println allowedUser
+//                println controllerName
+//                println actionName
+//                println allowedUser[controllerName]
+                if (allowedUser[controllerName].contains(actionName)) {
+                    return true
+                } else {
+                    return false
+                }
+            } else {
+//                println "NOT ALLOWED"
+                return false
+            }
+        }
     }
 }
  

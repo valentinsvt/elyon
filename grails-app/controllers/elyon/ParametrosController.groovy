@@ -1,6 +1,8 @@
 package elyon
 
-class ParametrosController {
+import elyon.seguridad.Shield
+
+class ParametrosController extends Shield {
 
     def index() { }
 

@@ -22,16 +22,76 @@
             </ul>
 
             <div id="tabUbicacion">
-                <ul class="unstyled">
-                    <li>Ciudad</li>
-                    <li>Parroquia</li>
-                    <li>Sucursal</li>
-                    <li>Oficina</li>
-                </ul>
+                <div class="row">
+                    <div class="span3">
+                        <ul class="nav nav-pills nav-stacked">
+                            <li class="hoverable" data-info="">
+                                <g:link controller="ciudad">Ciudad</g:link>
+                            </li>
+                            <li class="hoverable" data-info="">
+                                <g:link controller="parroquia">Parroquia</g:link>
+                            </li>
+                            <li class="hoverable" data-info="">
+                                <g:link controller="sucursal">Sucursal</g:link>
+                            </li>
+                            <li class="hoverable" data-info="">
+                                <g:link controller="oficina">Oficina</g:link>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <div class="span8 desc">
+                    </div>
+                </div>
+
             </div>
 
             <div id="tabGenerales">
+                <div class="row">
+                    <div class="span3">
+                        <ul class="nav nav-pills nav-stacked">
+                            <li class="hoverable" data-info="">
+                                <g:link controller="actividadEconomica">Actividad económica</g:link>
+                            </li>
+                            <li class="hoverable" data-info="">
+                                <g:link controller="afinidad">Afinidad</g:link>
+                            </li>
+                            <li class="hoverable" data-info="">
+                                <g:link controller="bins">Bins</g:link>
+                            </li>
+                            <li class="hoverable" data-info="">
+                                <g:link controller="estadoCivil">Estado civil</g:link>
+                            </li>
+                            <li class="hoverable" data-info="">
+                                <g:link controller="nacionalidad">Nacionalidad</g:link>
+                            </li>
+                            <li class="hoverable" data-info="">
+                                <g:link controller="nivelEstudios">Nivel de estudios</g:link>
+                            </li>
+                            <li class="hoverable" data-info="">
+                                <g:link controller="profesion">Profesión</g:link>
+                            </li>
+                            <li class="hoverable" data-info="">
+                                <g:link controller="rangoIngresos">Rango de ingresos</g:link>
+                            </li>
+                            <li class="hoverable" data-info="">
+                                <g:link controller="ruta">Ruta</g:link>
+                            </li>
+                            <li class="hoverable" data-info="">
+                                <g:link controller="sexo">Sexo</g:link>
+                            </li>
+                            <li class="hoverable" data-info="">
+                                <g:link controller="tipoDeIdentificacion">Tipo de identificación</g:link>
+                            </li>
+                            <li class="hoverable" data-info="">
+                                <g:link controller="tipoVivienda">Tipo de vivienda</g:link>
+                            </li>
+                        </ul>
+                    </div>
 
+                    <div class="span8 desc">
+                    </div>
+                </div>
             </div>
         </div>
 
@@ -39,6 +99,16 @@
         <script>
             $(function () {
                 $("#tabs").tabs();
+
+                $(".hoverable").hover(function () {
+                    var header = "<h2>" + $.trim($(this).text()) + "</h2>";
+                    var texto = $(this).data("info") ? $(this).data("info") : "";
+
+                    $(".desc").addClass("alert alert-info").html(header + texto);
+                }, function () {
+                    $(".desc").removeClass("alert alert-info").html("");
+                });
+
             });
         </script>
     </body>

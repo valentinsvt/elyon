@@ -3,8 +3,6 @@ package elyon
 class InicioController extends elyon.seguridad.Shield {
 
     def index() {
-
-
     }
 
     def cargarIngresos() {

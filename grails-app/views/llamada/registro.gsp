@@ -37,13 +37,9 @@
                 <i class="icon-save"></i>
                 Guardar
             </a>
-            <a href="#" class="btn btn-del ${data?.id ? '' : 'disabled'}">
+            <a href="#" class="btn btn-del disabled%{--${data?.id ? '' : 'disabled'}--}%">
                 <i class="icon-trash"></i>
                 Eliminar
-            </a>
-            <a href="#" class="btn btn-exit">
-                <i class="icon-signout"></i>
-                Salir
             </a>
         </div>
 
