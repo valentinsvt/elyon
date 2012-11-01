@@ -29,6 +29,6 @@
     </head>
 
     <body>
-        <bsc:buscador name="lote.id" value="" accion="buscarLote" campos="${camposLote}" label="Lote" tipo="lista"/>
+        <bsc:buscador name="lote.id" value="" accion="buscarLoteRegistro" campos="${camposLote}" label="Lote" tipo="lista"/>
     </body>
 </html>

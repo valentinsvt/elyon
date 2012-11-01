@@ -7,17 +7,22 @@ class LlamadaController extends elyon.seguridad.Shield {
     }
 
     def registro() {
-        def data, lote = Lote.get(params.lote)
-        data = Data.findAllByLote(lote)
+        def data, lote = Lote.get(params.id)
+        if (lote) {
+            data = Data.findAllByLote(lote)
 
-        if (data.size() == 0) {
-            println "No se encontró"
-            data = new Data()
-        } else if (data.size() == 1) {
-            data = data[0]
+            if (data.size() == 0) {
+                println "No se encontró"
+                data = new Data()
+            } else if (data.size() == 1) {
+                data = data[0]
+            } else {
+                println "Mas de 1"
+                data = new Data()
+            }
         } else {
-            println "Mas de 1"
-            data = new Data()
+            data = null
+            lote = null
         }
         return [data: data, lote: lote]
     }

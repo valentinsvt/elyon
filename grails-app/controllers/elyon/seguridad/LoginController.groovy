@@ -11,7 +11,12 @@ class LoginController {
             if (session.controller && session.action) {
                 redirect(controller: session.controller, action: session.action, params: session.params)
             } else {
-                redirect(action: "inicio")
+                def user = Usro.get(session.usuario.id)
+                if (user.tipo == 'u') {
+                    redirect(controller: "lote", action: "busqueda")
+                } else {
+                    redirect(controller: "parametros", action: "index")
+                }
             }
         }
     }
@@ -35,7 +40,7 @@ class LoginController {
             if (user.tipo == 'u') {
                 redirect(controller: "lote", action: "busqueda")
             } else {
-                redirect(controller: "inicio", action: "index")
+                redirect(controller: "parametros", action: "index")
             }
             return
         }

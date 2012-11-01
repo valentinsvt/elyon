@@ -7,7 +7,7 @@ class MenuTagLib {
 
     def renderItem(item, tipo) {
         def str = "", clase = ""
-        if (session.cn == tipo) {
+        if (session.cn == item.controller && session.an == item.action) {
             clase = "active"
         }
         if (item.items) {
@@ -22,7 +22,7 @@ class MenuTagLib {
             }
             str += "</ul>"
         } else {
-            str += "<a href='" + item.url + "'>" + item.label + "</a>"
+            str += "<a href='" + createLink(controller: item.controller, action: item.action) + "'>" + item.label + "</a>"
         }
         str += "</li>"
 
@@ -36,9 +36,9 @@ class MenuTagLib {
 
         def items = [:]
 
-        items.inicio = [:]
-        items.inicio.url = createLink(controller: "inicio", action: "index")
-        items.inicio.label = "Inicio"
+//        items.inicio = [:]
+//        items.inicio.url = createLink(controller: "inicio", action: "index")
+//        items.inicio.label = "Inicio"
 
         switch (usu.tipo) {
             case "a":
@@ -50,20 +50,25 @@ class MenuTagLib {
                 items.administracion.items = [:]
                 items.administracion.items.usuarios = [:]
                 items.administracion.items.usuarios.label = "Usuarios"
-                items.administracion.items.usuarios.url = createLink(controller: "usro")
+                items.administracion.items.usuarios.controller = "usro"
+                items.administracion.items.usuarios.action = "index"
                 items.administracion.items.parametros = [:]
                 items.administracion.items.parametros.label = "Parámetros"
-                items.administracion.items.parametros.url = createLink(controller: "parametros")
+                items.administracion.items.parametros.controller = "parametros"
+                items.administracion.items.parametros.action = "index"
                 items.administracion.items.reportes = [:]
                 items.administracion.items.reportes.label = "Reportes"
-                items.administracion.items.reportes.url = createLink(controller: "reportes")
+                items.administracion.items.reportes.controller = "reportes"
+                items.administracion.items.reportes.action = "index"
 
                 items.campana = [:]
-                items.campana.url = createLink(controller: "campana", action: "index")
+                items.campana.controller = "campana"
+                items.campana.action = "index"
                 items.campana.label = "Campaña"
 
                 items.ordenDeTrabajo = [:]
-                items.ordenDeTrabajo.url = createLink(controller: "ordenDeTrabajo", action: "index")
+                items.ordenDeTrabajo.controller = "ordenDeTrabajo"
+                items.ordenDeTrabajo.action = "index"
                 items.ordenDeTrabajo.label = "Orden de trabajo"
 
                 break;
@@ -71,9 +76,15 @@ class MenuTagLib {
                 //usuario
                 //llamada, gestion telefonica
 
-                items.lote = [:]
-                items.lote.url = createLink(controller: "lote", action: "busqueda")
-                items.lote.label = "Agendamientos"
+                items.agendamientos = [:]
+                items.agendamientos.controller = "lote"
+                items.agendamientos.action = "busqueda"
+                items.agendamientos.label = "Agendamientos"
+
+                items.registro = [:]
+                items.registro.controller = "lote"
+                items.registro.action = "busquedaRegistro"
+                items.registro.label = "Registro datos llamada"
 
                 break;
         }

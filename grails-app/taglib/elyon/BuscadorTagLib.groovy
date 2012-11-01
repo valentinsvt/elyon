@@ -4,7 +4,7 @@ class BuscadorTagLib {
 
     static namespace = 'bsc'
 
-    def operacion = {atr->
+    def operacion = {atr ->
 
         //println "atr 2 "+atr
         def propiedad = atr.propiedad
@@ -12,33 +12,32 @@ class BuscadorTagLib {
         def operacion = atr.funcion.keySet().toArray().getAt(0)
         def parametros = atr.funcion[operacion].clone()
         //println " reg "+registro+" op "+operacion+" par "+parametros+" prop "+propiedad
-        parametros.eachWithIndex{it,i->
-            if(it=="?")
-                parametros[i]=registro[propiedad]
-            if (it =="&")
-                parametros[i]=registro
+        parametros.eachWithIndex {it, i ->
+            if (it == "?")
+                parametros[i] = registro[propiedad]
+            if (it == "&")
+                parametros[i] = registro
         }
         def result
-        if (operacion!="closure"){
-            switch (parametros.size()){
+        if (operacion != "closure") {
+            switch (parametros.size()) {
                 case 1:
                     result = registro[propiedad]."$operacion"(parametros[0])
                     break
                 case 2:
-                    result = registro[propiedad]."$operacion"(parametros[0],parametros[1])
+                    result = registro[propiedad]."$operacion"(parametros[0], parametros[1])
                 case 3:
-                    result = registro[propiedad]."$operacion"(parametros[0],parametros[1],parametros[2])
+                    result = registro[propiedad]."$operacion"(parametros[0], parametros[1], parametros[2])
                     break
                 default:
-                    result=""
+                    result = ""
             }
-        }else{
+        } else {
 //            println "closure "+parametros[0]
             def cl = parametros[0]
             parametros.remove(0)
-            result=cl parametros[0]
+            result = cl parametros[0]
         }
-
 
         //println "return "+result
         //println "----------------------------"
@@ -54,12 +53,12 @@ class BuscadorTagLib {
         def accion = atr.accion
         def label = atr.label
         def tipo = atr.tipo
-        switch (tipo){
+        switch (tipo) {
             case "buscador":
                 out << listaHtml(name, value, campos, controlador, accion, label, false)
                 break;
             case "lista":
-                out<<lista(name, value, campos, controlador, accion)
+                out << lista(name, value, campos, controlador, accion)
                 break;
             default:
                 out << listaHtml(name, value, campos, controlador, accion, label, false)
@@ -69,7 +68,7 @@ class BuscadorTagLib {
 
     }
 
-    def lista(name, value, campos, controlador, accion){
+    def lista(name, value, campos, controlador, accion) {
         def salida = ""
         salida += '<div style="border:1px solid black;margin-top:10px;float:left;width:100%" class="ui-corner-all">'
         salida += '<div class="filaBuscador ui-corner-all" style="margin-left:15px;margin-top:10px;width:100%" >'
@@ -99,11 +98,12 @@ class BuscadorTagLib {
                 salida += ' <option value="' + it.key + '" tipo="' + it.value.get(1) + '">' + it.value.get(0) + '</option>'
             i++
         }
+        def url = resource(dir: 'images', file: 'spinner_24.gif')
         salida += '</select>'
         salida += '<select name="orden" id="orden" style="width: 100px;" ><option value="asc" selected>Ascendente</option><option value="desc">Descendente</option></select>'
         salida += '<a href="#" id="mas" style="margin-left:5px">Agregar condición</a>'
         salida += '<a href="#" id="reset" style="margin-left:5px">Resetear</a>'
-        salida += '<input id="buscarDialog" type="button" value="Buscar" style="width:80px;margin-left:10px" class="tbbtn " >'
+        salida += '<input id="buscarDialog" type="button" value="Buscar" style="width:80px;margin-left:10px" class="tbbtn " ><img class="hide" id="spinner" style="margin-left:15px;" src=' + url + ' alt="Cargando..."/>'
         salida += '</div>'
         salida += '<div id="criterios" style="width:95%;height:35px;float:left"></div>'
         salida += '<div class="contenidoBuscador  ui-corner-all" id="contenidoBuscador" style="float:left;width:95%;margin-top:5px;margin-left:20px;"></div>'
@@ -114,18 +114,19 @@ class BuscadorTagLib {
 
         salida += 'function enviar() {'
         salida += 'var data = "";'
-
-        salida +='$(".crit").each(function(){'
+        salida += '$("#buscarDialog").hide();'
+        salida += '$("#spinner").show();'
+        salida += '$(".crit").each(function(){'
         salida += 'data+="&campos="+$(this).attr("campo");'
         salida += 'data+="&operadores="+$(this).attr("operador");'
         salida += 'data+="&criterios="+$(this).attr("criterio");'
-        salida +='});'
-        salida +='if(data.length<2){'
+        salida += '});'
+        salida += 'if(data.length<2){'
         salida += 'data="tc="+$("#tipoCampo").val()+"&campos="+$("#campo :selected").val()+"&operadores="+$("#operador :selected").val()+"&criterios="+$("#criterio").val()'
         salida += '}'
         salida += 'data+="&ordenado="+$("#campoOrdn :selected").val()+"&orden="+$("#orden :selected").val();'
         if (controlador) {
-            salida += '$.ajax({type: "POST",url: "' + controlador +'/' + accion + '",'
+            salida += '$.ajax({type: "POST",url: "' + controlador + '/' + accion + '",'
         } else {
             salida += '$.ajax({type: "POST",url: "' + accion + '",'
         }
@@ -133,6 +134,8 @@ class BuscadorTagLib {
         salida += 'data: data,'
 
         salida += 'success: function(msg){'
+        salida += '$("#spinner").hide();'
+        salida += '$("#buscarDialog").show();'
         salida += '$(".contenidoBuscador").html(msg).show("slide");'
         salida += '}'
         salida += '});'
@@ -206,17 +209,17 @@ class BuscadorTagLib {
         salida += 'function enviar() {'
         salida += 'var data = "";'
 
-        salida +='$(".crit").each(function(){'
+        salida += '$(".crit").each(function(){'
         salida += 'data+="&campos="+$(this).attr("campo");'
         salida += 'data+="&operadores="+$(this).attr("operador");'
         salida += 'data+="&criterios="+$(this).attr("criterio");'
-        salida +='});'
-        salida +='if(data.length<2){'
+        salida += '});'
+        salida += 'if(data.length<2){'
         salida += 'data="tc="+$("#tipoCampo").val()+"&campos="+$("#campo :selected").val()+"&operadores="+$("#operador :selected").val()+"&criterios="+$("#criterio").val()'
         salida += '}'
         salida += 'data+="&ordenado="+$("#campoOrdn :selected").val()+"&orden="+$("#orden :selected").val();'
         if (controlador) {
-            salida += '$.ajax({type: "POST",url: "' + controlador +'/' + accion + '",'
+            salida += '$.ajax({type: "POST",url: "' + controlador + '/' + accion + '",'
         } else {
             salida += '$.ajax({type: "POST",url: "' + accion + '",'
         }
@@ -241,8 +244,6 @@ class BuscadorTagLib {
 
         return salida
     }
-
-
 
 
 }
