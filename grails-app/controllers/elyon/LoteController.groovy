@@ -5,7 +5,7 @@ import jxl.Sheet
 import jxl.Cell
 import elyon.seguridad.Usro
 
-class LoteController {
+class LoteController extends elyon.seguridad.Shield {
 
     def index() { }
     def buscadorService

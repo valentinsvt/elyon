@@ -2,15 +2,19 @@ package elyon
 class Data implements Serializable {
 
     TipoDeIdentificacion tipoDeIdentificacion
+    String numeroIdentificacion
     String nombre1
-    String nombre2
 
+    String nombre2
     String apellido1
     String apellido2
-    Date fechaNacimiento
 
+    Date fechaNacimiento
     EstadoCivil estadoCivil
     Sexo sexo
+
+    String nombre
+    Nacionalidad nacionalidad
     Ruta rutaEntrega
 
     String direccionResidencia
@@ -19,13 +23,15 @@ class Data implements Serializable {
     String direccionTrabajo
     Profesion profesion
 
-    String nombre
-    Nacionalidad nacionalidad
     NivelEstudios nivelEstudios
-
     double cargaFamiliar
     String telefono
+
     TipoTarjeta tipoTarjeta
+    Bins bins
+    double cupo
+
+
 
     Oficina oficina
 
@@ -51,6 +57,9 @@ class Data implements Serializable {
     Date fechaInicioTrabajoAnterior
     Date fechaFinTrabajoAnterior
 
+
+
+
     TipoDeIdentificacion tipoDeIdentificacionReferenciaPersonal
     String idReferenciaPersonal
     String nombre1ReferenciaPersonal
@@ -67,15 +76,12 @@ class Data implements Serializable {
     String contactoAlterno /**/
 
     TipoDeIdentificacion tipoDeIdentificacionPrincipal
-    String numeroIdentificacion
+    String identificacionPrincipal
     Bins binsPrincipal
-    Bins bins
     Afinidad afinidad
+
+
     Vendedor vendedor
-    double tiempoResidencia
-    double tiempoUltimoTrabajo
-    double cupo
-    String indicadorPrincipal
     Lote lote
 
 
@@ -123,8 +129,6 @@ class Data implements Serializable {
             fechaNacimiento column: 'datafcna'
             patrimonio column: 'datapatr'
             valorVivienda column: 'datavlvv'
-            tiempoResidencia column: 'datatirs'
-            tiempoUltimoTrabajo column: 'datatiut'
             fechaInicioTrabajoAnterior column: 'datafcit'
             fechaFinTrabajoAnterior column: 'datafcft'
             cargaFamiliar column: 'datacrga'
@@ -137,7 +141,7 @@ class Data implements Serializable {
             nombre2ReferenciaPersonal column: 'datan2rp'
             direccionReferenciaPersonal column: 'datadrrp'
             telefonoReferenciaPersonal column: 'datatfrp'
-            indicadorPrincipal column: 'datainpr'
+            identificacionPrincipal column: 'datainpr'
             lote column: 'lote__id'
 
             empresa column: 'dataempr'
@@ -153,63 +157,82 @@ class Data implements Serializable {
     static constraints = {
 
         tipoDeIdentificacion(blank: true, nullable: true, attributes: [title: 'tipoDeIdentificacion'])
-        rutaEntrega(blank: true, nullable: true, attributes: [title: 'ruta'])
-        tipoDeIdentificacionReferenciaPersonal(blank: true, nullable: true, attributes: [title: 'tipoDeIdentificacionReferenciaPersonal'])
-        tipoDeIdentificacionPrincipal(blank: true, nullable: true, attributes: [title: 'tipoDeIdentificacionPrincipal'])
-        parentesco(blank: true, nullable: true, attributes: [title: 'parentesco'])
-        bins(blank: true, nullable: true, attributes: [title: 'bins'])
-        tipoTarjeta(blank: true, nullable: true, attributes: [title: 'tipoTarjeta'])
-        afinidad(blank: true, nullable: true, attributes: [title: 'afinidad'])
-        binsPrincipal(blank: true, nullable: true, attributes: [title: 'binsPrincipal'])
-        relacionDependenciaLaboral(blank: true, nullable: true, attributes: [title: 'relacionDependenciaLaboral'])
-        tipoVivienda(blank: true, nullable: true, attributes: [title: 'tipoVivienda'])
-        rangoIngresos(blank: true, nullable: true, attributes: [title: 'rangoIngresos'])
-        origenIngresos(blank: true, nullable: true, attributes: [title: 'origenIngresos'])
-        actividadEconomica(blank: true, nullable: true, attributes: [title: 'actividadEconomica'])
-        profesion(blank: true, nullable: true, attributes: [title: 'profecion'])
-        nivelEstudios(blank: true, nullable: true, attributes: [title: 'nivelEstudios'])
-        estadoCivil(blank: true, nullable: true, attributes: [title: 'estadoCivil'])
-        sexo(blank: true, nullable: true, attributes: [title: 'sexo'])
-        nacionalidad(blank: true, nullable: true, attributes: [title: 'nacionales'])
-        parroquia(blank: true, nullable: true, attributes: [title: 'parroquia'])
-        oficina(blank: true, nullable: true, attributes: [title: 'oficina'])
-        rutaEstadosCuenta(blank: true, nullable: true, attributes: [title: 'ruta'])
-        vendedor(blank: true, nullable: true, attributes: [title: 'vendedor'])
         numeroIdentificacion(size: 1..10, blank: true, nullable: true, attributes: [title: 'numeroIdentificacion'])
+        nombre1(size: 1..20, blank: true, nullable: true, attributes: [title: 'nombre1'])
+
+        nombre2(size: 1..20, blank: true, nullable: true, attributes: [title: 'nombre2'])
         apellido1(size: 1..20, blank: true, nullable: true, attributes: [title: 'apellido1'])
         apellido2(size: 1..20, blank: true, nullable: true, attributes: [title: 'apellido2'])
-        nombre1(size: 1..20, blank: true, nullable: true, attributes: [title: 'nombre1'])
-        nombre2(size: 1..20, blank: true, nullable: true, attributes: [title: 'nombre2'])
-        direccionResidencia(size: 1..150, blank: true, nullable: true, attributes: [title: 'direccionResidencia'])
-        direccionTrabajo(size: 1..150, blank: true, nullable: true, attributes: [title: 'direccionTrabajo'])
-        telefono(size: 1..20, blank: true, nullable: true, attributes: [title: 'telefono'])
-        email(size: 1..50, blank: true, nullable: true, attributes: [title: 'email'])
+
         fechaNacimiento(blank: true, nullable: true, attributes: [title: 'fechaNacimiento'])
-        patrimonio(blank: true, nullable: true, attributes: [title: 'patrimonio'])
+        estadoCivil(blank: true, nullable: true, attributes: [title: 'estadoCivil'])
+        sexo(blank: true, nullable: true, attributes: [title: 'sexo'])
+
+        nombre(size: 1..19, blank: true, nullable: true, attributes: [title: 'nombre'])
+        nacionalidad(blank: true, nullable: true, attributes: [title: 'nacionales'])
+        rutaEntrega(blank: true, nullable: true, attributes: [title: 'ruta'])
+
+        direccionResidencia(size: 1..150, blank: true, nullable: true, attributes: [title: 'direccionResidencia'])
+        rutaEstadosCuenta(blank: true, nullable: true, attributes: [title: 'ruta'])
+
+        direccionTrabajo(size: 1..150, blank: true, nullable: true, attributes: [title: 'direccionTrabajo'])
+        profesion(blank: true, nullable: true, attributes: [title: 'profecion'])
+
+        nivelEstudios(blank: true, nullable: true, attributes: [title: 'nivelEstudios'])
+        cargaFamiliar(blank: true, nullable: true, attributes: [title: 'cargaFamiliar'])
+        telefono(size: 1..20, blank: true, nullable: true, attributes: [title: 'telefono'])
+
+        tipoTarjeta(blank: true, nullable: true, attributes: [title: 'tipoTarjeta'])
+        bins(blank: true, nullable: true, attributes: [title: 'bins'])
+        cupo(blank: true, nullable: true, attributes: [title: 'cupo'])
+
+        oficina(blank: true, nullable: true, attributes: [title: 'oficina'])
+
+        parroquia(blank: true, nullable: true, attributes: [title: 'parroquia'])
+        telefonoTrabajo(blank: true, nullable: true, attributes: [title: 'celular'])
+        email(size: 1..50, blank: true, nullable: true, attributes: [title: 'email'])
+
+        empresa(size:1..50, blank: true, nullable: true, attributes: [title: 'empresa'])
+        actividadEconomica(blank: true, nullable: true, attributes: [title: 'actividadEconomica'])
+        rangoIngresos(blank: true, nullable: true, attributes: [title: 'rangoIngresos'])
+
+        celular(size:1..20, blank: true, nullable: true, attributes: [title: 'celular'])
+
+        tipoVivienda(blank: true, nullable: true, attributes: [title: 'tipoVivienda'])
         valorVivienda(blank: true, nullable: true, attributes: [title: 'valorVivienda'])
-        tiempoResidencia(blank: true, nullable: true, attributes: [title: 'tiempoResidencia'])
-        tiempoUltimoTrabajo(blank: true, nullable: true, attributes: [title: 'tiempoUltimoTrabajo'])
+        fechaInicioResidencia(blank: true, nullable: true, attributes: [title: 'fechaInicioResidencia'])
+
+
+        relacionDependenciaLaboral(blank: true, nullable: true, attributes: [title: 'relacionDependenciaLaboral'])
+        origenIngresos(blank: true, nullable: true, attributes: [title: 'origenIngresos'])
+        patrimonio(blank: true, nullable: true, attributes: [title: 'patrimonio'])
+
+        fechaInicioTrabajoActual(blank: true, nullable: true, attributes: [title: 'fechaInicioTrabajoActual '])
         fechaInicioTrabajoAnterior(blank: true, nullable: true, attributes: [title: 'fechaInicioTrabajoAnterior'])
         fechaFinTrabajoAnterior(blank: true, nullable: true, attributes: [title: 'fechaFinTrabajoAnterior'])
-        cargaFamiliar(blank: true, nullable: true, attributes: [title: 'cargaFamiliar'])
-        cupo(blank: true, nullable: true, attributes: [title: 'cupo'])
-        nombre(size: 1..19, blank: true, nullable: true, attributes: [title: 'nombre'])
+
+        tipoDeIdentificacionReferenciaPersonal(blank: true, nullable: true, attributes: [title: 'tipoDeIdentificacionReferenciaPersonal'])
         idReferenciaPersonal(size: 1..10, blank: true, nullable: true, attributes: [title: 'tipoDeIdentificacion'])
+        nombre1ReferenciaPersonal(size: 1..20, blank: true, nullable: true, attributes: [title: 'nombre1ReferenciaPersonal'])
+
+        nombre2ReferenciaPersonal(size: 1..20, blank: true, nullable: true, attributes: [title: 'nombre2ReferenciaPersonal'])
         apellido1ReferenciaPersonal(size: 1..20, blank: true, nullable: true, attributes: [title: 'apellido1ReferenciaPersonal'])
         apellido2ReferenciaPersonal(size: 1..20, blank: true, nullable: true, attributes: [title: 'apellido2ReferenciaPersonal'])
-        nombre1ReferenciaPersonal(size: 1..20, blank: true, nullable: true, attributes: [title: 'nombre1ReferenciaPersonal'])
-        nombre2ReferenciaPersonal(size: 1..20, blank: true, nullable: true, attributes: [title: 'nombre2ReferenciaPersonal'])
+
         direccionReferenciaPersonal(size: 1..150, blank: true, nullable: true, attributes: [title: 'direccionReferenciaPersonal'])
         telefonoReferenciaPersonal(size: 1..20, blank: true, nullable: true, attributes: [title: 'telefonoReferenciaPersonal'])
-        indicadorPrincipal(size: 1..10, blank: true, nullable: true, attributes: [title: 'indicadorPrincipal'])
-        lote(blank: true, attributes: [title: 'lote'])
-        empresa(blank: true, nullable: true, attributes: [title: 'empresa'])
-        celular(blank: true, nullable: true, attributes: [title: 'celular'])
-        telefonoTrabajo(blank: true, nullable: true, attributes: [title: 'celular'])
-        fechaInicioResidencia(blank: true, nullable: true, attributes: [title: 'fechaInicioResidencia'])
-        fechaInicioTrabajoActual(blank: true, nullable: true, attributes: [title: 'fechaInicioTrabajoActual '])
+        parentesco(blank: true, nullable: true, attributes: [title: 'parentesco'])
+
+        tipoDeIdentificacionPrincipal(blank: true, nullable: true, attributes: [title: 'tipoDeIdentificacionPrincipal'])
+        identificacionPrincipal(size: 1..10, blank: true, nullable: true, attributes: [title: 'identificacionPrincipal'])
+        binsPrincipal(blank: true, nullable: true, attributes: [title: 'binsPrincipal'])
+        afinidad(blank: true, nullable: true, attributes: [title: 'afinidad'])
+
         comentarios(blank: true, nullable: true, attributes: [title: 'comentarios'])
         contactoAlterno(blank: true, nullable: true, attributes: [title: 'contactoAlterno'])
+
+        vendedor(blank: true, nullable: true, attributes: [title: 'vendedor'])
+        lote(blank: true, attributes: [title: 'lote'])
     }
 
     String toString() {

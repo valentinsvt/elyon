@@ -6,10 +6,6 @@ class LoginController {
         redirect(action: "login")
     }
 
-    def inicio() {
-
-    }
-
     def login() {
         if (session.usuario) {
             if (session.controller && session.action) {
@@ -21,7 +17,13 @@ class LoginController {
     }
 
     def validarLogin() {
-        def user = Usro.findAllByLoginAndPassword(params.login, params.pass.encodeAsMD5())
+//        def user = Usro.findAllByLoginAndPassword(params.login, params.pass.encodeAsMD5())
+
+        def user = Usro.withCriteria {
+            eq("login", params.login)
+            eq("password", params.pass.encodeAsMD5())
+            eq("activo", '1')
+        }
 
         if (user.size() == 0) {
             flash.message = "No se ha encontrado el usuario"
@@ -29,9 +31,12 @@ class LoginController {
             flash.message = "Ha ocurrido un error grave"
         } else {
             user = user[0]
-
             session.usuario = user
-            redirect(controller: "pelicula", action: "list")
+            if (user.tipo == 'u') {
+                redirect(controller: "lote", action: "busqueda")
+            } else {
+                redirect(controller: "inicio", action: "index")
+            }
             return
         }
         redirect(controller: "login", action: "login")

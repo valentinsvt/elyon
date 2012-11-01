@@ -1,35 +1,44 @@
 package elyon
 
-class LlamadaController {
+class LlamadaController extends elyon.seguridad.Shield {
 
     def index() {
         redirect(action: 'registro')
     }
 
     def registro() {
-        /*Todo cambiar esto a la nueva estructura de la base de datos*/
-//        params.id = 1
-//
-//        def data = new Data(), lote = new Lote()
-//
-//        def loteOrdenTrabajo = LoteOrdenTrabajo.get(params.id)
-//        if (loteOrdenTrabajo) {
-//            lote = loteOrdenTrabajo?.lote
-//            data = Data.findAllByLoteOrdenTrabajo(loteOrdenTrabajo)
-//
-//            if (data.size() == 0) {
-//                println "No se encontró"
-//            } else if (data.size() == 1) {
-//                data = data[0]
-//            } else {
-//                println "Mas de 1"
-//            }
-//        }
-//
-//        lote = Lote.get(1)
-//        data = new Data()
-//
-//        return [data: data, lote: lote]
+        def data, lote = Lote.get(params.lote)
+        data = Data.findAllByLote(lote)
+
+        if (data.size() == 0) {
+            println "No se encontró"
+            data = new Data()
+        } else if (data.size() == 1) {
+            data = data[0]
+        } else {
+            println "Mas de 1"
+            data = new Data()
+        }
+        return [data: data, lote: lote]
+    }
+
+    def saveRegistro() {
+        println params
+        def data
+        if (params.id) {
+            data = Data.get(params.id)
+        } else {
+            data = new Data()
+        }
+        data.properties = params
+        if (!data.save(flush: true)) {
+            println "ERRORES:"
+            println data.errors
+        } else {
+            println "OK"
+        }
+
+        render params
     }
 
 }
