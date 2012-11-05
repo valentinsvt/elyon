@@ -76,6 +76,10 @@
         <script src="${resource(dir: 'css/bootstrap/js', file: 'bootstrap.js')}"></script>
 
         <script type="text/javascript">
+
+            var url = "${resource(dir:'images', file:'spinner_24.gif')}";
+            var spinner = $("<img style='margin-left:15px;' src='" + url + "' alt='Cargando...'/>");
+
             var ot = document.title;
 
             function resetTimer() {
