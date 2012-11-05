@@ -184,7 +184,7 @@ class LoteController extends elyon.seguridad.Shield {
         def listaCampos = ["cedula", "nombre", "codigo", "orden", "ciudad", "telefono1", "telefono2", "telefono3", "telefono4", "tipoCliente", "tipoTarjeta", "cupoNormal", "cupoTotal"]
         def funciones = [null, null, null, ["closure": [closure, "&"]], null, null, null, null, null, null, null, ["closure": [numeros, "?"]], ["closure": [numeros, "?"]]]
         def url = g.createLink(action: "buscarLote", controller: "lote")
-        def show = "pantallaGato"
+        def show = "gestion"
         def link = "cedula"
         def numRegistros = 20
         def extras = " and ordenDeTrabajo in ("
@@ -201,7 +201,7 @@ class LoteController extends elyon.seguridad.Shield {
         def lista = buscadorService.buscar(Lote, "Lote", "excluyente", params, true, extras) /* Dominio, nombre del dominio , excluyente o incluyente ,params tal cual llegan de la interfaz del buscador, ignore case */
         lista.pop()
         if (!params.reporte) {
-            render(view: '../lstaTbla', model: [listaTitulos: listaTitulos, listaCampos: listaCampos, lista: lista, funciones: funciones, url: url, show: show, link: link, numRegistros: numRegistros])
+            render(view: '../lstaTbla', model: [listaTitulos: listaTitulos, listaCampos: listaCampos, lista: lista, funciones: funciones, url: url, controller: "gestionTelefonica", show: show, link: link, numRegistros: numRegistros])
         } else {
             println "entro reporte"
             /*De esto solo cambiar el dominio, el parametro tabla, el paramtero titulo y el tamaño de las columnas (anchos)*/

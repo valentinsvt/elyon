@@ -81,14 +81,12 @@
 
             <div class="span1">Dirección del Cliente</div>
 
-            %{--<div class="span3"><g:textField name="direccion" disabled="true" style="width: 750px"--}%
-                                            %{--value="${lote.direccion1}${lote.direccion2}"/></div>--}%
 
             <div class="span3"><g:textField name="direccion" disabled="true" style="width: 350px"
                                             value="${lote.direccion1}"/></div>
 
 
-        <div class="span2" style="margin-left: 120px">Dirección del Cliente 2</div><div class="span1"><g:textField name="direccion2" disabled="true" style="width: 350px" value="${lote.direccion2}"/> </div>
+        <div class="span2" style="margin-left: 120px">Dirección #2 del Cliente</div><div class="span1"><g:textField name="direccion2" disabled="true" style="width: 350px" value="${lote.direccion2}"/> </div>
 
         </div>
 
@@ -157,7 +155,7 @@
 
                 <div class="span1" style="padding-left: 50px">Fecha Proceso</div>
 
-                <div class="span1"><g:textField name="fecha" disabled="true" style="width: 100px"
+                <div class="span1"><g:textField name="fecha" disabled="true" style="width: 80px"
                                                 value="${gestionT.fecha}"/></div>
 
                 <div class="span1" style="padding-left: 50px">Observaciones</div>
