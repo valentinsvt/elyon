@@ -25,6 +25,7 @@
 
         <link href="${resource(dir: 'css', file: 'font-awesome.css')}" rel="stylesheet">
 
+        <script src="${resource(dir: 'js/jquery/plugins', file: 'jquery.highlight.js')}"></script>
         <style>
 
         .hasCountdown {

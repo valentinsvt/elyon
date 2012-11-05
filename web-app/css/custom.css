@@ -1,3 +1,7 @@
+.highlight {
+    background-color : #FFFF88;
+}
+
 /* Custom styling */
 body {
     font-size : 13px !important;
@@ -30,12 +34,12 @@ body {
 }
 
 fieldset.borde {
-    border: 1px solid #999;
+    border : 1px solid #999;
 }
 
 fieldset.borde legend {
-    width: auto;
-    border: none;
+    width  : auto;
+    border : none;
 }
 
 /***************************** TABLAS **********************************/

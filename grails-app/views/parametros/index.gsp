@@ -69,10 +69,19 @@
                                 <g:link controller="nivelEstudios">Nivel de estudios</g:link>
                             </li>
                             <li class="hoverable" data-info="">
+                                <g:link controller="origenIngresos">Origen de ingresos</g:link>
+                            </li>
+                            <li class="hoverable" data-info="">
+                                <g:link controller="parentesco">Parentesco</g:link>
+                            </li>
+                            <li class="hoverable" data-info="">
                                 <g:link controller="profesion">Profesión</g:link>
                             </li>
                             <li class="hoverable" data-info="">
                                 <g:link controller="rangoIngresos">Rango de ingresos</g:link>
+                            </li>
+                            <li class="hoverable" data-info="">
+                                <g:link controller="relacionDependenciaLaboral">Relación de dependencia labral</g:link>
                             </li>
                             <li class="hoverable" data-info="">
                                 <g:link controller="ruta">Ruta</g:link>
@@ -82,6 +91,9 @@
                             </li>
                             <li class="hoverable" data-info="">
                                 <g:link controller="tipoDeIdentificacion">Tipo de identificación</g:link>
+                            </li>
+                            <li class="hoverable" data-info="">
+                                <g:link controller="tipoTarjeta">Tipo de tarjeta</g:link>
                             </li>
                             <li class="hoverable" data-info="">
                                 <g:link controller="tipoVivienda">Tipo de vivienda</g:link>

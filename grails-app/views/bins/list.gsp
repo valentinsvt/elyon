@@ -1,15 +1,15 @@
-<%@ page import="elyon.Ciudad" %>
+
+<%@ page import="elyon.Bins" %>
 <!doctype html>
 <html>
     <head>
         <meta name="layout" content="main">
         <title>
-            Lista de Ciudads
+            Lista de Binss
         </title>
         <script src="${resource(dir: 'js/jquery/plugins/jquery-validation-1.9.0', file: 'jquery.validate.min.js')}"></script>
         <script src="${resource(dir: 'js/jquery/plugins/jquery-validation-1.9.0', file: 'messages_es.js')}"></script>
     </head>
-
     <body>
 
         <div class="span12">
@@ -24,55 +24,55 @@
         <div class="span12 btn-group" role="navigation">
             <a href="#" class="btn btn-ajax btn-new">
                 <i class="icon-file"></i>
-                Crear  Ciudad
+                Crear  Bins
             </a>
         </div>
 
-        <g:form action="delete" name="frmDelete-Ciudad">
+        <g:form action="delete" name="frmDelete-Bins">
             <g:hiddenField name="id"/>
         </g:form>
 
-        <div id="list-Ciudad" class="span12" role="main" style="margin-top: 10px;">
+        <div id="list-Bins" class="span12" role="main" style="margin-top: 10px;">
 
             <table class="table table-bordered table-striped table-condensed table-hover">
                 <thead>
                     <tr>
-
-                        <g:sortableColumn property="codigo" title="Codigo"/>
-
-                        <g:sortableColumn property="descripcion" title="Descripcion"/>
-
+                    
+                        <g:sortableColumn property="codigo" title="Codigo" />
+                    
+                        <g:sortableColumn property="descripcion" title="Descripcion" />
+                    
                         <th width="150">Acciones</th>
                     </tr>
                 </thead>
                 <tbody class="paginate">
-                    <g:each in="${ciudadInstanceList}" status="i" var="ciudadInstance">
-                        <tr>
+                <g:each in="${binsInstanceList}" status="i" var="binsInstance">
+                    <tr>
+                    
+                        <td>${fieldValue(bean: binsInstance, field: "codigo")}</td>
+                    
+                        <td>${fieldValue(bean: binsInstance, field: "descripcion")}</td>
+                    
+                        <td>
+                            <a class="btn btn-small btn-show btn-ajax" href="#" rel="tooltip" title="Ver" data-id="${binsInstance.id}">
+                                <i class="icon-zoom-in icon-large"></i>
+                            </a>
+                            <a class="btn btn-small btn-edit btn-ajax" href="#" rel="tooltip" title="Editar" data-id="${binsInstance.id}">
+                                <i class="icon-pencil icon-large"></i>
+                            </a>
 
-                            <td>${fieldValue(bean: ciudadInstance, field: "codigo")}</td>
-
-                            <td>${fieldValue(bean: ciudadInstance, field: "descripcion")}</td>
-
-                            <td>
-                                <a class="btn btn-small btn-show btn-ajax" href="#" rel="tooltip" title="Ver" data-id="${ciudadInstance.id}">
-                                    <i class="icon-zoom-in icon-large"></i>
-                                </a>
-                                <a class="btn btn-small btn-edit btn-ajax" href="#" rel="tooltip" title="Editar" data-id="${ciudadInstance.id}">
-                                    <i class="icon-pencil icon-large"></i>
-                                </a>
-
-                                <a class="btn btn-small btn-delete" href="#" rel="tooltip" title="Eliminar" data-id="${ciudadInstance.id}">
-                                    <i class="icon-trash icon-large"></i>
-                                </a>
-                            </td>
-                        </tr>
-                    </g:each>
+                            <a class="btn btn-small btn-delete" href="#" rel="tooltip" title="Eliminar" data-id="${binsInstance.id}">
+                                <i class="icon-trash icon-large"></i>
+                            </a>
+                        </td>
+                    </tr>
+                </g:each>
                 </tbody>
             </table>
 
         </div>
 
-        <div class="modal hide fade" id="modal-Ciudad">
+        <div class="modal hide fade" id="modal-Bins">
             <div class="modal-header" id="modalHeader">
                 <button type="button" class="close darker" data-dismiss="modal">
                     <i class="icon-remove-circle"></i>
@@ -93,17 +93,17 @@
             var spinner = $("<img style='margin-left:15px;' src='" + url + "' alt='Cargando...'/>");
 
             function submitForm(btn) {
-                if ($("#frmSave-Ciudad").valid()) {
+                if ($("#frmSave-Bins").valid()) {
                     btn.replaceWith(spinner);
                 }
-                $("#frmSave-Ciudad").submit();
+                $("#frmSave-Bins").submit();
             }
 
             $(function () {
                 $('[rel=tooltip]').tooltip();
 
                 $(".paginate").paginate({
-                    maxRows : 10
+                    maxRows: 10
                 });
 
                 $(".btn-new").click(function () {
@@ -120,10 +120,10 @@
                             });
 
                             $("#modalHeader").removeClass("btn-edit btn-show btn-delete");
-                            $("#modalTitle").html("Crear Ciudad");
+                            $("#modalTitle").html("Crear Bins");
                             $("#modalBody").html(msg);
                             $("#modalFooter").html("").append(btnOk).append(btnSave);
-                            $("#modal-Ciudad").modal("show");
+                            $("#modal-Bins").modal("show");
                         }
                     });
                     return false;
@@ -147,10 +147,10 @@
                             });
 
                             $("#modalHeader").removeClass("btn-edit btn-show btn-delete").addClass("btn-edit");
-                            $("#modalTitle").html("Editar Ciudad");
+                            $("#modalTitle").html("Editar Bins");
                             $("#modalBody").html(msg);
                             $("#modalFooter").html("").append(btnOk).append(btnSave);
-                            $("#modal-Ciudad").modal("show");
+                            $("#modal-Bins").modal("show");
                         }
                     });
                     return false;
@@ -167,10 +167,10 @@
                         success : function (msg) {
                             var btnOk = $('<a href="#" data-dismiss="modal" class="btn btn-primary">Aceptar</a>');
                             $("#modalHeader").removeClass("btn-edit btn-show btn-delete").addClass("btn-show");
-                            $("#modalTitle").html("Ver Ciudad");
+                            $("#modalTitle").html("Ver Bins");
                             $("#modalBody").html(msg);
                             $("#modalFooter").html("").append(btnOk);
-                            $("#modal-Ciudad").modal("show");
+                            $("#modal-Bins").modal("show");
                         }
                     });
                     return false;
@@ -184,15 +184,15 @@
 
                     btnDelete.click(function () {
                         btnDelete.replaceWith(spinner);
-                        $("#frmDelete-Ciudad").submit();
+                        $("#frmDelete-Bins").submit();
                         return false;
                     });
 
                     $("#modalHeader").removeClass("btn-edit btn-show btn-delete").addClass("btn-delete");
-                    $("#modalTitle").html("Eliminar Ciudad");
-                    $("#modalBody").html("<p>¿Está seguro de querer eliminar este Ciudad?</p>");
+                    $("#modalTitle").html("Eliminar Bins");
+                    $("#modalBody").html("<p>¿Está seguro de querer eliminar este Bins?</p>");
                     $("#modalFooter").html("").append(btnOk).append(btnDelete);
-                    $("#modal-Ciudad").modal("show");
+                    $("#modal-Bins").modal("show");
                     return false;
                 });
 
