@@ -14,9 +14,9 @@ class GestionTelefonicaController extends elyon.seguridad.Shield {
         [gestionTelefonicaInstanceList: GestionTelefonica.list(params), params: params]
     } //list
 
-    def gestion (){
+    def gestion() {
 
-        def lote = Lote.get(75)
+        def lote = Lote.get(params.id)
 
         def estadoGestion = new EstadoGestion()
 
@@ -24,20 +24,57 @@ class GestionTelefonicaController extends elyon.seguridad.Shield {
 
         def estadoLlamada = EstadoLlamada.get(11)
 
-        def  gestion = GestionTelefonica.findAllByLoteAndEstadoLlamada(lote,estadoLlamada)
+        def estadoLlamadaT = new EstadoLlamada()
+
+        def gestion = GestionTelefonica.findAllByLoteAndEstadoLlamada(lote, estadoLlamada, [sort: "id"])
+//        def gestion = GestionTelefonica.findAllByLote(lote, [sort:"id"])
+
+//        println ">>>>>>>>>>>>>>>>>"+gestion.id
 
 
-        println(gestion.id)
-
-
-        [lote:lote, gestion: gestion, estadoGestion: estadoGestion, restantes : restantes, estadoLlamada: estadoLlamada]
+        [lote: lote, gestion: gestion, estadoGestion: estadoGestion, restantes: restantes, estadoLlamada: estadoLlamada, estadoLlamadaT: estadoLlamadaT]
 
 
     }
 
-    def saveGestion (){
+    def saveGestion() {
+        def msg = "ok"
+        def loteId = params.lote
+        def estadoGestionId = params.estadoGestion
 
+        def lote = Lote.get(loteId)
+        lote.estadoGestion = EstadoGestion.get(estadoGestionId)
+        if (!lote.save(flush: true)) {
+            msg += "error save lote: " + lote.errors
+            println "error save lote: " + lote.errors
+        } else {
+            msg += "save lote ${lote.id} ok "
+        }
 
+        params.each { k, v ->
+            if (v instanceof java.lang.String) {
+
+            } else {
+                def id = v.id
+                def estadoId = v.estado
+                def observaciones = v.observaciones
+
+                def gestion = GestionTelefonica.get(id)
+                gestion.estadoLlamada = EstadoLlamada.get(estadoId)
+                gestion.observaciones = observaciones.trim()
+                if (!gestion.save(flush: true)) {
+                    msg += "ERROR:" + gestion.errors
+                    println "error save gestion " + id + ": " + gestion.errors
+                } else {
+                    msg += "save gestion telefonica " + id + " ok "
+                }
+            }
+        }
+
+//        println msg
+//        render msg
+
+        redirect (controller: "llamada", action: "registro", id: params.lote)
     }
 
     def form_ajax() {
