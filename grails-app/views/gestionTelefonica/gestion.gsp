@@ -25,6 +25,7 @@
 
 <body>
 
+
 <fieldset class="borde">
     <legend>Datos de la Campaña</legend>
 
