@@ -10,6 +10,7 @@ class ActividadEconomicaController extends elyon.seguridad.Shield {
         redirect(action: "list", params: params)
     } //index
 
+
     def list() {
         [actividadEconomicaInstanceList: ActividadEconomica.list(params), params: params]
 
