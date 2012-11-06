@@ -15,7 +15,7 @@ class LoginController {
                 if (user.tipo == 'u') {
                     redirect(controller: "lote", action: "busqueda")
                 } else {
-                    redirect(controller: "parametros", action: "index")
+                    redirect(controller: "campana", action: "index")
                 }
             }
         }
@@ -40,7 +40,7 @@ class LoginController {
             if (user.tipo == 'u') {
                 redirect(controller: "lote", action: "busqueda")
             } else {
-                redirect(controller: "parametros", action: "index")
+                redirect(controller: "campana", action: "index")
             }
             return
         }

@@ -12,21 +12,22 @@
     </head>
     <body>
 
+<g:if test="${flash.message}">
         <div class="span12">
-            <g:if test="${flash.message}">
                 <div class="alert ${flash.clase ?: 'alert-info'}" role="status">
                     <a class="close" data-dismiss="alert" href="#">×</a>
                     ${flash.message}
                 </div>
-            </g:if>
         </div>
+    </g:if>
 
-        <div class="span12 btn-group" role="navigation">
+        <div class="span4 btn-group" role="navigation">
             <a href="#" class="btn btn-ajax btn-new">
                 <i class="icon-file"></i>
-                Crear  Actividad Economica
+                Crear una Actividad Económica
             </a>
         </div>
+        <div class="span4" id="buscar"></div>
 
         <g:form action="delete" name="frmDelete-ActividadEconomica">
             <g:hiddenField name="id"/>
@@ -37,22 +38,22 @@
             <table class="table table-bordered table-striped table-condensed table-hover">
                 <thead>
                     <tr>
-                    
+
                         <g:sortableColumn property="codigo" title="Codigo" />
-                    
+
                         <g:sortableColumn property="descripcion" title="Descripcion" />
-                    
+
                         <th width="150">Acciones</th>
                     </tr>
                 </thead>
                 <tbody class="paginate">
                 <g:each in="${actividadEconomicaInstanceList}" status="i" var="actividadEconomicaInstance">
                     <tr>
-                    
+
                         <td>${fieldValue(bean: actividadEconomicaInstance, field: "codigo")}</td>
-                    
+
                         <td>${fieldValue(bean: actividadEconomicaInstance, field: "descripcion")}</td>
-                    
+
                         <td>
                             <a class="btn btn-small btn-show btn-ajax" href="#" rel="tooltip" title="Ver" data-id="${actividadEconomicaInstance.id}">
                                 <i class="icon-zoom-in icon-large"></i>
@@ -103,7 +104,9 @@
                 $('[rel=tooltip]').tooltip();
 
                 $(".paginate").paginate({
-                    maxRows: 10
+                    maxRows: 15,
+                    searchButton:"Buscar",
+                    searchPosition:$("#buscar")
                 });
 
                 $(".btn-new").click(function () {

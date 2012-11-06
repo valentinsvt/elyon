@@ -20,6 +20,7 @@ jQuery.fn.paginate = function (settings) {
     var defaults = {
         maxRows      : 10,
         hideOnePage  : true,
+        searchPosition: "default",
         search       : true,
         searchSize   : "span2",
         searchButton : false //String del boton o false para hacer en keypress
@@ -85,6 +86,9 @@ jQuery.fn.paginate = function (settings) {
                 }
             }
             var $formSearch = $("<form class='form-search'></form>");
+            $formSearch.css({
+                width: "auto"
+            });
             var $divSearch = $("<div class='input-append'></div>");
             var $inputSearch = $("<input type='text' class='" + defaults.searchSize + " search-query' />");
             var $btnSearch = "";
@@ -101,7 +105,11 @@ jQuery.fn.paginate = function (settings) {
             }
             $divSearch.append($inputSearch).append($btnSearch);
             $formSearch.append($divSearch);
-            padre.prepend($formSearch);
+            if(defaults.searchPosition == "default") {
+                padre.prepend($formSearch);
+            } else {
+                defaults.searchPosition.append($formSearch);
+            }
         }
 
         if ((paginas == 1 && !defaults.hideOnePage) || paginas > 1) {
