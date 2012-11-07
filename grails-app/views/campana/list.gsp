@@ -5,7 +5,7 @@
     <head>
         <meta name="layout" content="main">
         <title>
-            Lista de Campanas
+            Lista de Campañas
         </title>
         <script src="${resource(dir: 'js/jquery/plugins/jquery-validation-1.9.0', file: 'jquery.validate.min.js')}"></script>
         <script src="${resource(dir: 'js/jquery/plugins/jquery-validation-1.9.0', file: 'messages_es.js')}"></script>
@@ -24,7 +24,7 @@
         <div class="span12 btn-group" role="navigation">
             <a href="#" class="btn btn-ajax btn-new">
                 <i class="icon-file"></i>
-                Crear  Campana
+                Crear  Campaña
             </a>
         </div>
 
@@ -186,7 +186,7 @@
 
                     $("#modalHeader").removeClass("btn-edit btn-show btn-delete").addClass("btn-delete");
                     $("#modalTitle").html("Eliminar Campana");
-                    $("#modalBody").html("<p>¿Está seguro de querer eliminar esta Campana?</p>");
+                    $("#modalBody").html("<p>¿Está seguro de querer eliminar esta Campaña?</p>");
                     $("#modalFooter").html("").append(btnOk).append(btnDelete);
                     $("#modal-Campana").modal("show");
                     return false;
