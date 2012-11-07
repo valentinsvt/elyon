@@ -28,6 +28,7 @@
             </a>
         </div>
 
+
         <g:form action="delete" name="frmDelete-Campana">
             <g:hiddenField name="id"/>
         </g:form>
