@@ -34,7 +34,7 @@
             <g:hiddenField name="id"/>
         </g:form>
 
-        <div id="list-GestionTelefonica" class="span12" role="main" style="margin-top: 10px;">
+        %{--<div id="list-GestionTelefonica" class="span12" role="main" style="margin-top: 10px;">--}%
 
             <table class="table table-bordered table-striped table-condensed table-hover">
                 <thead>
@@ -84,7 +84,7 @@
                 </tbody>
             </table>
 
-        </div>
+        %{--</div>--}%
 
         <div class="modal hide fade" id="modal-GestionTelefonica">
             <div class="modal-header" id="modalHeader">
