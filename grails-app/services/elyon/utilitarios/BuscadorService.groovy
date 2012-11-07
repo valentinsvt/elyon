@@ -92,7 +92,7 @@ class BuscadorService {
                         //println "pattern "+pattern
 
                     }else{
-                        if(dato =~"cratos"){
+                        if(dato =~"elyon"){
                             parts[0]+=" "+campo+" "+comparador+" "+par[0]
                         }else{
                             if(par[0] instanceof java.lang.String && ignoreCase)

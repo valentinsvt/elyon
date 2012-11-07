@@ -28,7 +28,7 @@
 <g:form action="saveGestion" name="frmGestion">
     <g:hiddenField name="lote" value="${gestion[0]?.lote?.id}"/>
     <fieldset class="borde">
-        <legend>Datos de la Campaña</legend>
+        <legend style="color: #0088CC">Datos de la Campaña</legend>
 
         <div class="row span12">
 
@@ -52,7 +52,7 @@
 
     <fieldset class="borde">
 
-        <legend>Datos del Cliente</legend>
+        <legend style="color: #0088CC">Datos del Cliente</legend>
 
         <div class="row span12">
 
@@ -140,7 +140,7 @@
     </fieldset>
 
     <fieldset class="borde">
-        <legend>Detalle de la Gestión Telefónica</legend>
+        <legend style="color: #0088CC">Detalle de la Gestión Telefónica</legend>
 
 
 
@@ -175,7 +175,7 @@
 
         <div class="span2" style="margin-top: 20px; margin-bottom: 20px; margin-left: 500px">
 
-            <g:link controller="gestionTelefonica" action="saveGestion" class="btn btn-guardar"><i class="icon-save"></i>Guardar</g:link>
+            <g:link controller="gestionTelefonica" action="saveGestion" class="btn btn-guardar btn-primary"><i class="icon-save"></i>Guardar</g:link>
 
             <g:link controller="lote" action="busqueda" class="btn"><i class="icon-hand-left"></i>Salir</g:link>
 

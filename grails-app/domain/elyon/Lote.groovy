@@ -21,6 +21,7 @@ class Lote implements Serializable {
     Campana campana
     OrdenDeTrabajo ordenDeTrabajo
     EstadoGestion estadoGestion
+    String estado      /*N no mostrar en las listas... cualquier otra cosa si mostrar*/
 
 
     static mapping = {
@@ -52,6 +53,7 @@ class Lote implements Serializable {
             campana column: 'camp__id'
             ordenDeTrabajo column: 'ortb__id'
             estadoGestion column: 'edgs__id'
+            estado column: 'loteedto'
         }
     }
     static constraints = {
@@ -76,6 +78,7 @@ class Lote implements Serializable {
         campana(blank: true, nullable: true, attributes:[title: 'campana'])
         ordenDeTrabajo(blank:true,nullable: true,attributes:[title: 'Orden de trabajo'])
         estadoGestion(blank:true,nullable: true,attributes:[title: 'Estado de gestión'])
+        estado(blank: true,nullable: true,size: 1..1)
     }
 
     String toString(){
