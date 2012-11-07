@@ -21,7 +21,7 @@ class Lote implements Serializable {
     Campana campana
     OrdenDeTrabajo ordenDeTrabajo
     EstadoGestion estadoGestion
-    String estado      /*N no mostrar en las listas... cualquier otra cosa si mostrar*/
+    String estado=""      /*N no mostrar en las listas... cualquier otra cosa si mostrar*/
 
 
     static mapping = {

@@ -140,9 +140,9 @@ class LoteController extends elyon.seguridad.Shield {
         def numeros = {numero ->
             return g.formatNumber(number: numero, format: "###,##0", minFractionDigits: 2, maxFractionDigits: 2)
         }
-        def listaTitulos = ["Cédula", "Nombre", "Código", "O. de trabajo", "Ciudad", "Teléfono 1", "Teléfono 2", "Teléfono 3", "Teléfono 4", "Tipo", "Tarjeta", "Cupo", "Cupo Total"]
-        def listaCampos = ["cedula", "nombre", "codigo", "orden", "ciudad", "telefono1", "telefono2", "telefono3", "telefono4", "tipoCliente", "tipoTarjeta", "cupoNormal", "cupoTotal"]
-        def funciones = [null, null, null, ["closure": [closure, "&"]], null, null, null, null, null, null, null, ["closure": [numeros, "?"]], ["closure": [numeros, "?"]]]
+        def listaTitulos = ["Cédula", "Nombre", "Código", "O. de trabajo", "Ciudad", "Teléfono", "Estado", "Tipo", "Tarjeta", "Cupo", "Cupo Total"]
+        def listaCampos = ["cedula", "nombre", "codigo", "orden", "ciudad", "telefono1", "estadoGestion", "tipoCliente", "tipoTarjeta", "cupoNormal", "cupoTotal"]
+        def funciones = [null, null, null, ["closure": [closure, "&"]], null, null, null, null, null, ["closure": [numeros, "?"]], ["closure": [numeros, "?"]]]
         def url = g.createLink(action: "buscarLote", controller: "lote")
         def show = "registro"
         def link = "cedula"
@@ -150,14 +150,14 @@ class LoteController extends elyon.seguridad.Shield {
         def extras = " and ordenDeTrabajo in ("
         def ordenes = OrdenDeTrabajo.findAllByUsro(session.usuario)
         if (ordenes.size() == 0)
-            extras += "-1)"
+            extras += "-1) and estado != 'N'"
         ordenes.eachWithIndex {o, i ->
             extras += "" + o.id
             if (i < ordenes.size() - 1)
                 extras += ","
 
         }
-        extras += ")"
+        extras += ") and estado != 'N'"
         def lista = buscadorService.buscar(Lote, "Lote", "excluyente", params, true, extras) /* Dominio, nombre del dominio , excluyente o incluyente ,params tal cual llegan de la interfaz del buscador, ignore case */
         lista.pop()
         if (!params.reporte) {
@@ -180,9 +180,9 @@ class LoteController extends elyon.seguridad.Shield {
         def numeros = {numero ->
             return g.formatNumber(number: numero, format: "###,##0", minFractionDigits: 2, maxFractionDigits: 2)
         }
-        def listaTitulos = ["Cédula", "Nombre", "Código", "O. de trabajo", "Ciudad", "Teléfono 1", "Teléfono 2", "Teléfono 3", "Teléfono 4", "Tipo", "Tarjeta", "Cupo", "Cupo Total"]
-        def listaCampos = ["cedula", "nombre", "codigo", "orden", "ciudad", "telefono1", "telefono2", "telefono3", "telefono4", "tipoCliente", "tipoTarjeta", "cupoNormal", "cupoTotal"]
-        def funciones = [null, null, null, ["closure": [closure, "&"]], null, null, null, null, null, null, null, ["closure": [numeros, "?"]], ["closure": [numeros, "?"]]]
+        def listaTitulos = ["Cédula", "Nombre", "Código", "O. de trabajo", "Ciudad", "Teléfono","Estado", "Tipo", "Tarjeta", "Cupo", "Cupo Total"]
+        def listaCampos = ["cedula", "nombre", "codigo", "orden", "ciudad", "telefono1", "estadoGestion", "tipoCliente", "tipoTarjeta", "cupoNormal", "cupoTotal"]
+        def funciones = [null, null, null, ["closure": [closure, "&"]], null, null, null, null, null, ["closure": [numeros, "?"]], ["closure": [numeros, "?"]]]
         def url = g.createLink(action: "buscarLote", controller: "lote")
         def show = "gestion"
         def link = "cedula"
@@ -190,14 +190,14 @@ class LoteController extends elyon.seguridad.Shield {
         def extras = " and ordenDeTrabajo in ("
         def ordenes = OrdenDeTrabajo.findAllByUsro(session.usuario)
         if (ordenes.size() == 0)
-            extras += "-1)"
+            extras += "-1) and estado != 'N'"
         ordenes.eachWithIndex {o, i ->
             extras += "" + o.id
             if (i < ordenes.size() - 1)
                 extras += ","
 
         }
-        extras += ")"
+        extras += ") and estado != 'N'"
         def lista = buscadorService.buscar(Lote, "Lote", "excluyente", params, true, extras) /* Dominio, nombre del dominio , excluyente o incluyente ,params tal cual llegan de la interfaz del buscador, ignore case */
         lista.pop()
         if (!params.reporte) {
