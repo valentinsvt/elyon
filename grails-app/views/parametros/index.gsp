@@ -81,7 +81,7 @@
                                 <g:link controller="rangoIngresos">Rango de ingresos</g:link>
                             </li>
                             <li class="hoverable" data-info="">
-                                <g:link controller="relacionDependenciaLaboral">Relación de dependencia labral</g:link>
+                                <g:link controller="relacionDependenciaLaboral">Relación de dependencia laboral</g:link>
                             </li>
                             <li class="hoverable" data-info="">
                                 <g:link controller="ruta">Ruta</g:link>

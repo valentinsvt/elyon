@@ -107,7 +107,8 @@
                 $('[rel=tooltip]').tooltip();
 
                 $(".paginate").paginate({
-                    maxRows: 10
+                    maxRows: 10,
+                    searchButton:"Buscar"
                 });
 
                 $(".btn-new").click(function () {
