@@ -26,7 +26,10 @@ class GestionTelefonicaController extends elyon.seguridad.Shield {
 
         def estadoLlamadaT = new EstadoLlamada()
 
-        def gestion = GestionTelefonica.findAllByLoteAndEstadoLlamada(lote, estadoLlamada, [sort: "id"])
+//        def gestion = GestionTelefonica.findAllByLoteAndEstadoLlamada(lote, estadoLlamada, [sort: "id"])
+
+          def gestion = GestionTelefonica.findAllByLote(lote)
+
 //        def gestion = GestionTelefonica.findAllByLote(lote, [sort:"id"])
 
 //        println ">>>>>>>>>>>>>>>>>"+gestion.id

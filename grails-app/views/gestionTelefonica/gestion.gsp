@@ -173,11 +173,11 @@
             </div>
         </g:each>
 
-        <div class="span2" style="margin-top: 20px; margin-bottom: 20px; margin-left: 500px">
+        <div class="span2 btn-group" style="margin-top: 20px; margin-bottom: 20px; margin-left: 500px">
 
             <g:link controller="gestionTelefonica" action="saveGestion" class="btn btn-guardar btn-primary"><i class="icon-save"></i>Guardar</g:link>
 
-            <g:link controller="lote" action="busqueda" class="btn"><i class="icon-hand-left"></i>Salir</g:link>
+            <g:link controller="lote" action="busqueda" class="btn btn-salir"><i class="icon-hand-left"></i>Salir</g:link>
 
         </div>
     </fieldset>
