@@ -1,4 +1,3 @@
-
 <%@ page import="elyon.Parroquia" %>
 <!doctype html>
 <html>
@@ -10,6 +9,7 @@
         <script src="${resource(dir: 'js/jquery/plugins/jquery-validation-1.9.0', file: 'jquery.validate.min.js')}"></script>
         <script src="${resource(dir: 'js/jquery/plugins/jquery-validation-1.9.0', file: 'messages_es.js')}"></script>
     </head>
+
     <body>
 
         <div class="span12">
@@ -21,60 +21,62 @@
             </g:if>
         </div>
 
-        <div class="span12 btn-group" role="navigation">
+        <div class="span8 btn-group navigation" role="navigation">
             <a href="#" class="btn btn-ajax btn-new">
                 <i class="icon-file"></i>
                 Crear  Parroquia
             </a>
         </div>
 
+        <div id="search" class="pull-right"></div>
+
         <g:form action="delete" name="frmDelete-Parroquia">
             <g:hiddenField name="id"/>
         </g:form>
 
-        <div id="list-Parroquia" class="span12" role="main" style="margin-top: 10px;">
+        %{--<div id="list-Parroquia" class="span12" role="main" style="margin-top: 10px;">--}%
 
             <table class="table table-bordered table-striped table-condensed table-hover">
                 <thead>
                     <tr>
-                    
+
                         <th>Ciudad</th>
-                    
-                        <g:sortableColumn property="codigo" title="Codigo" />
-                    
-                        <g:sortableColumn property="descripcion" title="Descripcion" />
-                    
+
+                        <g:sortableColumn property="codigo" title="Codigo"/>
+
+                        <g:sortableColumn property="descripcion" title="Descripcion"/>
+
                         <th width="150">Acciones</th>
                     </tr>
                 </thead>
                 <tbody class="paginate">
-                <g:each in="${parroquiaInstanceList}" status="i" var="parroquiaInstance">
-                    <tr>
-                    
-                        <td>${fieldValue(bean: parroquiaInstance, field: "ciudad")}</td>
-                    
-                        <td>${fieldValue(bean: parroquiaInstance, field: "codigo")}</td>
-                    
-                        <td>${fieldValue(bean: parroquiaInstance, field: "descripcion")}</td>
-                    
-                        <td>
-                            <a class="btn btn-small btn-show btn-ajax" href="#" rel="tooltip" title="Ver" data-id="${parroquiaInstance.id}">
-                                <i class="icon-zoom-in icon-large"></i>
-                            </a>
-                            <a class="btn btn-small btn-edit btn-ajax" href="#" rel="tooltip" title="Editar" data-id="${parroquiaInstance.id}">
-                                <i class="icon-pencil icon-large"></i>
-                            </a>
+                    <g:each in="${parroquiaInstanceList}" status="i" var="parroquiaInstance">
+                        <tr>
 
-                            <a class="btn btn-small btn-delete" href="#" rel="tooltip" title="Eliminar" data-id="${parroquiaInstance.id}">
-                                <i class="icon-trash icon-large"></i>
-                            </a>
-                        </td>
-                    </tr>
-                </g:each>
+                            <td>${fieldValue(bean: parroquiaInstance, field: "ciudad")}</td>
+
+                            <td>${fieldValue(bean: parroquiaInstance, field: "codigo")}</td>
+
+                            <td>${fieldValue(bean: parroquiaInstance, field: "descripcion")}</td>
+
+                            <td>
+                                <a class="btn btn-small btn-show btn-ajax" href="#" rel="tooltip" title="Ver" data-id="${parroquiaInstance.id}">
+                                    <i class="icon-zoom-in icon-large"></i>
+                                </a>
+                                <a class="btn btn-small btn-edit btn-ajax" href="#" rel="tooltip" title="Editar" data-id="${parroquiaInstance.id}">
+                                    <i class="icon-pencil icon-large"></i>
+                                </a>
+
+                                <a class="btn btn-small btn-delete" href="#" rel="tooltip" title="Eliminar" data-id="${parroquiaInstance.id}">
+                                    <i class="icon-trash icon-large"></i>
+                                </a>
+                            </td>
+                        </tr>
+                    </g:each>
                 </tbody>
             </table>
 
-        </div>
+        %{--</div>--}%
 
         <div class="modal hide fade" id="modal-Parroquia">
             <div class="modal-header" id="modalHeader">
@@ -107,8 +109,9 @@
                 $('[rel=tooltip]').tooltip();
 
                 $(".paginate").paginate({
-                    maxRows: 10,
-                    searchButton:"Buscar"
+                    maxRows        : 10,
+                    searchButton   : "Buscar",
+                    searchPosition : $("#search")
                 });
 
                 $(".btn-new").click(function () {

@@ -1,4 +1,3 @@
-
 <%@ page import="elyon.GestionTelefonica" %>
 <!doctype html>
 <html>
@@ -10,6 +9,7 @@
         <script src="${resource(dir: 'js/jquery/plugins/jquery-validation-1.9.0', file: 'jquery.validate.min.js')}"></script>
         <script src="${resource(dir: 'js/jquery/plugins/jquery-validation-1.9.0', file: 'messages_es.js')}"></script>
     </head>
+
     <body>
 
         <div class="span12">
@@ -21,12 +21,14 @@
             </g:if>
         </div>
 
-        <div class="span12 btn-group" role="navigation">
+        <div class="span8 btn-group navigation" role="navigation">
             <a href="#" class="btn btn-ajax btn-new">
                 <i class="icon-file"></i>
                 Crear  Gestion Telefonica
             </a>
         </div>
+
+        <div id="search" class="pull-right"></div>
 
         <g:form action="delete" name="frmDelete-GestionTelefonica">
             <g:hiddenField name="id"/>
@@ -37,48 +39,48 @@
             <table class="table table-bordered table-striped table-condensed table-hover">
                 <thead>
                     <tr>
-                    
+
                         <th>Estado Llamada</th>
-                    
+
                         <th>Lote</th>
-                    
-                        <g:sortableColumn property="telefono" title="Telefono" />
-                    
-                        <g:sortableColumn property="fecha" title="Fecha" />
-                    
-                        <g:sortableColumn property="observaciones" title="Observaciones" />
-                    
+
+                        <g:sortableColumn property="telefono" title="Telefono"/>
+
+                        <g:sortableColumn property="fecha" title="Fecha"/>
+
+                        <g:sortableColumn property="observaciones" title="Observaciones"/>
+
                         <th width="150">Acciones</th>
                     </tr>
                 </thead>
                 <tbody class="paginate">
-                <g:each in="${gestionTelefonicaInstanceList}" status="i" var="gestionTelefonicaInstance">
-                    <tr>
-                    
-                        <td>${fieldValue(bean: gestionTelefonicaInstance, field: "estadoLlamada")}</td>
-                    
-                        <td>${fieldValue(bean: gestionTelefonicaInstance, field: "lote")}</td>
-                    
-                        <td>${fieldValue(bean: gestionTelefonicaInstance, field: "telefono")}</td>
-                    
-                        <td><g:formatDate date="${gestionTelefonicaInstance.fecha}" format="dd-MM-yyyy" /></td>
-                    
-                        <td>${fieldValue(bean: gestionTelefonicaInstance, field: "observaciones")}</td>
-                    
-                        <td>
-                            <a class="btn btn-small btn-show btn-ajax" href="#" rel="tooltip" title="Ver" data-id="${gestionTelefonicaInstance.id}">
-                                <i class="icon-zoom-in icon-large"></i>
-                            </a>
-                            <a class="btn btn-small btn-edit btn-ajax" href="#" rel="tooltip" title="Editar" data-id="${gestionTelefonicaInstance.id}">
-                                <i class="icon-pencil icon-large"></i>
-                            </a>
+                    <g:each in="${gestionTelefonicaInstanceList}" status="i" var="gestionTelefonicaInstance">
+                        <tr>
 
-                            <a class="btn btn-small btn-delete" href="#" rel="tooltip" title="Eliminar" data-id="${gestionTelefonicaInstance.id}">
-                                <i class="icon-trash icon-large"></i>
-                            </a>
-                        </td>
-                    </tr>
-                </g:each>
+                            <td>${fieldValue(bean: gestionTelefonicaInstance, field: "estadoLlamada")}</td>
+
+                            <td>${fieldValue(bean: gestionTelefonicaInstance, field: "lote")}</td>
+
+                            <td>${fieldValue(bean: gestionTelefonicaInstance, field: "telefono")}</td>
+
+                            <td><g:formatDate date="${gestionTelefonicaInstance.fecha}" format="dd-MM-yyyy"/></td>
+
+                            <td>${fieldValue(bean: gestionTelefonicaInstance, field: "observaciones")}</td>
+
+                            <td>
+                                <a class="btn btn-small btn-show btn-ajax" href="#" rel="tooltip" title="Ver" data-id="${gestionTelefonicaInstance.id}">
+                                    <i class="icon-zoom-in icon-large"></i>
+                                </a>
+                                <a class="btn btn-small btn-edit btn-ajax" href="#" rel="tooltip" title="Editar" data-id="${gestionTelefonicaInstance.id}">
+                                    <i class="icon-pencil icon-large"></i>
+                                </a>
+
+                                <a class="btn btn-small btn-delete" href="#" rel="tooltip" title="Eliminar" data-id="${gestionTelefonicaInstance.id}">
+                                    <i class="icon-trash icon-large"></i>
+                                </a>
+                            </td>
+                        </tr>
+                    </g:each>
                 </tbody>
             </table>
 
@@ -115,7 +117,8 @@
                 $('[rel=tooltip]').tooltip();
 
                 $(".paginate").paginate({
-                    maxRows: 10
+                    maxRows        : 10,
+                    searchPosition : $("#search")
                 });
 
                 $(".btn-new").click(function () {

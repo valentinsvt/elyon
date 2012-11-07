@@ -63,12 +63,12 @@ class MenuTagLib {
 
                 items.campana = [:]
                 items.campana.controller = "campana"
-                items.campana.action = "index"
+                items.campana.action = "list"
                 items.campana.label = "Campaña"
 
                 items.ordenDeTrabajo = [:]
                 items.ordenDeTrabajo.controller = "ordenDeTrabajo"
-                items.ordenDeTrabajo.action = "index"
+                items.ordenDeTrabajo.action = "list"
                 items.ordenDeTrabajo.label = "Orden de trabajo"
 
                 break;

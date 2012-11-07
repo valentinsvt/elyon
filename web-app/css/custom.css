@@ -42,6 +42,10 @@ fieldset.borde legend {
     border : none;
 }
 
+.navigation {
+    margin-left : 0;
+}
+
 /***************************** TABLAS **********************************/
 th.sortable a {
     background-position : right;

@@ -1,4 +1,3 @@
-
 <%@ page import="elyon.ActividadEconomica" %>
 <!doctype html>
 <html>
@@ -10,68 +9,70 @@
         <script src="${resource(dir: 'js/jquery/plugins/jquery-validation-1.9.0', file: 'jquery.validate.min.js')}"></script>
         <script src="${resource(dir: 'js/jquery/plugins/jquery-validation-1.9.0', file: 'messages_es.js')}"></script>
     </head>
+
     <body>
 
-<g:if test="${flash.message}">
-        <div class="span12">
+        <g:if test="${flash.message}">
+            <div class="span12">
                 <div class="alert ${flash.clase ?: 'alert-info'}" role="status">
                     <a class="close" data-dismiss="alert" href="#">×</a>
                     ${flash.message}
                 </div>
-        </div>
-    </g:if>
+            </div>
+        </g:if>
 
-        <div class="span4 btn-group" role="navigation">
+        <div class="span8 btn-group navigation" role="navigation">
             <a href="#" class="btn btn-ajax btn-new">
                 <i class="icon-file"></i>
                 Crear una Actividad Económica
             </a>
         </div>
-        <div class="span4" id="buscar"></div>
+
+        <div id="search" class="pull-right"></div>
 
         <g:form action="delete" name="frmDelete-ActividadEconomica">
             <g:hiddenField name="id"/>
         </g:form>
 
-        <div id="list-ActividadEconomica" class="span12" role="main" style="margin-top: 10px;">
+        %{--<div id="list-ActividadEconomica" class="span12" role="main" style="margin-top: 10px;">--}%
 
             <table class="table table-bordered table-striped table-condensed table-hover">
                 <thead>
                     <tr>
 
-                        <g:sortableColumn property="codigo" title="Codigo" />
+                        <g:sortableColumn property="codigo" title="Codigo"/>
 
-                        <g:sortableColumn property="descripcion" title="Descripcion" />
+                        <g:sortableColumn property="descripcion" title="Descripcion"/>
 
                         <th width="150">Acciones</th>
                     </tr>
                 </thead>
                 <tbody class="paginate">
-                <g:each in="${actividadEconomicaInstanceList}" status="i" var="actividadEconomicaInstance">
-                    <tr>
+                    <g:each in="${actividadEconomicaInstanceList}" status="i" var="actividadEconomicaInstance">
+                        <tr>
 
-                        <td>${fieldValue(bean: actividadEconomicaInstance, field: "codigo")}</td>
+                            <td>${fieldValue(bean: actividadEconomicaInstance, field: "codigo")}</td>
 
-                        <td>${fieldValue(bean: actividadEconomicaInstance, field: "descripcion")}</td>
+                            <td>${fieldValue(bean: actividadEconomicaInstance, field: "descripcion")}</td>
 
-                        <td>
-                            <a class="btn btn-small btn-show btn-ajax" href="#" rel="tooltip" title="Ver" data-id="${actividadEconomicaInstance.id}">
-                                <i class="icon-zoom-in icon-large"></i>
-                            </a>
-                            <a class="btn btn-small btn-edit btn-ajax" href="#" rel="tooltip" title="Editar" data-id="${actividadEconomicaInstance.id}">
-                                <i class="icon-pencil icon-large"></i>
-                            </a>
+                            <td>
+                                <a class="btn btn-small btn-show btn-ajax" href="#" rel="tooltip" title="Ver" data-id="${actividadEconomicaInstance.id}">
+                                    <i class="icon-zoom-in icon-large"></i>
+                                </a>
+                                <a class="btn btn-small btn-edit btn-ajax" href="#" rel="tooltip" title="Editar" data-id="${actividadEconomicaInstance.id}">
+                                    <i class="icon-pencil icon-large"></i>
+                                </a>
 
-                            <a class="btn btn-small btn-delete" href="#" rel="tooltip" title="Eliminar" data-id="${actividadEconomicaInstance.id}">
-                                <i class="icon-trash icon-large"></i>
-                            </a>
-                        </td>
-                    </tr>
-                </g:each>
+                                <a class="btn btn-small btn-delete" href="#" rel="tooltip" title="Eliminar" data-id="${actividadEconomicaInstance.id}">
+                                    <i class="icon-trash icon-large"></i>
+                                </a>
+                            </td>
+                        </tr>
+                    </g:each>
                 </tbody>
             </table>
 
-        </div>
+        %{--</div>--}%
 
         <div class="modal hide fade" id="modal-ActividadEconomica">
             <div class="modal-header" id="modalHeader">
@@ -104,9 +105,9 @@
                 $('[rel=tooltip]').tooltip();
 
                 $(".paginate").paginate({
-                    maxRows: 15,
-                    searchButton:"Buscar",
-                    searchPosition:$("#buscar")
+                    maxRows        : 15,
+                    searchButton   : "Buscar",
+                    searchPosition : $("#search")
                 });
 
                 $(".btn-new").click(function () {

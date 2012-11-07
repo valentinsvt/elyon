@@ -21,12 +21,14 @@
             </g:if>
         </div>
 
-        <div class="span12 btn-group" role="navigation">
+        <div class="span8 btn-group navigation" role="navigation">
             <a href="#" class="btn btn-ajax btn-new">
                 <i class="icon-file"></i>
                 Crear  Usuario
             </a>
         </div>
+
+        <div id="search" class="pull-right"></div>
 
         <g:form action="delete" name="frmDelete-Usro">
             <g:hiddenField name="id"/>
@@ -52,7 +54,7 @@
                             <td>${fieldValue(bean: usroInstance, field: "nombre")}</td>
                             <td>${fieldValue(bean: usroInstance, field: "apellido")}</td>
                             <td>${fieldValue(bean: usroInstance, field: "login")}</td>
-                            <td><g:message code="usro.tipo.${usroInstance.tipo}" /></td>
+                            <td><g:message code="usro.tipo.${usroInstance.tipo}"/></td>
                             <td><g:formatBoolean boolean="${usroInstance.activo == '1'}" true="Sí" false="No"/></td>
                             <td>
                                 <a class="btn btn-small btn-show btn-ajax" href="#" rel="tooltip" title="Ver" data-id="${usroInstance.id}">
@@ -106,7 +108,8 @@
                 $('[rel=tooltip]').tooltip();
 
                 $(".paginate").paginate({
-                    maxRows : 10
+                    maxRows        : 10,
+                    searchPosition : $("#search")
                 });
 
                 $(".btn-new").click(function () {

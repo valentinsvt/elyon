@@ -1,4 +1,3 @@
-
 <%@ page import="elyon.EstadoGestion" %>
 <!doctype html>
 <html>
@@ -10,6 +9,7 @@
         <script src="${resource(dir: 'js/jquery/plugins/jquery-validation-1.9.0', file: 'jquery.validate.min.js')}"></script>
         <script src="${resource(dir: 'js/jquery/plugins/jquery-validation-1.9.0', file: 'messages_es.js')}"></script>
     </head>
+
     <body>
 
         <div class="span12">
@@ -21,12 +21,14 @@
             </g:if>
         </div>
 
-        <div class="span12 btn-group" role="navigation">
+        <div class="span8 btn-group navigation" role="navigation">
             <a href="#" class="btn btn-ajax btn-new">
                 <i class="icon-file"></i>
                 Crear  Estado Gestion
             </a>
         </div>
+
+        <div id="search" class="pull-right"></div>
 
         <g:form action="delete" name="frmDelete-EstadoGestion">
             <g:hiddenField name="id"/>
@@ -37,40 +39,40 @@
             <table class="table table-bordered table-striped table-condensed table-hover">
                 <thead>
                     <tr>
-                    
-                        <g:sortableColumn property="codigo" title="Codigo" />
-                    
-                        <g:sortableColumn property="descripcion" title="Descripcion" />
-                    
-                        <g:sortableColumn property="lista" title="Lista" />
-                    
+
+                        <g:sortableColumn property="codigo" title="Codigo"/>
+
+                        <g:sortableColumn property="descripcion" title="Descripcion"/>
+
+                        <g:sortableColumn property="lista" title="Lista"/>
+
                         <th width="150">Acciones</th>
                     </tr>
                 </thead>
                 <tbody class="paginate">
-                <g:each in="${estadoGestionInstanceList}" status="i" var="estadoGestionInstance">
-                    <tr>
-                    
-                        <td>${fieldValue(bean: estadoGestionInstance, field: "codigo")}</td>
-                    
-                        <td>${fieldValue(bean: estadoGestionInstance, field: "descripcion")}</td>
-                    
-                        <td>${fieldValue(bean: estadoGestionInstance, field: "lista")}</td>
-                    
-                        <td>
-                            <a class="btn btn-small btn-show btn-ajax" href="#" rel="tooltip" title="Ver" data-id="${estadoGestionInstance.id}">
-                                <i class="icon-zoom-in icon-large"></i>
-                            </a>
-                            <a class="btn btn-small btn-edit btn-ajax" href="#" rel="tooltip" title="Editar" data-id="${estadoGestionInstance.id}">
-                                <i class="icon-pencil icon-large"></i>
-                            </a>
+                    <g:each in="${estadoGestionInstanceList}" status="i" var="estadoGestionInstance">
+                        <tr>
 
-                            <a class="btn btn-small btn-delete" href="#" rel="tooltip" title="Eliminar" data-id="${estadoGestionInstance.id}">
-                                <i class="icon-trash icon-large"></i>
-                            </a>
-                        </td>
-                    </tr>
-                </g:each>
+                            <td>${fieldValue(bean: estadoGestionInstance, field: "codigo")}</td>
+
+                            <td>${fieldValue(bean: estadoGestionInstance, field: "descripcion")}</td>
+
+                            <td>${fieldValue(bean: estadoGestionInstance, field: "lista")}</td>
+
+                            <td>
+                                <a class="btn btn-small btn-show btn-ajax" href="#" rel="tooltip" title="Ver" data-id="${estadoGestionInstance.id}">
+                                    <i class="icon-zoom-in icon-large"></i>
+                                </a>
+                                <a class="btn btn-small btn-edit btn-ajax" href="#" rel="tooltip" title="Editar" data-id="${estadoGestionInstance.id}">
+                                    <i class="icon-pencil icon-large"></i>
+                                </a>
+
+                                <a class="btn btn-small btn-delete" href="#" rel="tooltip" title="Eliminar" data-id="${estadoGestionInstance.id}">
+                                    <i class="icon-trash icon-large"></i>
+                                </a>
+                            </td>
+                        </tr>
+                    </g:each>
                 </tbody>
             </table>
 
@@ -107,7 +109,8 @@
                 $('[rel=tooltip]').tooltip();
 
                 $(".paginate").paginate({
-                    maxRows: 10
+                    maxRows        : 10,
+                    searchPosition : $("#search")
                 });
 
                 $(".btn-new").click(function () {

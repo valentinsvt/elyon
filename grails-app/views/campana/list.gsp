@@ -1,4 +1,3 @@
-
 <%@ page import="elyon.Campana" %>
 <!doctype html>
 <html>
@@ -10,6 +9,7 @@
         <script src="${resource(dir: 'js/jquery/plugins/jquery-validation-1.9.0', file: 'jquery.validate.min.js')}"></script>
         <script src="${resource(dir: 'js/jquery/plugins/jquery-validation-1.9.0', file: 'messages_es.js')}"></script>
     </head>
+
     <body>
 
         <div class="span12">
@@ -21,35 +21,36 @@
             </g:if>
         </div>
 
-        <div class="span12 btn-group" role="navigation">
+        <div class="span8 btn-group navigation" role="navigation">
             <a href="#" class="btn btn-ajax btn-new">
                 <i class="icon-file"></i>
                 Crear  Campaña
             </a>
         </div>
 
+        <div id="search" class="pull-right"></div>
 
         <g:form action="delete" name="frmDelete-Campana">
             <g:hiddenField name="id"/>
         </g:form>
 
-        <div id="list-Campana" class="span12" role="main" style="margin-top: 10px;">
+        %{--<div id="list-Campana" class="span12" role="main" style="margin-top: 10px;">--}%
 
-            <table class="table table-bordered table-striped table-condensed table-hover">
-                <thead>
-                    <tr>
-                    
-                        <g:sortableColumn property="descripcion" title="Descripcion" />
-                    
-                        <th width="150">Acciones</th>
-                    </tr>
-                </thead>
-                <tbody class="paginate">
+        <table class="table table-bordered table-striped table-condensed table-hover">
+            <thead>
+                <tr>
+
+                    <g:sortableColumn property="descripcion" title="Descripción"/>
+
+                    <th width="150">Acciones</th>
+                </tr>
+            </thead>
+            <tbody class="paginate">
                 <g:each in="${campanaInstanceList}" status="i" var="campanaInstance">
                     <tr>
-                    
+
                         <td>${fieldValue(bean: campanaInstance, field: "descripcion")}</td>
-                    
+
                         <td>
                             <a class="btn btn-small btn-show btn-ajax" href="#" rel="tooltip" title="Ver" data-id="${campanaInstance.id}">
                                 <i class="icon-zoom-in icon-large"></i>
@@ -64,10 +65,10 @@
                         </td>
                     </tr>
                 </g:each>
-                </tbody>
-            </table>
+            </tbody>
+        </table>
 
-        </div>
+        %{--</div>--}%
 
         <div class="modal hide fade" id="modal-Campana">
             <div class="modal-header" id="modalHeader">
@@ -100,7 +101,8 @@
                 $('[rel=tooltip]').tooltip();
 
                 $(".paginate").paginate({
-                    maxRows: 10
+                    maxRows        : 10,
+                    searchPosition : $("#search")
                 });
 
                 $(".btn-new").click(function () {
@@ -117,7 +119,7 @@
                             });
 
                             $("#modalHeader").removeClass("btn-edit btn-show btn-delete");
-                            $("#modalTitle").html("Crear Campana");
+                            $("#modalTitle").html("Crear Campaña");
                             $("#modalBody").html(msg);
                             $("#modalFooter").html("").append(btnOk).append(btnSave);
                             $("#modal-Campana").modal("show");
@@ -144,7 +146,7 @@
                             });
 
                             $("#modalHeader").removeClass("btn-edit btn-show btn-delete").addClass("btn-edit");
-                            $("#modalTitle").html("Editar Campana");
+                            $("#modalTitle").html("Editar Campaña");
                             $("#modalBody").html(msg);
                             $("#modalFooter").html("").append(btnOk).append(btnSave);
                             $("#modal-Campana").modal("show");
@@ -164,7 +166,7 @@
                         success : function (msg) {
                             var btnOk = $('<a href="#" data-dismiss="modal" class="btn btn-primary">Aceptar</a>');
                             $("#modalHeader").removeClass("btn-edit btn-show btn-delete").addClass("btn-show");
-                            $("#modalTitle").html("Ver Campana");
+                            $("#modalTitle").html("Ver Campaña");
                             $("#modalBody").html(msg);
                             $("#modalFooter").html("").append(btnOk);
                             $("#modal-Campana").modal("show");
@@ -186,7 +188,7 @@
                     });
 
                     $("#modalHeader").removeClass("btn-edit btn-show btn-delete").addClass("btn-delete");
-                    $("#modalTitle").html("Eliminar Campana");
+                    $("#modalTitle").html("Eliminar Campaña");
                     $("#modalBody").html("<p>¿Está seguro de querer eliminar esta Campaña?</p>");
                     $("#modalFooter").html("").append(btnOk).append(btnDelete);
                     $("#modal-Campana").modal("show");

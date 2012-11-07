@@ -2,7 +2,7 @@ package elyon
 
 import org.springframework.dao.DataIntegrityViolationException
 
-class CampanaController extends elyon.seguridad.Shield {
+class ParentescoController extends elyon.seguridad.Shield {
 
     static allowedMethods = [save: "POST", update: "POST", delete: "POST"]
 
@@ -11,44 +11,44 @@ class CampanaController extends elyon.seguridad.Shield {
     } //index
 
     def list() {
-        [campanaInstanceList: Campana.list(params), params: params]
+        [parentescoInstanceList: Parentesco.list(params), params: params]
     } //list
 
     def form_ajax() {
-        def campanaInstance = new Campana(params)
+        def parentescoInstance = new Parentesco(params)
         if (params.id) {
-            campanaInstance = Campana.get(params.id)
-            if (!campanaInstance) {
+            parentescoInstance = Parentesco.get(params.id)
+            if (!parentescoInstance) {
                 flash.clase = "alert-error"
-                flash.message = "No se encontró Campaña con id " + params.id
+                flash.message = "No se encontró Parentesco con id " + params.id
                 redirect(action: "list")
                 return
             } //no existe el objeto
         } //es edit
-        return [campanaInstance: campanaInstance]
+        return [parentescoInstance: parentescoInstance]
     } //form_ajax
 
     def save() {
-        def campanaInstance
+        def parentescoInstance
         if (params.id) {
-            campanaInstance = Campana.get(params.id)
-            if (!campanaInstance) {
+            parentescoInstance = Parentesco.get(params.id)
+            if (!parentescoInstance) {
                 flash.clase = "alert-error"
-                flash.message = "No se encontró Campaña con id " + params.id
+                flash.message = "No se encontró Parentesco con id " + params.id
                 redirect(action: 'list')
                 return
             }//no existe el objeto
-            campanaInstance.properties = params
+            parentescoInstance.properties = params
         }//es edit
         else {
-            campanaInstance = new Campana(params)
+            parentescoInstance = new Parentesco(params)
         } //es create
-        if (!campanaInstance.save(flush: true)) {
+        if (!parentescoInstance.save(flush: true)) {
             flash.clase = "alert-error"
-            def str = "<h4>No se pudo guardar Campaña " + (campanaInstance.id ? campanaInstance.id : "") + "</h4>"
+            def str = "<h4>No se pudo guardar Parentesco " + (parentescoInstance.id ? parentescoInstance.id : "") + "</h4>"
 
             str += "<ul>"
-            campanaInstance.errors.allErrors.each { err ->
+            parentescoInstance.errors.allErrors.each { err ->
                 def msg = err.defaultMessage
                 err.arguments.eachWithIndex {  arg, i ->
                     msg = msg.replaceAll("\\{" + i + "}", arg.toString())
@@ -64,43 +64,43 @@ class CampanaController extends elyon.seguridad.Shield {
 
         if (params.id) {
             flash.clase = "alert-success"
-            flash.message = "Se ha actualizado correctamente Campaña " + campanaInstance.id
+            flash.message = "Se ha actualizado correctamente Parentesco " + parentescoInstance.id
         } else {
             flash.clase = "alert-success"
-            flash.message = "Se ha creado correctamente Campaña " + campanaInstance.id
+            flash.message = "Se ha creado correctamente Parentesco " + parentescoInstance.id
         }
         redirect(action: 'list')
     } //save
 
     def show_ajax() {
-        def campanaInstance = Campana.get(params.id)
-        if (!campanaInstance) {
+        def parentescoInstance = Parentesco.get(params.id)
+        if (!parentescoInstance) {
             flash.clase = "alert-error"
-            flash.message = "No se encontró Campaña con id " + params.id
+            flash.message = "No se encontró Parentesco con id " + params.id
             redirect(action: "list")
             return
         }
-        [campanaInstance: campanaInstance]
+        [parentescoInstance: parentescoInstance]
     } //show
 
     def delete() {
-        def campanaInstance = Campana.get(params.id)
-        if (!campanaInstance) {
+        def parentescoInstance = Parentesco.get(params.id)
+        if (!parentescoInstance) {
             flash.clase = "alert-error"
-            flash.message = "No se encontró Campaña con id " + params.id
+            flash.message = "No se encontró Parentesco con id " + params.id
             redirect(action: "list")
             return
         }
 
         try {
-            campanaInstance.delete(flush: true)
+            parentescoInstance.delete(flush: true)
             flash.clase = "alert-success"
-            flash.message = "Se ha eliminado correctamente Campaña " + campanaInstance.id
+            flash.message = "Se ha eliminado correctamente Parentesco " + parentescoInstance.id
             redirect(action: "list")
         }
         catch (DataIntegrityViolationException e) {
             flash.clase = "alert-error"
-            flash.message = "No se pudo eliminar Campaña " + (campanaInstance.id ? campanaInstance.id : "")
+            flash.message = "No se pudo eliminar Parentesco " + (parentescoInstance.id ? parentescoInstance.id : "")
             redirect(action: "list")
         }
     } //delete
