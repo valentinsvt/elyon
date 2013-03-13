@@ -29,9 +29,9 @@ environments {
     production {
         dataSource {
             dbCreate = "update"
-            url = "jdbc:postgresql://10.0.0.3:5432/elyon"
+            url = "jdbc:postgresql://127.0.0.1:5432/elyon"
             username = "postgres"
-            password = "postgres"
+            password = "steinsgate"
 //            password = "postgres"
         }
     }

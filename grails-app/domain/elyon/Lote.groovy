@@ -15,7 +15,7 @@ class Lote implements Serializable {
     String tipoTarjeta
     double cupoNormal
     String codigo
-    double cupoTotal
+    double cupoTotal     // no se usa
     String tipoCliente
     String observaciones
     Campana campana

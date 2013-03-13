@@ -102,7 +102,7 @@
             <div class="span2"><g:textField name="tipoTarjeta" disabled="true" style="width: 150px"
                                             value="${lote.tipoTarjeta}"/></div>
 
-            <div class="span1">Cupo Normal</div>
+            <div class="span1">Cupo</div>
 
             <div class="span2"><g:textField name="cupo1" disabled="true" style="width: 150px"
                                             value="${lote.cupoNormal}"/></div>
@@ -111,31 +111,34 @@
 
         <div class="row span12">
 
+%{--
             <div class="span1">Código Tarjeta</div>
-
             <div class="span2"><g:textField name="codigoTarjeta" disabled="true" style="width: 150px"
                                             value="${lote.codigo}"/></div>
+--}%
 
+%{--
             <div class="span1">Cupo Total</div>
 
             <div class="span2"><g:textField name="cupo2" disabled="true" style="width: 150px"
                                             value="${lote.cupoTotal}"/></div>
+--}%
 
+%{--
             <div class="span1">Tipo Cliente</div>
-
             <div class="span2"><g:textField name="tipCliente" disabled="true" style="width: 150px"
                                             value="${lote.tipoCliente}"/></div>
+--}%
 
         </div>
 
+%{--
         <div class="row span12">
-
             <div class="span1">Observaciones</div>
-
             <div class="span2"><g:textField name="observaciones" disabled="true" style="width: 750px"
                                             value="${lote.observaciones}"/></div>
-
         </div>
+--}%
 
     </fieldset>
 

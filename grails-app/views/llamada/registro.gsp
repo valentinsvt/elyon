@@ -51,48 +51,46 @@
                 <div class="row">
                     <div class="span1">Identificación</div>
 
-                    <div class="span3">
-                        <span class="span3 uneditable-input">${lote.cedula}</span>
+                    <div class="span2">
+                        <span class="span2 uneditable-input">${lote.cedula}</span>
                     </div>
 
                     <div class="span1">Cliente</div>
 
-                    <div class="span7">
-                        <span class="span7 uneditable-input">${lote.nombre}</span>
+                    <div class="span4">
+                        <span class="span4 uneditable-input">${lote.nombre}</span>
                     </div>
-                </div>
-
-                <div class="row">
                     <div class="span1">Tipo tarjeta</div>
 
                     <div class="span3">
                         <span class="span3 uneditable-input">${lote.tipoTarjeta}</span>
                     </div>
+                </div>
 
+                <div class="row">
+
+%{--
                     <div class="span1">Cupo Total</div>
-
                     <div class="span3">
                         <span class="span3 uneditable-input">
                             <g:formatNumber number="${lote.cupoTotal}" maxFractionDigits="2" minFractionDigits="2"/>
                         </span>
                     </div>
+--}%
 
-                    <div class="span1">Cupo Normal</div>
+                    <div class="span1">Cupo</div>
 
-                    <div class="span3">
-                        <span class="span3 uneditable-input">
+                    <div class="span2">
+                        <span class="span2 uneditable-input">
                             <g:formatNumber number="${lote.cupoNormal}" maxFractionDigits="2" minFractionDigits="2"/>
                         </span>
                     </div>
-                </div>
-
-                <div class="row">
                     <div class="span1">Dirección</div>
-
-                    <div class="span11">
-                        <span class="span11 uneditable-input">${lote.direccion1}</span>
+                    <div class="span8">
+                        <span class="span8 uneditable-input">${lote.direccion1}</span>
                     </div>
                 </div>
+
 
                 <div class="row">
                     <div class="span1">Fonos 1-2</div>
@@ -128,33 +126,32 @@
                         <div id="datosCliente">
                             <div class="row">
                                 <div class="span1 offset1">Tipo Ident</div>
-
                                 <div class="span2">
                                     <g:select from="${elyon.TipoDeIdentificacion.list([sort: 'descripcion'])}" name="tipoDeIdentificacion.id" class="span2" value="${data?.tipoDeIdentificacionId}"
-                                              noSelection="['': '-Seleccione-']" optionKey="id"/>
+                                              optionKey="id"/>
                                 </div>
 
                                 <div class="span1">Num Ident</div>
 
-                                <div class="span2"><g:textField name="numeroIdentificacion" class="span2 digits" value="${data?.numeroIdentificacion}" maxlength="10"/></div>
+                                <div class="span2"><g:textField name="numeroIdentificacion" class="span2 digits" value="${data?.numeroIdentificacion?:lote.cedula}" maxlength="10"  /></div>
 
                                 <div class="span1">Nombre 1</div>
 
-                                <div class="span2"><g:textField name="nombre1" class="span2" value="${data?.nombre1}" maxlength="20"/></div>
+                                <div class="span2"><g:textField name="nombre1" class="span2" value="${data?.nombre1?:lote.nombre.tokenize()[2]}" maxlength="20"/></div>
                             </div>
 
                             <div class="row">
                                 <div class="span1 offset1">Nombre 2</div>
 
-                                <div class="span2"><g:textField name="nombre2" class="span2" value="${data?.nombre2}" maxlength="20"/></div>
+                                <div class="span2"><g:textField name="nombre2" class="span2" value="${data?.nombre2?:lote.nombre.tokenize()[3]}" maxlength="20"/></div>
 
                                 <div class="span1">Apellido 1</div>
 
-                                <div class="span2"><g:textField name="apellido1" class="span2" value="${data?.apellido1}" maxlength="20"/></div>
+                                <div class="span2"><g:textField name="apellido1" class="span2" value="${data?.apellido1?:lote.nombre.tokenize()[0]}" maxlength="20"/></div>
 
                                 <div class="span1">Apellido 2</div>
 
-                                <div class="span2"><g:textField name="apellido2" class="span2" value="${data?.apellido2}" maxlength="20"/></div>
+                                <div class="span2"><g:textField name="apellido2" class="span2" value="${data?.apellido2?:lote.nombre.tokenize()[1]}" maxlength="20"/></div>
                             </div>
 
                             <div class="row">
@@ -181,7 +178,7 @@
                             <div class="row">
                                 <div class="span1 offset1">Nombre tarjeta</div>
 
-                                <div class="span2"><g:textField name="nombre" class="span2" value="${data?.nombre}" maxlength="19"/></div>
+                                <div class="span2"><g:textField name="nombre" class="span2" value="${data?.nombre?:lote.nombre.tokenize()[2]+" "+lote.nombre.tokenize()[0]}" maxlength="19"/></div>
 
                                 <div class="span1">Nacionalidad</div>
 
@@ -226,7 +223,7 @@
 
                             <div class="row">
 
-                                <div class="span1 offset1">Nivel educa</div>
+                                <div class="span1 offset1">Nivel educación</div>
 
                                 <div class="span2">
                                     <g:select from="${elyon.NivelEstudios.list([sort: 'descripcion'])}" name="nivelEstudios.id" class="span2" value="${data?.nivelEstudiosId}"
@@ -235,32 +232,36 @@
 
                                 <div class="span1">Carga fam</div>
 
-                                <div class="span2"><g:textField name="cargaFamiliar" class="span2 number" value="${data?.cargaFamiliar}"/></div>
+                                <div class="span1"><g:textField name="cargaFamiliar" class="span1 number" value="${data?.cargaFamiliar}"/></div>
 
                                 <div class="span1">Teléfono</div>
 
                                 <div class="span2"><g:textField name="telefono" class="span2" value="${data?.telefono}" maxlength="20"/></div>
+
+
                             </div>
 
                             <div class="row">
 
+%{--
                                 <div class="span1 offset1">Tipo tarjeta</div>
-
                                 <div class="span2">
                                     <g:select from="${elyon.TipoTarjeta.list([sort: 'descripcion'])}" name="tipoTarjeta.id" class="span2" value="${data?.tipoTarjetaId}"
                                               noSelection="['': '-Seleccione-']" optionKey="id"/>
                                 </div>
-
-                                <div class="span1">Bins</div>
+--}%
+                                <div class="span1 offset1">Tipo de tarjeta(Bins)</div>
 
                                 <div class="span2">
                                     <g:select from="${elyon.Bins.list([sort: 'descripcion'])}" name="bins.id" class="span2" value="${data?.binsId}"
                                               noSelection="['': '-Seleccione-']" optionKey="id"/>
                                 </div>
 
-                                <div class="span1">Cupo</div>
 
+%{--
+                                <div class="span1">Cupo</div>
                                 <div class="span2"><g:textField name="cupo" class="span2 number" value="${data?.cupo}"/></div>
+--}%
                             </div>
                         </div>
 
@@ -349,7 +350,7 @@
 
                                 <div class="span1">Valor vivienda</div>
 
-                                <div class="span2"><g:textField name="valorVivienda" class="span2 number" value="${data?.valorVivienda}"/></div>
+                                <div class="span2"><g:textField name="valorVivienda" class="span2 number" value="${data?.valorVivienda?:0}"/></div>
 
                                 <div class="span1">Fecha ini res</div>
 
@@ -397,13 +398,13 @@
                                 <div class="span1 offset1">Tipo ident</div>
 
                                 <div class="span2">
-                                    <g:select from="${elyon.TipoDeIdentificacion.list([sort: 'descripcion'])}" name="tipoDeIdentificacionReferenciaPersonal" class="span2" value="${data?.tipoDeIdentificacionReferenciaPersonalId}"
-                                              noSelection="['': '-Seleccione-']" optionKey="id"/>
+                                    <g:select from="${elyon.TipoDeIdentificacion.list([sort: 'descripcion'])}" name="tipoDeIdentificacionReferenciaPersonal.id" class="span2 required" value="${data?.tipoDeIdentificacionReferenciaPersonalId}"
+                                              optionKey="id"/>
                                 </div>
 
                                 <div class="span1">Cédula</div>
 
-                                <div class="span2"><g:textField name="idReferenciaPersonal" class="span2 digits" value="${data?.idReferenciaPersonal}" maxlength="10"/></div>
+                                <div class="span2"><g:textField name="idReferenciaPersonal" class="span2 digits" value="${data?.idReferenciaPersonal?:0000000000}" maxlength="10"/></div>
 
                                 <div class="span1">Nombre 1</div>
 
@@ -436,11 +437,12 @@
                                 <div class="span1">Parentesco</div>
 
                                 <div class="span2">
-                                    <g:select from="${Parentesco.list([sort: 'descripcion'])}" name="parentesco" class="span2" value="${data?.parentescoId}"
+                                    <g:select from="${Parentesco.list([sort: 'descripcion'])}" name="parentesco.id" class="span2" value="${data?.parentescoId}"
                                               noSelection="['': '-Seleccione-']" optionKey="id"/>
                                 </div>
                             </div>
 
+%{--
                             <div class="row">
                                 <div class="span1 offset1">Tipo id princ</div>
 
@@ -460,7 +462,9 @@
                                               noSelection="['': '-Seleccione-']" optionKey="id"/>
                                 </div>
                             </div>
+--}%
 
+%{--
                             <div class="row">
 
                                 <div class="span1 offset1">Afinidad</div>
@@ -470,10 +474,12 @@
                                               noSelection="['': '-Seleccione-']" optionKey="id"/>
                                 </div>
                             </div>
+--}%
                         </div>
                     </g:form>
                 </div>
 
+%{--
                 <div class="row">
                     <div class="span1">Comentarios</div>
 
@@ -484,6 +490,7 @@
                     <div class="span3"><g:textArea name="contactoAlterno" cols="5" rows="5" class="span3" value="${data?.contactoAlterno}"/></div>
 
                 </div>
+--}%
 
             </fieldset>
         </g:if>

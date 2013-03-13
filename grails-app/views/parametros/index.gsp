@@ -98,6 +98,12 @@
                             <li class="hoverable" data-info="">
                                 <g:link controller="tipoVivienda">Tipo de vivienda</g:link>
                             </li>
+                            <li class="hoverable" data-info="">
+                                <g:link controller="estadoLlamada">Estado de la llamada</g:link>
+                            </li>
+                            <li class="hoverable" data-info="">
+                                <g:link controller="estadoGestion">Estado de la gestión</g:link>
+                            </li>
                         </ul>
                     </div>
 

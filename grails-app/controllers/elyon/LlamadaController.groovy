@@ -8,7 +8,8 @@ class LlamadaController extends elyon.seguridad.Shield {
 
     def registro() {
         def data, lote = Lote.get(params.id)
-//        println lote
+        //println lote
+        println params
         if (lote) {
             data = Data.findAllByLote(lote)
 
@@ -29,7 +30,7 @@ class LlamadaController extends elyon.seguridad.Shield {
     }
 
     def saveRegistro() {
-        println params
+        println "saveRegistro" + params
         def data
         if (params.id) {
             data = Data.get(params.id)
@@ -44,7 +45,7 @@ class LlamadaController extends elyon.seguridad.Shield {
             println "OK"
         }
 
-        render params
+        redirect(controller: "lote", action: "busqueda")
     }
 
 }

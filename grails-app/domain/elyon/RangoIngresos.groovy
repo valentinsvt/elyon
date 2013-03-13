@@ -23,8 +23,6 @@ class RangoIngresos implements Serializable {
     }
 
     String toString(){
-
-        return this.descripcion
-
+        return this.rango
     }
 }

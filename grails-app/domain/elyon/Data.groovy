@@ -24,7 +24,7 @@ class Data implements Serializable {
     Profesion profesion
 
     NivelEstudios nivelEstudios
-    double cargaFamiliar
+    Integer cargaFamiliar
     String telefono
 
     TipoTarjeta tipoTarjeta
@@ -46,7 +46,7 @@ class Data implements Serializable {
     String celular /**/
 
     TipoVivienda tipoVivienda
-    double valorVivienda
+    Integer valorVivienda
     Date fechaInicioResidencia /**/
 
     RelacionDependenciaLaboral relacionDependenciaLaboral
