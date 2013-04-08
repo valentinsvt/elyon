@@ -22,6 +22,44 @@ class ReportesController {
     def index() { }
 
     def buscadorService
+    def dbConnectionService
+
+    def archivo = {
+        def cn = dbConnectionService.getConnection()
+        def tx = 0;
+        def sp =";"
+        def tx_sql = "select data.*, tpidcdgo from data, tpid where tpid.tpid__id = data.tpid__id " +
+                "order by dataap01, dataap02"
+        println tx_sql
+        cn.eachRow(tx_sql.toString()) {d ->
+            tx  = d.tpidcdgo
+            tx += sp + completa(d.datanmid, 10)
+            tx += sp + completa(d.dataap01, 20)
+            tx += sp + completa(d.dataap02, 20)
+            tx += sp + completa(d.datanb01, 20)
+            tx += sp + completa(d.databn02, 20)
+            tx += sp + completa((d.datadrrs != null ?: " "), 140)
+            tx += sp + completa((d.datadrtb != null ?: " "), 150)
+            tx += sp + completa((d.ruta__id ? Ruta.get(d.ruta__id).codigo : " "), 1)
+            tx += sp + completa((d.rutaedcn ? Ruta.get(d.rutaedcn).codigo : " "), 1)
+            tx += sp + completa((d.datatelf != null ?: " "), 20)
+            tx += sp + completa((d.datamail != null ?: " "), 50)
+            tx += sp + completa((d.ofic__id ? Sucursal.get(Oficina.get(d.ofic__id)).codigo : " "), 3)
+            tx += sp + completa((d.ofic__id ? Oficina.get(d.ofic__id).codigo : " "), 3)
+            tx += sp + completa((d.parr__id ? Ciudad.get(Parroquia.get(d.parr__id)).codigo : " "), 8)
+            tx += sp + completa((d.parr__id ? Parroquia.get(d.parr__id).codigo : " "), 8)
+            tx += sp + completa((d.ncnl__id ? Nacionalidad.get(d.ncnl__id).codigo : " "), 3)
+            tx += sp + completa((d.datafcna != null ?: " "), 8)
+        }
+        cn.close()
+        println tx
+        render(tx)
+    }
+
+    def completa(tx, n) {
+        return tx.toString() + " " * (n - (tx?tx.size():0).toInteger()).toInteger()
+    }
+
     def reporteBuscador= {
 
         // println "reporte buscador params !! "+params
@@ -64,7 +102,7 @@ class ReportesController {
 //        Start a new page
 //        document.newPage();
             //System.getProperty("user.name")
-            addContent(document,catFont,listaCampos.size(),listaTitulos,params.anchos,listaCampos,funciones,lista);            // Los tamaños son porcentajes!!!!
+            addContent(document,catFont,listaCampos.size(),listaTitulos,params.anchos, listaCampos, funciones, lista);            // Los tamaños son porcentajes!!!!
             document.close();
             pdfw.close()
             byte[] b = baos.toByteArray();
