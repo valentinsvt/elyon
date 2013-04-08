@@ -232,7 +232,7 @@
 
                                 <div class="span1">Carga fam</div>
 
-                                <div class="span1"><g:textField name="cargaFamiliar" class="span1 number" value="${data?.cargaFamiliar}"/></div>
+                                <div class="span1"><g:textField name="cargaFamiliar" class="span1 number" value="${data?.cargaFamiliar?:0}"/></div>
 
                                 <div class="span1">Teléfono</div>
 
