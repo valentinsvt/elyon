@@ -1,0 +1,1 @@
+<g:select from="${ofis}" name="oficina.id" class="span2" noSelection="['': '-Seleccione-']" optionKey="id"/>

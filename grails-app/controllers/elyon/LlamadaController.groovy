@@ -29,6 +29,33 @@ class LlamadaController extends elyon.seguridad.Shield {
         return [data: data, lote: lote]
     }
 
+
+    def cambiarParroquia(){
+//        println "cambiar par "+params
+        def ciudad = Ciudad.get(params.ciudad)
+        def pars = []
+        if(ciudad)
+            pars=Parroquia.findAllByCiudad(ciudad)
+        [pars:pars]
+    }
+
+    def cambiarSucursal(){
+        def ciudad = Ciudad.get(params.ciudad)
+        def sucs = []
+        if(ciudad)
+            sucs=Sucursal.findAllByCiudad(ciudad)
+        [sucs:sucs]
+    }
+
+    def cambiarOficina(){
+        def suc = Sucursal.get(params.sucursal)
+        def ofis = []
+        if(suc)
+            ofis=Oficina.findAllBySucursal(suc)
+        [ofis:ofis]
+    }
+
+
     def saveRegistro() {
         println "saveRegistro" + params
         def data

@@ -44,7 +44,7 @@ class Shield {
             def allowedUser = [:]
             allowedUser.lote = ["busqueda", "buscarLote", "busquedaRegistro", "buscarLoteRegistro"]
             allowedUser.gestionTelefonica = ["gestion", "saveGestion"]
-            allowedUser.llamada = ["registro", "saveRegistro"]
+            allowedUser.llamada = ["registro", "saveRegistro","cambiarParroquia","cambiarSucursal","cambiarOficina"]
             allowedUser.inicio = ["index"]
 
             if (allowedUser[controllerName]) {

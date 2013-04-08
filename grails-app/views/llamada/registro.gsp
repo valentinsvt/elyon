@@ -271,19 +271,19 @@
 
                                 <div class="span2">
                                     <g:select from="${elyon.Ciudad.list([sort: 'descripcion'])}" name="ciudad.id" class="span2" value="${data?.parroquia?.ciudadId}"
-                                              noSelection="['': '-Seleccione-']" optionKey="id"/>
+                                              noSelection="['': '-Seleccione-']" optionKey="id" id="ciudad"/>
                                 </div>
 
                                 <div class="span1">Sucursal</div>
 
-                                <div class="span2">
+                                <div class="span2" id="div_suc">
                                     <g:select from="${elyon.Sucursal.list([sort: 'descripcion'])}" name="sucursal.id" class="span2" value="${data?.oficina?.sucursalId}"
                                               noSelection="['': '-Seleccione-']" optionKey="id"/>
                                 </div>
 
                                 <div class="span1">Oficina</div>
 
-                                <div class="span2">
+                                <div class="span2" id="div_ofi">
                                     <g:select from="${elyon.Oficina.list([sort: 'descripcion'])}" name="oficina.id" class="span2" value="${data?.oficinaId}"
                                               noSelection="['': '-Seleccione-']" optionKey="id"/>
                                 </div>
@@ -292,7 +292,7 @@
                             <div class="row">
                                 <div class="span1 offset1">Parroquia</div>
 
-                                <div class="span2">
+                                <div class="span2" id="div_par">
                                     <g:select from="${elyon.Parroquia.list([sort: 'descripcion'])}" name="parroquia.id" class="span2" value="${data?.parroquiaId}"
                                               noSelection="['': '-Seleccione-']" optionKey="id"/>
                                 </div>
@@ -524,6 +524,26 @@
                     $("#frmRegistroLlamada").submit();
                     return false;
                 });
+
+                $("#ciudad").change(function(){
+                    var valor=$(this).val()
+                    $.ajax({
+                        type    : "POST",
+                        url     : "${createLink(action:'cambiarParroquia')}",
+                        data    : "ciudad=" + valor,
+                        success : function (msg) {
+                             $("#div_par").html(msg)
+                        }
+                    });
+                    $.ajax({
+                        type    : "POST",
+                        url     : "${createLink(action:'cambiarSucursal')}",
+                        data    : "ciudad=" + valor,
+                        success : function (msg) {
+                            $("#div_suc").html(msg)
+                        }
+                    });
+                })
 
             });
         </script>
