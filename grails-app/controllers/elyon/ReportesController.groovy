@@ -50,6 +50,72 @@ class ReportesController {
             tx += sp + completa((d.parr__id ? Parroquia.get(d.parr__id).codigo : " "), 8)
             tx += sp + completa((d.ncnl__id ? Nacionalidad.get(d.ncnl__id).codigo : " "), 3)
             tx += sp + completa((d.datafcna != null ?: " "), 8)
+            tx += sp + completa((d.sexo__id ? Sexo.get(d.sexo__id).codigo : " "), 1)
+            tx += sp + completa ((d.edcv__id ? EstadoCivil.get(d.edcv__id).codigo: " "), 1)
+            tx += sp + completa ((d.nves__id ? NivelEstudios.get(d.nves__id).codigo: " "), 2)
+            tx += sp + completa ((d.prof__id ? Profesion.get(d.prof__id).codigo: " "),3)
+            tx += sp + completa ((d.acec__id ? ActividadEconomica.get(d.acec__id).codigo : " "),7)
+            tx += sp + completa ((d.orig__id ? OrigenIngresos.get(d.orig__id).codigo : " "), 2)
+            tx += sp + completa((d.rgig__id ? RangoIngresos.get(d.rgig__id).codigo : " "),2)
+            tx += sp + completa((d.datapatr != null ?: " "),12)
+            tx += sp + completa ((d.tpvv__id ? TipoVivienda.get(d.tpvv__id).codigo : " "),2)
+            tx += sp + completa ((d.datavlvv != null ?: " "),12)
+//            tx += sp + completa ((d.))       //tiempo residencia
+            tx += sp +  completa ((d.rldp__id ? RelacionDependenciaLaboral.get(d.rldp__id).codigo : " "), 2)
+//            tx += sp + completa()   //tiempo ultimoTrabajo
+            tx += sp + completa((d.datafcit != null ?: " "),8)
+            tx += sp + completa((d.datafcft != null ?: " "),8)
+            tx += sp + completa((d.datacrga != null ?: " "), 2)
+            tx += sp + completa((d.bins__id ? Bins.get(d.bins__id).codigo : " "),6)
+            tx += sp + completa((d.afnd__id ? Afinidad.get(d.afnd__id).codigo : " "),3)
+            tx += sp + completa((d.datacupo != null ?: " "),7)
+            tx += sp + completa((d.datanmbr != null ?: " "),19)
+            tx += sp + completa((d.vend__id ? Vendedor.get(d.vend__id).codigo: " "),5)
+            tx += sp + completa((d.rfprtpid ? TipoDeIdentificacion.get(d.rfprtpid).codigo: " "),1)
+            tx += sp + completa((d.datarfpr != null ?: " "),10)
+            tx += sp + completa ((d.dataa1rp != null ?: " "),20)
+            tx += sp + completa ((d.dataa2rf != null ?: " "),20)
+            tx += sp + completa ((d.datan1rp != null ?: " "),20)
+            tx += sp + completa ((d.datan2rp != null ?: " "),20)
+            tx += sp + completa ((d.datadrrp != null ?: " "),150)
+            tx += sp + completa ((d.datatfrp != null ?: " "),20)
+            tx += sp + completa ((d.tptj__id ? TipoTarjeta.get(d.tptj__id).codigo: " "),1)
+
+            if(TipoTarjeta.get(d.tptj__id).codigo != 'P'){
+                tx += sp + completa ((d.rfprtpid ? TipoTarjeta.get(d.rfprtpid).codigo: " "),1)
+            }else {
+                tx +=sp + completa(" ",1)
+            }
+            if(TipoTarjeta.get(d.tptj__id).codigo != 'P'){
+
+                tx += sp + completa ((d.datanmid != null ?: " "),10)
+
+            }else {
+
+                 tx += sp + completa ("0000000000",10)
+            }
+            if(TipoTarjeta.get(d.tptj__id).codigo != 'P'){
+
+                tx += sp + completa((d.bins__id ? Bins.get(d.bins__id).codigo : " "), 6)
+
+            } else {
+
+               tx += sp + completa(" ", 6)
+            }
+            if (TipoTarjeta.get(d.tptj__id).codigo != 'P'){
+
+                tx += sp + completa((d.prnt__id ? Parentesco.get(d.prnt__id).codigo: " "),2)
+
+
+            }else {
+
+                tx += sp + completa(" ", 2)
+            }
+
+
+
+
+
         }
         cn.close()
         println tx
