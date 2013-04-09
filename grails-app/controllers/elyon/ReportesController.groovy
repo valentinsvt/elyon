@@ -60,9 +60,9 @@ class ReportesController {
             tx += sp + completa((d.datapatr != null ?: " "),12)
             tx += sp + completa ((d.tpvv__id ? TipoVivienda.get(d.tpvv__id).codigo : " "),2)
             tx += sp + completa ((d.datavlvv != null ?: " "),12)
-//            tx += sp + completa ((d.))       //tiempo residencia
+            tx += sp + completa ((d.datafirs != null ?: " "),8)
             tx += sp +  completa ((d.rldp__id ? RelacionDependenciaLaboral.get(d.rldp__id).codigo : " "), 2)
-//            tx += sp + completa()   //tiempo ultimoTrabajo
+            tx += sp + completa((d.datafita != null ?: " "),8)
             tx += sp + completa((d.datafcit != null ?: " "),8)
             tx += sp + completa((d.datafcft != null ?: " "),8)
             tx += sp + completa((d.datacrga != null ?: " "), 2)
