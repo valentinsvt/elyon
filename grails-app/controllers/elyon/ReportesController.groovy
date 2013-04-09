@@ -122,9 +122,47 @@ class ReportesController {
         render(tx)
     }
 
+
+
+
     def completa(tx, n) {
         return tx.toString() + " " * (n - (tx?tx.size():0).toInteger()).toInteger()
     }
+
+
+    def archivoAdicional = {
+
+        def cn = dbConnectionService.getConnection()
+        def tx = 0;
+        def sp =";"
+        def tx_sql = "select data.*, tpidcdgo from data, tpid where tpid.tpid__id = data.tpid__id " +
+                "order by dataap01, dataap02"
+        println tx_sql
+        cn.eachRow(tx_sql.toString()) {d ->
+
+            tx += sp + (d.datanmid != null ?: " ")
+            tx += sp + (d.dataap01 != null ?: " ")
+            tx += sp + (d.dataap02 != null ?: " ")
+            tx += sp + (d.datanb01 != null ?: " ")
+            tx += sp + (d.databn02 != null ?: " ")
+            tx += sp + (d.dataempr != null ?: " ")
+            tx += sp + (d.datadrrs != null ?: " ")
+            tx += sp + (d.datatelf != null ?: " ")
+            tx += sp + (d.datadrtb != null ?: " ")
+            tx += sp + (d.datatltr != null ?: " ")
+            tx += sp + (d.datacllr != null ?: " ")
+            tx += sp + ((d.parr__id ? Ciudad.get(Parroquia.get(d.parr__id)).codigo : " "))
+
+
+        }
+
+        cn.close()
+        render (tx)
+
+
+    }
+
+
 
     def reporteBuscador= {
 
