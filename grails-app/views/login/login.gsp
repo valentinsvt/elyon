@@ -51,6 +51,7 @@
                     <a href="#" class="btn btn-primary" id="btnLogin">Entrar</a>
                 </div>
             </fieldset>
+            <div style="text-align: right; font-size: 10px;">Versión ${message(code: 'version', default: '0.1.0x')}</div>
         </g:form>
 
         <script type="text/javascript">

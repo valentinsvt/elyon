@@ -123,8 +123,14 @@ class ReportesController {
             }
         }
         cn.close()
-        println tx
-        render(tx)
+        //println tx
+        //render(tx)
+        def output = response.getOutputStream()
+        def header = "attachment; filename=" + "ventas.txt"
+        response.setContentType("text/txt")
+        response.outputStream << tx
+        response.outputStream.flush()
+
     }
 
 
@@ -137,7 +143,6 @@ class ReportesController {
 
 
     def aExcel = {
-
         def cn = dbConnectionService.getConnection()
         def tx = 0;
         def sp = ";"
@@ -298,10 +303,8 @@ class ReportesController {
         response.setHeader("Content-Disposition", header);
         output.write(file.getBytes());
 
-
 //        render(tx)
     }
-
 
 
     def reporteBuscador = {

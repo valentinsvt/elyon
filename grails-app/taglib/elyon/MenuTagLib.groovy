@@ -57,9 +57,13 @@ class MenuTagLib {
                 items.administracion.items.parametros.controller = "parametros"
                 items.administracion.items.parametros.action = "index"
                 items.administracion.items.reportes = [:]
-                items.administracion.items.reportes.label = "Reportes"
+                items.administracion.items.reportes.label = "Ventas"
                 items.administracion.items.reportes.controller = "reportes"
-                items.administracion.items.reportes.action = "index"
+                items.administracion.items.reportes.action = "archivo"
+                items.administracion.items.reportesXl = [:]
+                items.administracion.items.reportesXl.label = "Ventas Excel"
+                items.administracion.items.reportesXl.controller = "reportes"
+                items.administracion.items.reportesXl.action = "aExcel"
 
                 items.campana = [:]
                 items.campana.controller = "campana"
