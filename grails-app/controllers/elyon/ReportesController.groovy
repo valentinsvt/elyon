@@ -17,6 +17,12 @@ import com.lowagie.text.pdf.PdfPCell;
 import com.lowagie.text.pdf.PdfPTable;
 import com.lowagie.text.pdf.PdfWriter
 import com.lowagie.text.PageSize;
+import jxl.Workbook
+import jxl.WorkbookSettings
+import jxl.write.*
+
+//import java.awt.Label
+
 
 class ReportesController {
 
@@ -137,23 +143,162 @@ class ReportesController {
         def sp = ";"
         def tx_sql = "select data.*, tpidcdgo from data, tpid where tpid.tpid__id = data.tpid__id " +
                 "order by dataap01, dataap02"
-        println tx_sql
+
+//        println tx_sql
+        WorkbookSettings workbookSettings = new WorkbookSettings()
+        workbookSettings.locale = Locale.default
+
+        def file = File.createTempFile('myExcelDocument', '.xls')
+        file.deleteOnExit()
+        WritableWorkbook workbook = Workbook.createWorkbook(file, workbookSettings)
+
+        WritableFont font = new WritableFont(WritableFont.ARIAL, 12)
+        WritableCellFormat formatXls = new WritableCellFormat(font)
+
+        def row = 0
+        WritableSheet sheet = workbook.createSheet('MySheet', 0)
+
+        WritableFont times16font = new WritableFont(WritableFont.TIMES, 11, WritableFont.BOLD, true);
+        WritableCellFormat times16format = new WritableCellFormat(times16font);
+        sheet.setColumnView(0, 15)
+        sheet.setColumnView(1, 25)
+        sheet.setColumnView(2, 25)
+        sheet.setColumnView(3, 25)
+        sheet.setColumnView(4, 25)
+        sheet.setColumnView(5, 25)
+        sheet.setColumnView(6, 25)
+        sheet.setColumnView(7, 15)
+        sheet.setColumnView(8, 25)
+        sheet.setColumnView(9, 15)
+        sheet.setColumnView(10, 15)
+        sheet.setColumnView(11, 15)
+
+        def label
+        def nmro
+
+        def fila = 3;
+
+        label = new jxl.write.Label(0, 2, "CÉDULA", times16format); sheet.addCell(label);
+        label = new jxl.write.Label(1, 2, "APELLIDO", times16format); sheet.addCell(label);
+        label = new jxl.write.Label(2, 2, "APELLIDO 2", times16format); sheet.addCell(label);
+        label = new jxl.write.Label(3, 2, "NOMBRE", times16format); sheet.addCell(label);
+        label = new jxl.write.Label(4, 2, "NOMBRE 2", times16format); sheet.addCell(label);
+        label = new jxl.write.Label(5, 2, "EMPRESA", times16format); sheet.addCell(label);
+        label = new jxl.write.Label(6, 2, "DIRECCIÓN DOMICILIO", times16format); sheet.addCell(label);
+        label = new jxl.write.Label(7, 2, "TELÉFONO DOMICILIO", times16format); sheet.addCell(label);
+        label = new jxl.write.Label(8, 2, "DIRECCIÓN OFICINA", times16format); sheet.addCell(label);
+        label = new jxl.write.Label(9, 2, "TELÉFONO OFICINA", times16format); sheet.addCell(label);
+        label = new jxl.write.Label(10, 2, "CELULAR", times16format); sheet.addCell(label);
+        label = new jxl.write.Label(11, 2, "CIUDAD", times16format); sheet.addCell(label);
+
+
         cn.eachRow(tx_sql.toString()) { d ->
-            tx += sp + (d.datanmid != null ?: " ")
-            tx += sp + (d.dataap01 != null ?: " ")
-            tx += sp + (d.dataap02 != null ?: " ")
-            tx += sp + (d.datanb01 != null ?: " ")
-            tx += sp + (d.databn02 != null ?: " ")
-            tx += sp + (d.dataempr != null ?: " ")
-            tx += sp + (d.datadrrs != null ?: " ")
-            tx += sp + (d.datatelf != null ?: " ")
-            tx += sp + (d.datadrtb != null ?: " ")
-            tx += sp + (d.datatltr != null ?: " ")
-            tx += sp + (d.datacllr != null ?: " ")
-            tx += sp + ((d.parr__id ? Ciudad.get(Parroquia.get(d.parr__id).id ?: 0)?.codigo : " "))
+//              println("\t" + d)
+
+
+            if (d.datanmid){
+
+                label = new jxl.write.Label(0, fila, d.datanmid.toString()); sheet.addCell(label);
+            }else {
+
+                label = new jxl.write.Label(0, fila, " "); sheet.addCell(label);
+            }
+            if (d.dataap01){
+
+                label = new jxl.write.Label(1, fila, d.dataap01.toString()); sheet.addCell(label);
+            }else {
+
+                label = new jxl.write.Label(1, fila, " "); sheet.addCell(label);
+            }
+            if (d.dataap02){
+
+                label = new jxl.write.Label(2, fila, d.dataap02.toString()); sheet.addCell(label);
+            }else {
+
+                label = new jxl.write.Label(2, fila, " "); sheet.addCell(label);
+            }
+            if (d.datanb01){
+
+                label = new jxl.write.Label(3, fila, d.datanb01.toString()); sheet.addCell(label);
+            }else {
+
+                label = new jxl.write.Label(3, fila, " "); sheet.addCell(label);
+            }
+            if (d.databn02){
+
+                label = new jxl.write.Label(4, fila, d.databn02.toString()); sheet.addCell(label);
+            }else {
+
+                label = new jxl.write.Label(4, fila, " "); sheet.addCell(label);
+            }
+            if (d.dataempr){
+
+                label = new jxl.write.Label(5, fila, d.dataempr.toString()); sheet.addCell(label);
+            }else {
+
+                label = new jxl.write.Label(5, fila, " "); sheet.addCell(label);
+            }
+
+            if (d.datadrrs){
+
+                label = new jxl.write.Label(6, fila, d.datadrrs.toString()); sheet.addCell(label);
+            }else {
+
+                label = new jxl.write.Label(6, fila, " "); sheet.addCell(label);
+            }
+
+            if (d.datatelf){
+
+                label = new jxl.write.Label(7, fila, d.datatelf.toString()); sheet.addCell(label);
+            }else {
+
+                label = new jxl.write.Label(7, fila, " "); sheet.addCell(label);
+            }
+            if (d.datadrtb){
+
+                label = new jxl.write.Label(8, fila, d.datadrtb.toString()); sheet.addCell(label);
+            }else {
+
+                label = new jxl.write.Label(8, fila, " "); sheet.addCell(label);
+            }
+            if (d.datatltr){
+
+                label = new jxl.write.Label(9, fila, d.datatltr.toString()); sheet.addCell(label);
+            }else {
+
+                label = new jxl.write.Label(9, fila, " "); sheet.addCell(label);
+            }
+            if (d.datacllr){
+
+                label = new jxl.write.Label(10, fila, d.datacllr.toString()); sheet.addCell(label);
+            }else {
+
+                label = new jxl.write.Label(10, fila, " "); sheet.addCell(label);
+            }
+
+            if (d.parr__id){
+
+                label = new jxl.write.Label(11, fila, (Parroquia.get(d.parr__id).ciudad).toString()); sheet.addCell(label);
+            }else {
+
+                label = new jxl.write.Label(11, fila, " "); sheet.addCell(label);
+            }
+            fila++
+
         }
+
         cn.close()
-        render(tx)
+
+        workbook.write();
+        workbook.close();
+        def output = response.getOutputStream()
+        def header = "attachment; filename=" + "Excel.xls";
+        response.setContentType("application/octet-stream")
+        response.setHeader("Content-Disposition", header);
+        output.write(file.getBytes());
+
+
+//        render(tx)
     }
 
 
