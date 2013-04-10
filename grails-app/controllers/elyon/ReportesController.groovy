@@ -155,6 +155,7 @@ class ReportesController {
         WritableFont font = new WritableFont(WritableFont.ARIAL, 12)
         WritableCellFormat formatXls = new WritableCellFormat(font)
 
+
         def row = 0
         WritableSheet sheet = workbook.createSheet('MySheet', 0)
 
