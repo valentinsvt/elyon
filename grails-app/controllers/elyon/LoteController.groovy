@@ -7,115 +7,138 @@ import elyon.seguridad.Usro
 
 class LoteController extends elyon.seguridad.Shield {
 
-    def index() { }
+    def index() {}
 
     def buscadorService
 
     def procesa() {
         def path = servletContext.getRealPath("/") + "lotes/"
         def f = request.getFile('archivo')
-        def inputStream = new ByteArrayInputStream(f.getBytes())
+
         if (f && !f.empty) {
-            Workbook workbook = Workbook.getWorkbook(inputStream)
 
-            def campos = [:]
-            def mapa = toMap(Lote)
-            def error = ""
+            def fileName = f.getOriginalFilename() //nombre original del archivo
+            def ext
 
-            def campanaInstace
-            if (params.id) {
-                campanaInstace = Campana.get(params.id)
-                if (!campanaInstace) {
-                    flash.clase = "alert-error"
-                    flash.message = "No se encontró Orden De Trabajo con id " + params.id
-                    redirect(action: 'list')
-                    return
-                }//no existe el objeto
-                campanaInstace.properties = params
-            }//es edit
-            else {
-                campanaInstace = new Campana(params)
-            } //es create
-            if (!campanaInstace.save(flush: true)) {
-                flash.clase = "alert-error"
-                def str = "<h4>No se pudo guardar Orden De Trabajo " + (ordenDeTrabajoInstance.id ? ordenDeTrabajoInstance.id : "") + "</h4>"
-
-                str += "<ul>"
-                campanaInstace.errors.allErrors.each { err ->
-                    def msg = err.defaultMessage
-                    err.arguments.eachWithIndex {  arg, i ->
-                        msg = msg.replaceAll("\\{" + i + "}", arg.toString())
-                    }
-                    str += "<li>" + msg + "</li>"
-                }
-                str += "</ul>"
-
-                flash.message = str
-                redirect(action: 'list')
-                return
-            } else {
-
-                workbook.getNumberOfSheets().times { sheet ->
-                    Sheet s = workbook.getSheet(sheet)
-
-
-                    if (!s.getSettings().isHidden()) {
-//                println "hoja"+ s.getName()
-                        Cell[] row = null
-                        s.getRows().times { i ->
-                            row = s.getRow(i)
-                            if (row.length > 0) {
-                                if (i == 0) {
-                                    row.length.times { j ->
-                                        campos.put(row[j].getContents().trim().toLowerCase().replaceAll(" ", "").replaceAll("\\.", ""), j)
-
-                                    }
-                                    campos = compare(campos, mapa)
-//                            println "headers "+campos
-                                    if (campos.size() < 8) {
-                                        error = "Error: No se pudo procesar los nombres de las columnas en el archivo exel"
-                                    }
-
-                                } else {
-                                    def registro = new Lote()
-                                    def parametros = [:]
-                                    campos.each {cmp ->
-                                        if (row[cmp.value.toInteger()].getContents()) {
-                                            if (mapa[cmp.key] =~ "elyon")
-                                                parametros[cmp.key + ".id"] = row[cmp.value.toInteger()].getContents()
-                                            else
-                                                parametros[cmp.key] = row[cmp.value.toInteger()].getContents()
-                                        }
-
-                                    }
-                                    registro.properties = parametros
-                                    registro.campana = campanaInstace
-                                    def verificacion = Lote.findAllByCampanaAndCedula(campanaInstace, registro.cedula)
-                                    if (verificacion.size() == 0) {
-                                        if (!registro.save(flush: true)) {
-                                            println "error save " + registro.errors
-                                        }
-                                    } else {
-                                        println "no isert por repetido dentro de la campaña"
-                                    }
-
-                                }
-                            }
-
-                        }
-
-
-                    }
-                }
-
-                if (params.id) {
-                    flash.clase = "alert-success"
-                    flash.message = "Se ha actualizado correctamente Orden De Trabajo " + campanaInstace.id
+            def parts = fileName.split("\\.")
+            fileName = ""
+            parts.eachWithIndex { obj, i ->
+                if (i < parts.size() - 1) {
+                    fileName += obj
                 } else {
-                    flash.clase = "alert-success"
-                    flash.message = "Se ha creado correctamente Orden De Trabajo " + campanaInstace.id
+                    ext = obj
                 }
             }
+
+            if (ext == "xls") {
+                def inputStream = new ByteArrayInputStream(f.getBytes())
+
+                Workbook workbook = Workbook.getWorkbook(inputStream)
+
+                def campos = [:]
+                def mapa = toMap(Lote)
+                def error = ""
+
+                def campanaInstace
+                if (params.id) {
+                    campanaInstace = Campana.get(params.id)
+                    if (!campanaInstace) {
+                        flash.clase = "alert-error"
+                        flash.message = "No se encontró Orden De Trabajo con id " + params.id
+                        redirect(action: 'list')
+                        return
+                    }//no existe el objeto
+                    campanaInstace.properties = params
+                }//es edit
+                else {
+                    campanaInstace = new Campana(params)
+                } //es create
+                if (!campanaInstace.save(flush: true)) {
+                    flash.clase = "alert-error"
+                    def str = "<h4>No se pudo guardar Orden De Trabajo " + (ordenDeTrabajoInstance.id ? ordenDeTrabajoInstance.id : "") + "</h4>"
+
+                    str += "<ul>"
+                    campanaInstace.errors.allErrors.each { err ->
+                        def msg = err.defaultMessage
+                        err.arguments.eachWithIndex { arg, i ->
+                            msg = msg.replaceAll("\\{" + i + "}", arg.toString())
+                        }
+                        str += "<li>" + msg + "</li>"
+                    }
+                    str += "</ul>"
+
+                    flash.message = str
+                    redirect(action: 'list')
+                    return
+                } else {
+
+                    workbook.getNumberOfSheets().times { sheet ->
+                        Sheet s = workbook.getSheet(sheet)
+
+
+                        if (!s.getSettings().isHidden()) {
+//                println "hoja"+ s.getName()
+                            Cell[] row = null
+                            s.getRows().times { i ->
+                                row = s.getRow(i)
+                                if (row.length > 0) {
+                                    if (i == 0) {
+                                        row.length.times { j ->
+                                            campos.put(row[j].getContents().trim().toLowerCase().replaceAll(" ", "").replaceAll("\\.", ""), j)
+                                        }
+                                        campos = compare(campos, mapa)
+//                            println "headers "+campos
+                                        if (campos.size() < 8) {
+                                            error = "Error: No se pudo procesar los nombres de las columnas en el archivo excel"
+                                        }
+
+                                    } else {
+                                        def registro = new Lote()
+                                        def parametros = [:]
+                                        campos.each { cmp ->
+                                            if (row[cmp.value.toInteger()].getContents()) {
+                                                if (mapa[cmp.key] =~ "elyon")
+                                                    parametros[cmp.key + ".id"] = row[cmp.value.toInteger()].getContents()
+                                                else
+                                                    parametros[cmp.key] = row[cmp.value.toInteger()].getContents()
+                                            }
+
+                                        }
+                                        registro.properties = parametros
+                                        registro.campana = campanaInstace
+                                        def verificacion = Lote.findAllByCampanaAndCedula(campanaInstace, registro.cedula)
+                                        if (verificacion.size() == 0) {
+                                            if (!registro.save(flush: true)) {
+                                                println "error save " + registro.errors
+                                            }
+                                        } else {
+                                            println "no insert por repetido dentro de la campaña"
+                                        }
+
+                                    }
+                                }
+
+                            }
+
+
+                        }
+                    }
+
+                    if (params.id) {
+                        flash.clase = "alert-success"
+                        flash.message = "Se ha actualizado correctamente Orden De Trabajo " + campanaInstace.id
+                    } else {
+                        flash.clase = "alert-success"
+                        flash.message = "Se ha creado correctamente Orden De Trabajo " + campanaInstace.id
+                    }
+                }
+                redirect(action: 'list', controller: "campana")
+            } else {
+                flash.message = "Seleccione un archivo Excel xls para procesar (archivos xlsx deben ser convertidos a xls primero)"
+                redirect(action: 'list', controller: "campana")
+            }
+        } else {
+            flash.message = "Seleccione un archivo para procesar"
             redirect(action: 'list', controller: "campana")
         }
     }
@@ -134,10 +157,10 @@ class LoteController extends elyon.seguridad.Shield {
 
     def buscarLoteRegistro() {
 //        session.usuario = Usro.get(5)
-        def closure = {lote ->
+        def closure = { lote ->
             return "" + lote.ordenDeTrabajo.campana + " #" + lote.ordenDeTrabajo.numero
         }
-        def numeros = {numero ->
+        def numeros = { numero ->
             return g.formatNumber(number: numero, format: "###,##0", minFractionDigits: 2, maxFractionDigits: 2)
         }
         def listaTitulos = ["Cédula", "Nombre", "Código", "O. de trabajo", "Ciudad", "Teléfono", "Estado", "Tipo", "Tarjeta", "Cupo", "Cupo Total"]
@@ -151,7 +174,7 @@ class LoteController extends elyon.seguridad.Shield {
         def ordenes = OrdenDeTrabajo.findAllByUsro(session.usuario)
         if (ordenes.size() == 0)
             extras += "-1) and estado != 'N'"
-        ordenes.eachWithIndex {o, i ->
+        ordenes.eachWithIndex { o, i ->
             extras += "" + o.id
             if (i < ordenes.size() - 1)
                 extras += ","
@@ -174,13 +197,13 @@ class LoteController extends elyon.seguridad.Shield {
 
     def buscarLote() {
 //        session.usuario = Usro.get(5)
-        def closure = {lote ->
+        def closure = { lote ->
             return "" + lote.ordenDeTrabajo.campana + " #" + lote.ordenDeTrabajo.numero
         }
-        def numeros = {numero ->
+        def numeros = { numero ->
             return g.formatNumber(number: numero, format: "###,##0", minFractionDigits: 2, maxFractionDigits: 2)
         }
-        def listaTitulos = ["Cédula", "Nombre", "Código", "O. de trabajo", "Ciudad", "Teléfono","Estado", "Tipo", "Tarjeta", "Cupo", "Cupo Total"]
+        def listaTitulos = ["Cédula", "Nombre", "Código", "O. de trabajo", "Ciudad", "Teléfono", "Estado", "Tipo", "Tarjeta", "Cupo", "Cupo Total"]
         def listaCampos = ["cedula", "nombre", "codigo", "orden", "ciudad", "telefono1", "estadoGestion", "tipoCliente", "tipoTarjeta", "cupoNormal", "cupoTotal"]
         def funciones = [null, null, null, ["closure": [closure, "&"]], null, null, null, null, null, ["closure": [numeros, "?"]], ["closure": [numeros, "?"]]]
         def url = g.createLink(action: "buscarLote", controller: "lote")
@@ -191,7 +214,7 @@ class LoteController extends elyon.seguridad.Shield {
         def ordenes = OrdenDeTrabajo.findAllByUsro(session.usuario)
         if (ordenes.size() == 0)
             extras += "-1) and estado != 'N'"
-        ordenes.eachWithIndex {o, i ->
+        ordenes.eachWithIndex { o, i ->
             extras += "" + o.id
             if (i < ordenes.size() - 1)
                 extras += ","
@@ -228,7 +251,7 @@ class LoteController extends elyon.seguridad.Shield {
         def result = [:]
         def score = 0
         def top = 0
-        excel.each {xl ->
+        excel.each { xl ->
             def palabra = xl.key
             def tam = 3, pos = 0
             def iteraciones = Math.floor(palabra.size() / tam).toInteger()
@@ -236,7 +259,7 @@ class LoteController extends elyon.seguridad.Shield {
             def campo = ""
             def columna = -1
 //            println "palabra "+xl.key+" "+top+" "+campo+" "+columna
-            iteraciones.times {t ->
+            iteraciones.times { t ->
                 if (pos + tam < palabra.size())
                     if (t < iteraciones - 1)
                         segmentos.add(palabra.substring(pos, pos + tam).replaceAll("�", "[aeioun]"))
@@ -249,9 +272,9 @@ class LoteController extends elyon.seguridad.Shield {
 
             }
 //            println "segmentos "+segmentos + "============>>>>>>>>>>>>>>>>>>>>"
-            dominio.each {d ->
+            dominio.each { d ->
                 if (!result[d.key]) {
-                    segmentos.each {s ->
+                    segmentos.each { s ->
                         if (d.key.toString() =~ s) {
 //                            println "mach "+s+" "+d.key
                             score++

@@ -10,6 +10,7 @@ class Lote implements Serializable {
     String telefono4
     String telefono5
     String telefono6
+    String telefono7
     String telefonoTrabajoAnterior
     String ciudad
     String tipoTarjeta
@@ -42,6 +43,7 @@ class Lote implements Serializable {
             telefono4 column: 'lotetlf4'
             telefono5 column: 'lotetlf5'
             telefono6 column: 'lotetlf6'
+            telefono7 column: 'lotetlf7'
             telefonoTrabajoAnterior column: 'lotetban'
             ciudad column: 'lotecdad'
             tipoTarjeta column: 'lotetptj'
@@ -67,6 +69,7 @@ class Lote implements Serializable {
         telefono4(size: 1..15, blank: true, nullable: true, attributes: [title: 'telefono4'])
         telefono5(size: 1..15, blank: true, nullable: true, attributes: [title: 'telefono5'])
         telefono6(size: 1..15, blank: true, nullable: true, attributes: [title: 'telefono6'])
+        telefono7(size: 1..15, blank: true, nullable: true, attributes: [title: 'telefono7'])
         telefonoTrabajoAnterior(size: 1..15, blank: true, nullable: true, attributes: [title: 'telefonoTrabajoAnterior'])
         ciudad(size: 1..63, blank: true, nullable: true, attributes: [title: 'ciudad'])
         tipoTarjeta(size: 1..15, blank: true, nullable: true, attributes: [title: 'tipoTarjeta'])
