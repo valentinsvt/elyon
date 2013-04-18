@@ -84,6 +84,8 @@ class Data implements Serializable {
     Vendedor vendedor
     Lote lote
 
+    Date fechaRegistro = new Date()
+
 
     static mapping = {
         table 'data'
@@ -152,6 +154,8 @@ class Data implements Serializable {
 
             comentarios column: 'datacmtr'
             contactoAlterno column: 'datacnal'
+
+            fechaRegistro column: 'datafcha'
         }
     }
     static constraints = {
@@ -233,6 +237,10 @@ class Data implements Serializable {
 
         vendedor(blank: true, nullable: true, attributes: [title: 'vendedor'])
         lote(blank: true, attributes: [title: 'lote'])
+
+
+        fechaRegistro(blank: true, nullable: true, attributes: [title: 'fechaRegistro'])
+
     }
 
     String toString() {

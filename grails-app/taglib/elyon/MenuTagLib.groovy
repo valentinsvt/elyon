@@ -59,11 +59,13 @@ class MenuTagLib {
                 items.administracion.items.reportes = [:]
                 items.administracion.items.reportes.label = "Ventas"
                 items.administracion.items.reportes.controller = "reportes"
-                items.administracion.items.reportes.action = "archivo"
+//                items.administracion.items.reportes.action = "archivo"
+                items.administracion.items.reportes.action = "ventas"
                 items.administracion.items.reportesXl = [:]
                 items.administracion.items.reportesXl.label = "Ventas Excel"
                 items.administracion.items.reportesXl.controller = "reportes"
-                items.administracion.items.reportesXl.action = "aExcel"
+                items.administracion.items.reportesXl.action = "ventasExcel"
+//                items.administracion.items.reportesXl.action = "aExcel"
 
                 items.campana = [:]
                 items.campana.controller = "campana"

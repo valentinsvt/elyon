@@ -58,6 +58,7 @@ class LlamadaController extends elyon.seguridad.Shield {
 
     def saveRegistro() {
         println "saveRegistro" + params
+        params.fechaRegistro = new Date()
         def data
         if (params.id) {
             data = Data.get(params.id)
