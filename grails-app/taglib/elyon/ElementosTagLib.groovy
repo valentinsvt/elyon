@@ -22,12 +22,12 @@ class ElementosTagLib {
         formatJs = formatJs.replaceAll("M", "m")
         formatJs = formatJs.replaceAll("yyyy", "yy")
 
-        str += "<input type='text' class='datepicker " + clase + "' name='" + name + "' id='" + id + "' value='" + g.formatDate(date: value, format: format) + "'"
+        str += "<input type='text' autocomplete='off' class='datepicker " + clase + "' name='" + name + "' id='" + id + "' value='" + g.formatDate(date: value, format: format) + "'"
         str += renderAttributes(attrs)
         str += "/>"
 
         def js = "<script type='text/javascript'>"
-        js += '$(function() {'
+//        js += '$(function() {'
         js += '$("#' + id + '").datepicker({'
         js += 'dateFormat: "' + formatJs + '",'
         js += 'changeMonth: true,'
@@ -36,7 +36,7 @@ class ElementosTagLib {
 //        js += 'buttonImage     : "' + resource(dir: 'images', file: 'calendar.png') + '",'
 //        js += 'buttonImageOnly : true'
         js += '});'
-        js += '});'
+//        js += '});'
         js += "</script>"
 
         out << str

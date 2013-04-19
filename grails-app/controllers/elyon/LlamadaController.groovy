@@ -57,6 +57,7 @@ class LlamadaController extends elyon.seguridad.Shield {
 
 
     def saveRegistro() {
+
         println "saveRegistro" + params
         params.fechaRegistro = new Date()
         def data
@@ -66,6 +67,7 @@ class LlamadaController extends elyon.seguridad.Shield {
             data = new Data()
         }
         data.properties = params
+//        data.fechaRegistro = new Date();
         if (!data.save(flush: true)) {
             println "ERRORES:"
             println data.errors
