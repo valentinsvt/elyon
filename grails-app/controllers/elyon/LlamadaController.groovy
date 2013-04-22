@@ -26,7 +26,23 @@ class LlamadaController extends elyon.seguridad.Shield {
             data = null
             lote = null
         }
-        return [data: data, lote: lote]
+
+
+        def tipoTarjeta = lote.tipoTarjeta.toLowerCase();
+        if (tipoTarjeta == 'nacional')     {
+
+
+            tipoTarjeta  = ' nacional'
+
+        }
+
+        def listaTipoTarjeta = Bins.list([sort: 'descripcion']).findAll{it.descripcion.toLowerCase().contains(tipoTarjeta)}
+
+        println(listaTipoTarjeta)
+        println(listaTipoTarjeta[0]?.class)
+
+
+        return [data: data, lote: lote, listaTipoTarjeta: listaTipoTarjeta]
     }
 
 

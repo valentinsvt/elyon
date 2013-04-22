@@ -99,13 +99,18 @@
 
             <div class="span1">Tipo de Tarjeta</div>
 
-            <div class="span2"><g:textField name="tipoTarjeta" disabled="true" style="width: 150px"
+            <div class="span2"><g:textField name="tipoTarjeta" disabled="true" style="width: 150px; margin-left: -40px"
                                             value="${lote.tipoTarjeta}"/></div>
 
-            <div class="span1">Cupo</div>
+            <div class="span1" style="margin-left: -20px">Cupo</div>
 
-            <div class="span2"><g:textField name="cupo1" disabled="true" style="width: 150px"
+            <div class="span2"><g:textField name="cupo1" disabled="true" style="width: 150px; margin-left: -40px"
                                             value="${lote.cupoNormal}"/></div>
+
+
+            <div class="span1" style="margin-left: -20px">No Desea</div>
+            
+            <div class="span2"><g:select from="${elyon.NoDesea.list()}" name="noDesea" value="${noDesea?.id}" noSelection="['':'Seleccione']" optionKey="id" optionValue="descripcion" style="margin-left: -6px"/></div>
 
         </div>
 

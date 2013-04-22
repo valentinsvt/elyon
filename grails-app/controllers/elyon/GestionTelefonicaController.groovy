@@ -16,7 +16,16 @@ class GestionTelefonicaController extends elyon.seguridad.Shield {
 
     def gestion() {
 
+        println("params" + params)
+
         def lote = Lote.get(params.id)
+
+        def data = Data.get(lote.id)
+
+
+//        def data2 = Data.findByLote(lote)
+
+        def noDesea = NoDesea.get(lote?.noDesea?.id)
 
         def estadoGestion = new EstadoGestion()
 
@@ -35,18 +44,30 @@ class GestionTelefonicaController extends elyon.seguridad.Shield {
 //        println ">>>>>>>>>>>>>>>>>"+gestion.id
 
 
-        [lote: lote, gestion: gestion, estadoGestion: estadoGestion, restantes: restantes, estadoLlamada: estadoLlamada, estadoLlamadaT: estadoLlamadaT]
+        [lote: lote, gestion: gestion, estadoGestion: estadoGestion, restantes: restantes, estadoLlamada: estadoLlamada, estadoLlamadaT: estadoLlamadaT, data: data, noDesea: noDesea]
 
 
     }
 
     def saveGestion() {
+
+        println(params)
+
         println "save gestion?"
         def msg = "ok"
         def loteId = params.lote
         def estadoGestionId = params.estadoGestion
         def estadoGestion = EstadoGestion.get(estadoGestionId)
         def lote = Lote.get(loteId)
+
+        println("lote" + lote )
+//
+//        def data = Data.findByLote(lote)
+//
+//        println("data" + data)
+
+        def noDesea = NoDesea.get(params.noDesea)
+
         //println "estado "+estadoGestion
         if (estadoGestion){
             if (estadoGestion.lista=="S")
@@ -54,6 +75,15 @@ class GestionTelefonicaController extends elyon.seguridad.Shield {
         }
         //println "estado "+lote.estado
         lote.estadoGestion = estadoGestion
+
+        lote.noDesea = noDesea
+//
+//        data.noDesea = noDesea
+//
+//        data.save(flush: true)
+//
+
+
         if (!lote.save(flush: true)) {
             msg += "error save lote: " + lote.errors
             println "error save lote: " + lote.errors

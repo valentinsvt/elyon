@@ -156,6 +156,7 @@ class Data implements Serializable {
             contactoAlterno column: 'datacnal'
 
             fechaRegistro column: 'datafcha'
+
         }
     }
     static constraints = {
@@ -240,6 +241,8 @@ class Data implements Serializable {
 
 
         fechaRegistro(blank: true, nullable: true, attributes: [title: 'fechaRegistro'])
+
+
 
     }
 

@@ -23,6 +23,7 @@ class Lote implements Serializable {
     OrdenDeTrabajo ordenDeTrabajo
     EstadoGestion estadoGestion
     String estado=""      /*N no mostrar en las listas... cualquier otra cosa si mostrar*/
+    NoDesea noDesea
 
 
     static mapping = {
@@ -56,6 +57,7 @@ class Lote implements Serializable {
             ordenDeTrabajo column: 'ortb__id'
             estadoGestion column: 'edgs__id'
             estado column: 'loteedto'
+            noDesea column: 'nods__id'
         }
     }
     static constraints = {
@@ -82,6 +84,9 @@ class Lote implements Serializable {
         ordenDeTrabajo(blank:true,nullable: true,attributes:[title: 'Orden de trabajo'])
         estadoGestion(blank:true,nullable: true,attributes:[title: 'Estado de gestión'])
         estado(blank: true,nullable: true,size: 1..1)
+
+        noDesea(blank: true, nullable: true, attributes: [title: 'noDesea'])
+
     }
 
     String toString(){

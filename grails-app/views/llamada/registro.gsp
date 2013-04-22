@@ -253,7 +253,7 @@
                                 <div class="span1 offset1">Tipo de tarjeta(Bins)</div>
 
                                 <div class="span2">
-                                    <g:select from="${elyon.Bins.list([sort: 'descripcion'])}" name="bins.id" class="span2" value="${data?.binsId}"
+                                    <g:select from="${listaTipoTarjeta}" name="bins.id" class="span2" value="${data?.binsId}"
                                               noSelection="['': '-Seleccione-']" optionKey="id"/>
                                 </div>
 
@@ -344,13 +344,14 @@
                                 <div class="span1 offset1">Tipo vivienda</div>
 
                                 <div class="span2">
-                                    <g:select from="${elyon.TipoVivienda.list([sort: 'descripcion'])}" name="tipoVivienda.id" class="span2" value="${data?.tipoViviendaId}"
+                                    <g:select from="${elyon.TipoVivienda.list([sort: 'descripcion'])}" name="tipoVivienda.id" id="tipoVivienda" class="span2" value="${data?.tipoViviendaId}"
                                               noSelection="['': '-Seleccione-']" optionKey="id"/>
                                 </div>
 
                                 <div class="span1">Valor vivienda</div>
 
-                                <div class="span2"><g:textField name="valorVivienda" class="span2 number" value="${data?.valorVivienda?:0}"/></div>
+
+                                    <div class="span2"><g:textField name="valorVivienda" class="span2 number" value="${data?.valorVivienda?:0}" readonly="true"/></div>
 
                                 <div class="span1">Fecha ini res</div>
 
@@ -546,6 +547,27 @@
                 })
 
             });
+
+            $("#tipoVivienda").change(function () {
+//               console.log("entro")
+                var viviendaSel = $("#tipoVivienda").val()
+
+//                console.log(viviendaSel)
+
+                if(viviendaSel == 4 || viviendaSel == 1){
+
+                    $("#valorVivienda").attr("readonly", false);
+
+                }else {
+
+                    $("#valorVivienda").attr("readonly", true);
+                    $("#valorVivienda").val("0");
+
+                }
+
+            });
+
+
         </script>
 
     </body>
