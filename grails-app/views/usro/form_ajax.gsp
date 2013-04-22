@@ -60,7 +60,7 @@
         </div>
 
         <div class="controls">
-            <elm:datepicker name="fechaNacimiento" class="" value="${usroInstance?.fechaNacimiento}"/>
+            <elm:datepicker name="fechaNacimiento" class="" value="${usroInstance?.fechaNacimiento}" yearRange="-90:-17"/>
 
 
             <p class="help-block ui-helper-hidden"></p>
@@ -76,7 +76,7 @@
         </div>
 
         <div class="controls">
-            <elm:datepicker name="fechaInicio" class="" value="${usroInstance?.fechaInicio}"/>
+            <elm:datepicker name="fechaInicio" class="" value="${usroInstance?.fechaInicio}" yearRange="-20:+0"/>
 
 
             <p class="help-block ui-helper-hidden"></p>
@@ -92,7 +92,7 @@
         </div>
 
         <div class="controls">
-            <elm:datepicker name="fechaFin" class="" value="${usroInstance?.fechaFin}"/>
+            <elm:datepicker name="fechaFin" class="" value="${usroInstance?.fechaFin}" yearRange="-20:+0"/>
 
 
             <p class="help-block ui-helper-hidden"></p>
@@ -156,7 +156,7 @@
         </div>
 
         <div class="controls">
-           <g:select name="tipo" from="${usroInstance?.constraints.tipo.inList}" valueMessagePrefix="usro.tipo" value="${usroInstance.tipo}" />
+            <g:select name="tipo" from="${usroInstance?.constraints.tipo.inList}" valueMessagePrefix="usro.tipo" value="${usroInstance.tipo}"/>
 
             <span class="mandatory">*</span>
 
@@ -215,12 +215,12 @@
             form.submit();
         },
         rules          : {
-            login : {
+            login  : {
                 remote : {
                     url  : "${createLink(action:'checkUniqueUser')}",
                     type : "post",
                     data : {
-                        id   : "${usroInstance?.id}"
+                        id : "${usroInstance?.id}"
                     }
                 }
             },
@@ -229,13 +229,13 @@
                     url  : "${createLink(action:'checkUniqueCi')}",
                     type : "post",
                     data : {
-                        id   : "${usroInstance?.id}"
+                        id : "${usroInstance?.id}"
                     }
                 }
             }
         },
         messages       : {
-            login : {
+            login  : {
                 remote : "Seleccione otro login"
             },
             cedula : {

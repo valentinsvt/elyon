@@ -11,6 +11,13 @@ class LoteController extends elyon.seguridad.Shield {
 
     def buscadorService
 
+    static String toCamelCase(String text) {
+        text = text.trim().toLowerCase()
+        text = text.replaceAll("( )([A-Za-z0-9])", { Object[] it -> it[2].toUpperCase() })
+        text = text.replaceAll("\\.", "")
+        return text
+    }
+
     def procesa() {
         def path = servletContext.getRealPath("/") + "lotes/"
         def f = request.getFile('archivo')
@@ -84,14 +91,17 @@ class LoteController extends elyon.seguridad.Shield {
                                 if (row.length > 0) {
                                     if (i == 0) {
                                         row.length.times { j ->
-                                            campos.put(row[j].getContents().trim().toLowerCase().replaceAll(" ", "").replaceAll("\\.", ""), j)
+                                            def campo = toCamelCase(row[j].getContents())
+                                            println campo
+                                            campos.put(campo, j)
                                         }
+//                                        println "campos1: " + campos
                                         campos = compare(campos, mapa)
-//                            println "headers "+campos
+//                                        println "headers " + campos
                                         if (campos.size() < 8) {
                                             error = "Error: No se pudo procesar los nombres de las columnas en el archivo excel"
                                         }
-
+//                                        println "campos2: " + campos
                                     } else {
                                         def registro = new Lote()
                                         def parametros = [:]
@@ -102,8 +112,8 @@ class LoteController extends elyon.seguridad.Shield {
                                                 else
                                                     parametros[cmp.key] = row[cmp.value.toInteger()].getContents()
                                             }
-
                                         }
+//                                        println "Parametros: " + parametros
                                         registro.properties = parametros
                                         registro.campana = campanaInstace
                                         def verificacion = Lote.findAllByCampanaAndCedula(campanaInstace, registro.cedula)
@@ -240,14 +250,15 @@ class LoteController extends elyon.seguridad.Shield {
         def mapa = [:]
         dominio.properties.declaredFields.each {
             if (it.getName().substring(0, 1) != "\$" && it.getName().substring(0, 1) != "") {
-                mapa.put(it.getName().toString().toLowerCase(), it.getType())
+                println it.getName()
+//                mapa.put(it.getName().toString().toLowerCase(), it.getType())
+                mapa.put(it.getName().toString(), it.getType())
             }
         }
         return mapa
     }
 
     HashMap compare(excel, dominio) {
-
         def result = [:]
         def score = 0
         def top = 0
@@ -294,17 +305,12 @@ class LoteController extends elyon.seguridad.Shield {
                     }
                     score = 0
                 }
-
-
             }
             result.put(campo, columna)
             top = 0
             campo = ""
             columna = -1
-
-
         }
-
 //        println "result "+result
         return result
 

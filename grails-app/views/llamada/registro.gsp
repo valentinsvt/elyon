@@ -28,6 +28,10 @@
         textarea {
             height : 60px;
         }
+
+        form {
+            margin : 0;
+        }
         </style>
     </head>
 
@@ -133,7 +137,7 @@
 
                                 <div class="span1">Num Ident</div>
 
-                                <div class="span2"><g:textField name="numeroIdentificacion" class="span2 digits" value="${data?.numeroIdentificacion?:lote.cedula}" maxlength="10"  /></div>
+                                <div class="span2"><g:textField name="numeroIdentificacion" readonly="true" class="span2 digits" value="${data?.numeroIdentificacion ?: lote.cedula}" maxlength="10"/></div>
 
                                 <div class="span1">Nombre 1</div>
 
@@ -520,6 +524,12 @@
                     decimal  : false,
                     negative : false
                 });
+
+                $(".telefono,.celular,.fono").numeric({
+                    decimal  : false,
+                    negative : false
+                });
+
                 $("#frmRegistroLlamada").validate();
                 $(".btn-save").click(function () {
                     $("#frmRegistroLlamada").submit();

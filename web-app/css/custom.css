@@ -4,11 +4,25 @@
 
 /* Custom styling */
 body {
-    font-size : 13px !important;
+    font-size   : 12px !important;
+    line-height : 15px !important;
+}
+
+select, textarea, input[type="text"], input[type="password"], input[type="datetime"], input[type="datetime-local"], input[type="date"], input[type="month"], input[type="time"], input[type="week"], input[type="number"], input[type="email"], input[type="url"], input[type="search"], input[type="tel"], input[type="color"], .uneditable-input {
+    font-size : 12px !important;
+}
+
+input[type="text"], input[type="password"], input[type="datetime"], input[type="datetime-local"], input[type="date"], input[type="month"], input[type="time"], input[type="week"], input[type="number"], input[type="email"], input[type="url"], input[type="search"], input[type="tel"], input[type="color"], .uneditable-input {
+    height : 15px;
+}
+
+select, input[type="file"] {
+    height : 25px;
 }
 
 .ui-widget {
-    font-size : 13px !important;
+    font-size   : 12px !important;
+    line-height : 15px !important;
 }
 
 .table th {
@@ -59,4 +73,11 @@ th.asc a {
 
 th.desc a {
     background-image : url(../images/skin/sorted_desc.gif) !important;
+}
+
+/******************************* MODALS ***************************************/
+.modal.grande {
+    width       : 1000px;
+    max-height  : 600px;
+    margin-left : -500px; /* - width/2 */
 }
