@@ -153,7 +153,7 @@ class BuscadorService {
         return  parts
     }
 
-    List buscar(dominio, tabla, tipo, params, ignoreCase,extras="") {
+    List buscar(dominio, tabla, tipo, params, ignoreCase, extras = "") {
         def sql = "from " + tabla
         def mapa = toMap(dominio)
         def parametros =[:]
@@ -177,7 +177,7 @@ class BuscadorService {
             }
         }
 
-        common=parametros.keySet().intersect(mapa.keySet())
+        common = parametros.keySet().intersect(mapa.keySet())
         alterna.each {
 
             def llave = it.key.toString().replaceFirst("&","")
@@ -187,19 +187,21 @@ class BuscadorService {
             }
         }
         def res
-        if(tipo=="excluyente")
+        if(tipo == "excluyente")
             res = filtro("and", parametros, common, mapa, ignoreCase)
         else
             res = filtro("or", parametros, common, mapa, ignoreCase)
 
         sql += res[0]
         res.remove(0)
+
+        //println "extras: " + extras
         if(sql=~"where")
             sql += extras
         else
             sql+= " where "+extras.replaceFirst(" and ","").replaceFirst(" or ","")
-        println "sql " + sql  + orderby+" pars "+res
-        lista = dominio.findAll(sql+orderby, res)
+        //println "sql buscar: " + sql  + orderby+" pars " + res
+        lista = dominio.findAll(sql + orderby, res)
         lista.add(lista.size())
         if (lista.size() < 1 && tipo != "excluyente") {
             res = filtro("or", parametros, common, mapa, ignoreCase)

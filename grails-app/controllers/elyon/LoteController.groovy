@@ -220,7 +220,12 @@ class LoteController extends elyon.seguridad.Shield {
         def show = "gestion"
         def link = "cedula"
         def numRegistros = 20
-        def extras = " and ordenDeTrabajo in ("
+        /* TODO al insertar datos en el lote de ebe ṕoner con edgs__id = 0 para que no que null y
+        * aparezca en la búsqueda -----------
+         * validar que el archivo de salida obtiene sólo los estados en "Pendiente de Aprobación" */
+        //def extras = " and ordenDeTrabajo in ("
+
+        def extras = " and estadoGestion in (0, 1, 6, 8) and ordenDeTrabajo in ("
         def ordenes = OrdenDeTrabajo.findAllByUsro(session.usuario)
         if (ordenes.size() == 0)
             extras += "-1) and estado != 'N'"
