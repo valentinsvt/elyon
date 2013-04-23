@@ -50,8 +50,21 @@
             "Aceptar": function () {
                 fechaInicio = $("#fechaInicio").val()
                 fechaFin = $("#fechaFin").val()
-                location.href = "${createLink(controller: 'reportes', action: 'ventasReporte')}?fechaInicio=" + fechaInicio + "&fechaFin=" + fechaFin
-                $("#ventasDialog").dialog("close");
+
+                if(fechaInicio != '' && fechaFin != ''){
+
+
+                    location.href = "${createLink(controller: 'reportes', action: 'ventasReporte')}?fechaInicio=" + fechaInicio + "&fechaFin=" + fechaFin
+                    $("#ventasDialog").dialog("close");
+
+
+                } else {
+
+
+
+                }
+
+
             },
             "Cancelar": function () {
                 $("#ventasDialog").dialog("close");

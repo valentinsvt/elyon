@@ -44,38 +44,23 @@
         buttons   : {
             "Aceptar" : function () {
 //
-//
-//             console.log($("#fechaInicio").val())
-//                console.log($("#fechaFin").val())
-
-                fechaInicio =   $("#fechaInicio").val()
+              fechaInicio =   $("#fechaInicio").val()
                 fechaFin =   $("#fechaFin").val()
+
+
+                if(fechaInicio != '' && fechaFin != ''){
 
 
                 location.href="${createLink(controller: 'reportes', action: 'ventasReporteExcel')}?fechaInicio=" + fechaInicio + "&fechaFin=" + fechaFin
 
-                %{--$.ajax({--}%
-                %{--type    : "POST",--}%
-                %{--url     : "${createLink(controller: 'reportes', action: 'ventas')}",--}%
-                %{--data    : {--}%
-                %{--fechaInicio : fechaInicio ,--}%
-                %{--fechaFin : fechaFin--}%
+                }
+                else {
 
-                %{--},--}%
-                %{--success : function (msg) {--}%
 
-                %{--if (msg == 'ok') {--}%
 
-                %{--location.href = "${createLink(action: 'registroObra')}"--}%
+                }
 
-                %{--} else {--}%
-
-                %{--}--}%
-
-                %{--}--}%
-                %{--});--}%
-
-                $("#ventasDialog").dialog("close");
+//                $("#ventasDialog").dialog("close");
 
             },
 

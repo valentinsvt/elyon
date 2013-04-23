@@ -479,7 +479,10 @@ class ReportesController {
     def ventasReporteExcel () {
 
         def fechaInicio = new Date().parse("dd-MM-yyyy",params.fechaInicio).format("yyyy-MM-dd");
-        def fechaFin = new Date().parse("dd-MM-yyyy",params.fechaFin).format("yyyy-MM-dd");
+        def fechaFin = new Date().parse("dd-MM-yyyy",params.fechaFin);
+
+        fechaFin=fechaFin.plus(1)
+        fechaFin=fechaFin.format("yyyy-MM-dd")
 
 
         def tx_sql = "select data.*, tpidcdgo from data, lote, tpid where tpid.tpid__id = data.tpid__id and lote.lote__id = data.lote__id and edgs__id = 5  " +
