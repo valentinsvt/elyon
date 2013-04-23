@@ -118,6 +118,7 @@ class LoteController extends elyon.seguridad.Shield {
                                         registro.campana = campanaInstace
                                         def verificacion = Lote.findAllByCampanaAndCedula(campanaInstace, registro.cedula)
                                         if (verificacion.size() == 0) {
+                                            registro.estadoGestion = EstadoGestion.get(0)
                                             if (!registro.save(flush: true)) {
                                                 println "error save " + registro.errors
                                             }
