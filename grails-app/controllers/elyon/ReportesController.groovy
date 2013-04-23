@@ -147,8 +147,8 @@ class ReportesController {
 //        def cn = dbConnectionService.getConnection()
 ////        def tx = 0;
 //        def sp = ";"
-        def tx_sql = "select data.*, tpidcdgo from data, tpid where tpid.tpid__id = data.tpid__id " +
-                "order by dataap01, dataap02"
+        def tx_sql = "select data.*, tpidcdgo from data, lote, tpid where tpid.tpid__id = data.tpid__id and " +
+                "lote.lote__id = data.lote__id and edgs__id = 5 order by dataap01, dataap02"
 
         def tx = crearTxt(tx_sql)
 
@@ -517,9 +517,8 @@ class ReportesController {
         def cn = dbConnectionService.getConnection()
         def tx = 0;
         def sp = ";"
-        def tx_sql = "select data.*, tpidcdgo from data, tpid where tpid.tpid__id = data.tpid__id " +
-                "order by dataap01, dataap02"
-
+        def tx_sql = "select data.*, tpidcdgo from data, lote, tpid where tpid.tpid__id = data.tpid__id and " +
+                "lote.lote__id = data.lote__id and edgs__id = 5 order by dataap01, dataap02"
 //        println tx_sql
         WorkbookSettings workbookSettings = new WorkbookSettings()
         workbookSettings.locale = Locale.default
