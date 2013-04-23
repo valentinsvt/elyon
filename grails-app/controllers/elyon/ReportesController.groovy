@@ -21,6 +21,8 @@ import jxl.Workbook
 import jxl.WorkbookSettings
 import jxl.write.*
 
+import java.text.SimpleDateFormat
+
 //import java.awt.Label
 
 
@@ -59,7 +61,7 @@ class ReportesController {
             tx += sp + completa((d.parr__id ? Parroquia.get(d.parr__id).ciudad.codigo : " "), 8)
             tx += sp + completa((d.parr__id ? Parroquia.get(d.parr__id).codigo : " "), 8)
             tx += sp + completa((d.ncnl__id ? Nacionalidad.get(d.ncnl__id).codigo : " "), 3)
-            tx += sp + completa(((d.datafcna != null) ? d.datafcna: " "), 8)
+            tx += sp + completa(((d.datafcna != null) ? new SimpleDateFormat("yyyyMMdd").format(d.datafcna) : " "), 8)
             tx += sp + completa((d.sexo__id ? Sexo.get(d.sexo__id).codigo : " "), 1)
             tx += sp + completa((d.edcv__id ? EstadoCivil.get(d.edcv__id).codigo : " "), 1)
             tx += sp + completa((d.nves__id ? NivelEstudios.get(d.nves__id).codigo : " "), 2)
@@ -70,11 +72,11 @@ class ReportesController {
             tx += sp + completa((d.datapatr ?: "0"), 12)
             tx += sp + completa((d.tpvv__id ? TipoVivienda.get(d.tpvv__id).codigo : " "), 2)
             tx += sp + completa((d.datavlvv ?: "0"), 12)
-            tx += sp + completa(((d.datafirs != null) ? d.datafirs: " "), 8)
+            tx += sp + completa(((d.datafirs != null) ? new SimpleDateFormat("yyyyMMdd").format(d.datafirs) : " "), 8)
             tx += sp + completa((d.rldp__id ? RelacionDependenciaLaboral.get(d.rldp__id).codigo : " "), 2)
-            tx += sp + completa(((d.datafita != null )? d.datafita: " "), 8)
-            tx += sp + completa(((d.datafcit != null) ? d.datafcit: " "), 8)
-            tx += sp + completa(((d.datafcft != null) ? d.datafcft: " "), 8)
+            tx += sp + completa(((d.datafita != null )? new SimpleDateFormat("yyyyMMdd").format(d.datafita) : " "), 8)
+            tx += sp + completa(((d.datafcit != null) ? new SimpleDateFormat("yyyyMMdd").format(d.datafcit) : " "), 8)
+            tx += sp + completa(((d.datafcft != null) ? new SimpleDateFormat("yyyyMMdd").format(d.datafcft) : " "), 8)
             tx += sp + completa((d.datacrga ?: "0"), 2)
             tx += sp + completa((d.bins__id ? Bins.get(d.bins__id).codigo : " "), 6)
             tx += sp + completa((d.afnd__id ? Afinidad.get(d.afnd__id).codigo : " "), 3)
@@ -149,6 +151,19 @@ class ReportesController {
 //        def sp = ";"
         def tx_sql = "select data.*, tpidcdgo from data, lote, tpid where tpid.tpid__id = data.tpid__id and " +
                 "lote.lote__id = data.lote__id and edgs__id = 5 order by dataap01, dataap02"
+
+/*
+        def tx_sql = "select data.tpidcdgo, data.nmid, data.dataap01, data.dataap02, data.datanb01, data.datanb02," +
+                "data.datadrrs, data.datadrtb, data.ruta__id, data.rutaedcn, data.datatelf, data.datatltr" +
+                "data.datacllr, data.datamail, data.ofic__id, data.parr__id, data.ncnl__id, " +
+                "cast(data.datafcna as date) datafcha, data.sexo__id, data.edcv__id, data.nves__id, data.prof__id, " +
+                "data.acec__id, data.orig__id, data.datapatr, data.tpvv__id, data.datavlvv, data.datafirs, " +
+                "data.rldp__id, data.datafita, cast(data.datafcit as date) datafcit, cast(data.datafcft as date) datafcft, " +
+                "data.datacrga, data.bins__id, data.afnd__id, data.datacupo, data.datanmbr, data.vend__id, " +
+                "data.rfprtpid, data.datarfpr, data.dataa1rp, data.dataa2rf, data.datan1rp, data.datan2rp, " +
+                "data.datadrrp, data.datatfrp, tpidcdgo from data, lote, tpid where tpid.tpid__id = data.tpid__id and " +
+                "lote.lote__id = data.lote__id and edgs__id = 5 order by dataap01, dataap02"
+*/
 
         def tx = crearTxt(tx_sql)
 
@@ -440,11 +455,12 @@ class ReportesController {
     def completa(tx, n) {
 //        println "competa:" + tx.toString() + "  n " + n
 //
-//        println "!********************************************"
-//        println tx?.toString()
-//        println n
-//        println tx?.toString()?.size()
-//        println tx?.toString() + " " * (n - (tx ? tx.toString().size() : 0).toInteger()).toInteger()
+        println "!********************************************"
+        println tx?.toString()
+        println n
+        println tx?.toString()?.size()
+        println tx?.toString() + " " * (n - (tx ? tx.toString().size() : 0).toInteger()).toInteger()
+
         return tx?.toString() + " " * (n - (tx ? tx.toString().size() : 0).toInteger()).toInteger()
     }
 

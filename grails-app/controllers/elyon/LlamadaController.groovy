@@ -74,11 +74,15 @@ class LlamadaController extends elyon.seguridad.Shield {
 
     def saveRegistro() {
 
-//        println "saveRegistro" + params
+        println "saveRegistro" + params
 
-        if (params.fechaNacimiento) {
-            params.fechaNacimiento = new Date().parse("dd-MM-yyyy", params.fechaNacimiento)
-        }
+        if (params.fechaNacimiento) params.fechaNacimiento = new Date().parse("dd-MM-yyyy", params.fechaNacimiento)
+        if (params.fechaInicioResidencia) params.fechaInicioResidencia = new Date().parse("dd-MM-yyyy", params.fechaInicioResidencia)
+        if (params.fechaInicioTrabajoActual) params.fechaInicioTrabajoActual = new Date().parse("dd-MM-yyyy", params.fechaInicioTrabajoActual)
+        if (params.fechaInicioTrabajoAnterior) params.fechaInicioTrabajoAnterior = new Date().parse("dd-MM-yyyy", params.fechaInicioTrabajoAnterior)
+        if (params.fechaFinTrabajoAnterior) params.fechaFinTrabajoAnterior = new Date().parse("dd-MM-yyyy", params.fechaFinTrabajoAnterior)
+
+        println "fecha de nac: " + params.fechaNacimiento
 
         params.fechaRegistro = new Date()
         def data
