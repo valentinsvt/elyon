@@ -458,7 +458,7 @@ class ReportesController {
 
 
 
-       def tx_sql = "select data.*, tpidcdgo from data, tpid where tpid.tpid__id = data.tpid__id  " +
+       def tx_sql = "select data.*, tpidcdgo from data, lote, tpid where tpid.tpid__id = data.tpid__id and lote.lote__id = data.lote__id and edgs__id=5 " +
                " and datafcha >= '${fechaInicio}' and datafcha <= '${fechaFin}' " +
                 "order by dataap01, dataap02"
 
@@ -482,7 +482,7 @@ class ReportesController {
         def fechaFin = new Date().parse("dd-MM-yyyy",params.fechaFin).format("yyyy-MM-dd");
 
 
-        def tx_sql = "select data.*, tpidcdgo from data, tpid where tpid.tpid__id = data.tpid__id  " +
+        def tx_sql = "select data.*, tpidcdgo from data, lote, tpid where tpid.tpid__id = data.tpid__id and lote.lote__id = data.lote__id and edgs__id = 5  " +
                 " and datafcha >= '${fechaInicio}' and datafcha <= '${fechaFin}' " +
                 "order by dataap01, dataap02"
 
