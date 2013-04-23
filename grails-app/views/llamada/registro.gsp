@@ -162,7 +162,7 @@
 
                                 <div class="span1 offset1">Fecha Nac</div>
 
-                                <div class="span2"><elm:datepicker name="fechaNacimiento" class="span2" value="${data?.fechaNacimiento?.format('dd-MM-yyyy')}"/></div>
+                                <div class="span2"><elm:datepicker name="fechaNacimiento" class="span2" value="${data?.fechaNacimiento?.format('dd-MM-yyyy')}" yearRange="-90:-17"/></div>
 
                                 <div class="span1">Estado Civil</div>
 
