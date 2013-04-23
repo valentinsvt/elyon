@@ -1,4 +1,3 @@
-
 <%@ page contentType="text/html;charset=UTF-8" %>
 <html>
 <head>
@@ -8,108 +7,66 @@
     </title>
     <script src="${resource(dir: 'js/jquery/plugins/jquery-validation-1.9.0', file: 'jquery.validate.min.js')}"></script>
     <script src="${resource(dir: 'js/jquery/plugins/jquery-validation-1.9.0', file: 'messages_es.js')}"></script>
-  </head>
+</head>
+
 <body>
 
 <div id="ventasDialog">
 
     %{--<fieldset>--}%
-           <div class="span3" style="margin-bottom: 20px; margin-top: 20px">
+    <div class="span3" style="margin-bottom: 20px; margin-top: 20px">
 
+        Fecha Inicio: <elm:datepicker name="fechaInicio" class="datepicker" style="width: 100px; margin-left: 6px"/>
 
-            Fecha Inicio: <elm:datepicker name="fechaInicio" class="datepicker" style="width: 100px; margin-left: 6px" />
+    </div>
 
-        </div>
+    <div class="span3">
 
-        <div class="span3">
+        Fecha Fin:    <elm:datepicker name="fechaFin" class="datepicker" style="width: 100px; margin-left: 20px"/>
 
-
-            Fecha Fin:    <elm:datepicker name="fechaFin" class="datepicker" style="width: 100px; margin-left: 20px"/>
-
-        </div>
+    </div>
 
     %{--</fieldset>--}%
 </div>
 
- <script type="text/javascript">
+<script type="text/javascript">
 
-       var fechaInicio
+    var fechaInicio
 
-       var fechaFin
+    var fechaFin
 
-     $("#ventasDialog").dialog({
+    $("#ventasDialog").dialog({
 
-         autoOpen  : false,
-         resizable : false,
-         modal     : true,
-         draggable : false,
-         width     : 350,
-         height    : 250,
-         position  : 'center',
-         title     : 'Seleccione la fecha para imprimir el reporte',
-         buttons   : {
-             "Aceptar" : function () {
-//
-//
-//             console.log($("#fechaInicio").val())
-//                console.log($("#fechaFin").val())
+        autoOpen: false,
+        resizable: false,
+        modal: false,
+        draggable: false,
+        closeOnEscape: false,
+        width: 350,
+        height: 250,
+        position: 'center',
+        title: 'Seleccione la fecha para imprimir el reporte',
+        buttons: {
+            "Aceptar": function () {
+                fechaInicio = $("#fechaInicio").val()
+                fechaFin = $("#fechaFin").val()
+                location.href = "${createLink(controller: 'reportes', action: 'ventasReporte')}?fechaInicio=" + fechaInicio + "&fechaFin=" + fechaFin
+                $("#ventasDialog").dialog("close");
+            },
+            "Cancelar": function () {
+                $("#ventasDialog").dialog("close");
+            }
+        }
 
-                    fechaInicio =   $("#fechaInicio").val()
-                    fechaFin =   $("#fechaFin").val()
-
-
-                 location.href="${createLink(controller: 'reportes', action: 'ventasReporte')}?fechaInicio=" + fechaInicio + "&fechaFin=" + fechaFin
-
-
-                 $("#ventasDialog").dialog("close");
-
-                 %{--$.ajax({--}%
-                     %{--type    : "POST",--}%
-                     %{--url     : "${createLink(controller: 'reportes', action: 'ventas')}",--}%
-                     %{--data    : {--}%
-                         %{--fechaInicio : fechaInicio ,--}%
-                         %{--fechaFin : fechaFin--}%
-
-                     %{--},--}%
-                     %{--success : function (msg) {--}%
-
-                         %{--if (msg == 'ok') {--}%
-
-                             %{--location.href = "${createLink(action: 'registroObra')}"--}%
-
-                         %{--} else {--}%
-
-                         %{--}--}%
-
-                     %{--}--}%
-                 %{--});--}%
+    });
 
 
-
-             },
-
-             "Cancelar" : function () {
-
-
-                 $("#ventasDialog").dialog("close");
-
-             }
-         }
-
-     });
+    function cargarVentas() {
+        $("#ventasDialog").dialog("open");
+    };
 
 
-
-     function cargarVentas() {
-
-
-         $("#ventasDialog").dialog("open");
-
-     };
-
-
-
-     cargarVentas();
+    cargarVentas();
 
 
 
@@ -118,12 +75,8 @@
 
 
 
- </script>
-
+</script>
 
 </body>
-
-
-
 
 </html>

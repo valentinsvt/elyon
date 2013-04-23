@@ -56,7 +56,7 @@ class ElementosTagLib {
         str += "/>"
 
         def js = "<script type='text/javascript'>"
-        js += '$(function() {'
+        /*js += '$(function() {'*/
         js += '$("#' + id + '").datepicker({'
         js += 'dateFormat: "' + formatJs + '",'
         js += 'changeMonth: true,'
@@ -85,7 +85,7 @@ class ElementosTagLib {
 //        js += 'showOn          : "both",'
 //        js += 'buttonImage     : "' + resource(dir: 'images', file: 'calendar.png') + '",'
 //        js += 'buttonImageOnly : true'
-        js += '});'
+        /*js += '});'*/
         js += '});'
         js += "</script>"
 

@@ -35,12 +35,12 @@ class ReportesController {
 
 
         def cn = dbConnectionService.getConnection()
-        def tx = 0;
+        def tx = "";
         def sp = ";"
 
         println tx_sql
         cn.eachRow(tx_sql.toString()) { d ->
-            tx = d.tpidcdgo
+            tx += d.tpidcdgo
             tx += sp + completa(d.datanmid, 10)
             tx += sp + completa(d.dataap01, 20)
             tx += sp + completa(d.dataap02, 20)
@@ -132,7 +132,7 @@ class ReportesController {
 
             tx += sp + completa(" ", 2)
 
-            tx += sp
+            tx += sp + "\n"
 //                }
 //            }
         }
