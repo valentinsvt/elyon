@@ -240,7 +240,7 @@
 
                                 <div class="span1">Teléfono</div>
 
-                                <div class="span2"><g:textField name="telefono" class="span2" value="${data?.telefono}" maxlength="20"/></div>
+                                <div class="span2"><g:textField name="telefono" class="span2 telefono" value="${data?.telefono}" maxlength="9"/></div>
 
 
                             </div>
@@ -303,7 +303,7 @@
 
                                 <div class="span1">Telf trabajo</div>
 
-                                <div class="span2"><g:textField name="telefonoTrabajo" class="span2" value="${data?.telefonoTrabajo}"/></div>
+                                <div class="span2"><g:textField name="telefonoTrabajo" class="span2 telefono" maxlength="9" value="${data?.telefonoTrabajo}"/></div>
 
                                 <div class="span1">Email</div>
 
@@ -341,7 +341,7 @@
 
                                 <div class="span1">Celular</div>
 
-                                <div class="span2"><g:textField name="celular" class="span2" value="${data?.celular}" maxlength="20"/></div>
+                                <div class="span2"><g:textField name="celular" class="span2 celular" value="${data?.celular}" maxlength="10"/></div>
                             </div>
 
                             <div class="row">
@@ -437,7 +437,7 @@
 
                                 <div class="span1">Fono par</div>
 
-                                <div class="span2"><g:textField name="fonoPar" class="span2" value="${data?.telefonoReferenciaPersonal}" maxlength="20"/></div>
+                                <div class="span2"><g:textField name="fonoPar" class="span2 fono" value="${data?.telefonoReferenciaPersonal}" maxlength="10"/></div>
 
                                 <div class="span1">Parentesco</div>
 
