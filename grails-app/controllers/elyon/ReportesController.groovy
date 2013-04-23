@@ -462,6 +462,9 @@ class ReportesController {
                " and datafcha >= '${fechaInicio}' and datafcha <= '${fechaFin}' " +
                 "order by dataap01, dataap02"
 
+        println tx_sql
+
+
         def tx = crearTxt(tx_sql)
 
         def output = response.getOutputStream()

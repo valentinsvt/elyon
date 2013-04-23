@@ -45,7 +45,7 @@
 
                 <div class="span1" style="width: 80px;">
                     <a href="#" class="btn btn-success btn-small" id="btnAdd" data-camp="-1">
-                        <i class="icon-plus"></i> Agregar</a>
+                        <i class="icon-plus"></i> Asignar</a>
                 </div>
             </div>
 

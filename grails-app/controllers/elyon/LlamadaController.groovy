@@ -29,14 +29,14 @@ class LlamadaController extends elyon.seguridad.Shield {
 
 
         def tipoTarjeta = lote.tipoTarjeta.toLowerCase();
-        if (tipoTarjeta == 'nacional')     {
+        if (tipoTarjeta == 'nacional') {
 
 
-            tipoTarjeta  = ' nacional'
+            tipoTarjeta = ' nacional'
 
         }
 
-        def listaTipoTarjeta = Bins.list([sort: 'descripcion']).findAll{it.descripcion.toLowerCase().contains(tipoTarjeta)}
+        def listaTipoTarjeta = Bins.list([sort: 'descripcion']).findAll { it.descripcion.toLowerCase().contains(tipoTarjeta) }
 
         println(listaTipoTarjeta)
         println(listaTipoTarjeta[0]?.class)
@@ -46,35 +46,40 @@ class LlamadaController extends elyon.seguridad.Shield {
     }
 
 
-    def cambiarParroquia(){
+    def cambiarParroquia() {
 //        println "cambiar par "+params
         def ciudad = Ciudad.get(params.ciudad)
         def pars = []
-        if(ciudad)
-            pars=Parroquia.findAllByCiudad(ciudad)
-        [pars:pars]
+        if (ciudad)
+            pars = Parroquia.findAllByCiudad(ciudad)
+        [pars: pars]
     }
 
-    def cambiarSucursal(){
+    def cambiarSucursal() {
         def ciudad = Ciudad.get(params.ciudad)
         def sucs = []
-        if(ciudad)
-            sucs=Sucursal.findAllByCiudad(ciudad)
-        [sucs:sucs]
+        if (ciudad)
+            sucs = Sucursal.findAllByCiudad(ciudad)
+        [sucs: sucs]
     }
 
-    def cambiarOficina(){
+    def cambiarOficina() {
         def suc = Sucursal.get(params.sucursal)
         def ofis = []
-        if(suc)
-            ofis=Oficina.findAllBySucursal(suc)
-        [ofis:ofis]
+        if (suc)
+            ofis = Oficina.findAllBySucursal(suc)
+        [ofis: ofis]
     }
 
 
     def saveRegistro() {
 
-        println "saveRegistro" + params
+//        println "saveRegistro" + params
+
+        if (params.fechaNacimiento) {
+            params.fechaNacimiento = new Date().parse("dd-MM-yyyy", params.fechaNacimiento)
+        }
+
         params.fechaRegistro = new Date()
         def data
         if (params.id) {

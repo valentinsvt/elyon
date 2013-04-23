@@ -122,7 +122,7 @@ class OrdenDeTrabajoController extends elyon.seguridad.Shield {
         OrdenDeTrabajo.findAllByCampana(camp).each { o ->
             tb += "<tr>"
             tb += "<td>" + o.usro.login + "</td>"
-            tb += "<td>" + o.numero + " (" + Lote.countByCampanaAndOrdenDeTrabajo(camp, o) + ")" + "</td>"
+            tb += "<td>" + o.numero + "</td>"
             tb += "<td style='text-align=center'><a href='#' class='btn btn-danger btn-small btnDel' id='${o.id}'><i class='icon-trash'></i> Eliminar</a>"
             tb += '<a class="btn btn-small btn-inverse btn-ajax btnVer" href="#" rel="tooltip" title="Ver" id="' + o.id + '" style="margin-left:5px;">'
             tb += '<i class="icon-tasks icon-large"></i>'

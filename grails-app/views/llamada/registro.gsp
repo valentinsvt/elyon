@@ -162,7 +162,7 @@
 
                                 <div class="span1 offset1">Fecha Nac</div>
 
-                                <div class="span2"><elm:datepicker name="fechaNacimiento" class="span2" value="${data?.fechaNacimiento?.format('dd-MM-yyyy')}" yearRange="-90:-17"/></div>
+                                <div class="span2"><elm:datepicker name="fechaNacimiento" class="span2" value="${data?.fechaNacimiento}" yearRange="-90:-17"/></div>
 
                                 <div class="span1">Estado Civil</div>
 
@@ -359,7 +359,7 @@
 
                                 <div class="span1">Fecha ini res</div>
 
-                                <div class="span2"><elm:datepicker name="fechaIniRes" class="span2" value="${data?.fechaInicioResidencia?.format('dd-MM-yyyy')}"/></div>
+                                <div class="span2"><elm:datepicker name="fechaIniRes" class="span2" value="${data?.fechaInicioResidencia}"/></div>
                             </div>
 
                             <div class="row">
@@ -385,15 +385,15 @@
                             <div class="row">
                                 <div class="span1 offset1">Fecha ini trab act</div>
 
-                                <div class="span2"><elm:datepicker name="fechaIniTrabAct" class="span2" value="${data?.fechaInicioTrabajoActual?.format('dd-MM-yyyy')}"/></div>
+                                <div class="span2"><elm:datepicker name="fechaIniTrabAct" class="span2" value="${data?.fechaInicioTrabajoActual}"/></div>
 
                                 <div class="span1">Fecha ini ult trab</div>
 
-                                <div class="span2"><elm:datepicker name="fechaIniUltTrab" class="span2" value="${data?.fechaInicioTrabajoAnterior?.format('dd-MM-yyyy')}"/></div>
+                                <div class="span2"><elm:datepicker name="fechaIniUltTrab" class="span2" value="${data?.fechaInicioTrabajoAnterior}"/></div>
 
                                 <div class="span1">Fecha fin ult trab</div>
 
-                                <div class="span2"><elm:datepicker name="fechaFinUltTrab" class="span2" value="${data?.fechaFinTrabajoAnterior?.format('dd-MM-yyyy')}"/></div>
+                                <div class="span2"><elm:datepicker name="fechaFinUltTrab" class="span2" value="${data?.fechaFinTrabajoAnterior}"/></div>
                             </div>
                         </div>
 
