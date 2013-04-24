@@ -56,8 +56,8 @@ class ReportesController {
             tx += sp + completa(((d.datatltr != null) ? d.datatltr: " "), 20)
             tx += sp + completa(((d.datacllr != null) ? d.datacllr : " "), 20)
             tx += sp + completa(((d.datamail != null) ? d.datamail: " "), 50)
-            tx += sp + completa((d.ofic__id ? Oficina.get(d.ofic__id).sucursal.codigo : " "), 3)
-            tx += sp + completa((d.ofic__id ? Oficina.get(d.ofic__id).codigo : " "), 3)
+            tx += sp + numeros((d.ofic__id ? Oficina.get(d.ofic__id).sucursal.codigo : "0"), 3)
+            tx += sp + numeros((d.ofic__id ? Oficina.get(d.ofic__id).codigo : "0"), 3)
             tx += sp + completa((d.parr__id ? Parroquia.get(d.parr__id).ciudad.codigo : " "), 8)
             tx += sp + completa((d.parr__id ? Parroquia.get(d.parr__id).codigo : " "), 8)
             tx += sp + completa((d.ncnl__id ? Nacionalidad.get(d.ncnl__id).codigo : " "), 3)
@@ -66,20 +66,21 @@ class ReportesController {
             tx += sp + completa((d.edcv__id ? EstadoCivil.get(d.edcv__id).codigo : " "), 1)
             tx += sp + completa((d.nves__id ? NivelEstudios.get(d.nves__id).codigo : " "), 2)
             tx += sp + completa((d.prof__id ? Profesion.get(d.prof__id).codigo : " "), 3)
-            tx += sp + completa((d.acec__id ? ActividadEconomica.get(d.acec__id).codigo : " "), 7)
-            tx += sp + completa((d.orig__id ? OrigenIngresos.get(d.orig__id).codigo : " "), 2)
-            tx += sp + completa((d.rgig__id ? RangoIngresos.get(d.rgig__id).codigo : " "), 2)
-            tx += sp + completa((d.datapatr ?: "0"), 12)
+            tx += sp + numeros((d.acec__id ? ActividadEconomica.get(d.acec__id).codigo : "0"), 7)
+            tx += sp + numeros((d.orig__id ? OrigenIngresos.get(d.orig__id).codigo : "0"), 2)
+            tx += sp + numeros((d.rgig__id ? RangoIngresos.get(d.rgig__id).codigo : "0"), 2)
+            tx += sp + numerosf((d.datapatr * 100 ?: "0"), 12)
             tx += sp + completa((d.tpvv__id ? TipoVivienda.get(d.tpvv__id).codigo : " "), 2)
-            tx += sp + completa((d.datavlvv ?: "0"), 12)
+            tx += sp + numerosf((d.datavlvv * 100 ?: "0"), 12)
             tx += sp + completa(((d.datafirs != null) ? new SimpleDateFormat("yyyyMMdd").format(d.datafirs) : " "), 8)
             tx += sp + completa((d.rldp__id ? RelacionDependenciaLaboral.get(d.rldp__id).codigo : " "), 2)
             tx += sp + completa(((d.datafita != null )? new SimpleDateFormat("yyyyMMdd").format(d.datafita) : " "), 8)
             tx += sp + completa(((d.datafcit != null) ? new SimpleDateFormat("yyyyMMdd").format(d.datafcit) : " "), 8)
             tx += sp + completa(((d.datafcft != null) ? new SimpleDateFormat("yyyyMMdd").format(d.datafcft) : " "), 8)
-            tx += sp + completa((d.datacrga ?: "0"), 2)
+            tx += sp + numeros((d.datacrga ?: "0"), 2)
             tx += sp + completa((d.bins__id ? Bins.get(d.bins__id).codigo : " "), 6)
-            tx += sp + completa((d.afnd__id ? Afinidad.get(d.afnd__id).codigo : " "), 3)
+            //tx += sp + completa((d.afnd__id ? Afinidad.get(d.afnd__id).codigo : " "), 3)
+            tx += sp + "00 "   /** se pone siempre como afinidad '00 ' */
             tx += sp + completa((d.datacupo ?: "0"), 7)
             tx += sp + completa((d.datanmbr ?: " "), 19)
             tx += sp + completa((d.vend__id ? Vendedor.get(d.vend__id).codigo : " "), 5)
@@ -455,14 +456,41 @@ class ReportesController {
     def completa(tx, n) {
 //        println "competa:" + tx.toString() + "  n " + n
 //
+/*
         println "!********************************************"
         println tx?.toString()
         println n
         println tx?.toString()?.size()
         println tx?.toString() + " " * (n - (tx ? tx.toString().size() : 0).toInteger()).toInteger()
+*/
 
         return tx?.toString() + " " * (n - (tx ? tx.toString().size() : 0).toInteger()).toInteger()
     }
+
+    def numeros(tx, n) {
+//        println "competa:" + tx.toString() + "  n " + n
+//
+/*
+        println "!********************************************"
+        println tx?.toString()
+        println n
+        println tx?.toString()?.size()
+        println tx?.toString() + "0" * (n - (tx ? tx.toString().size() : 0).toInteger()).toInteger()
+*/
+
+        return "0" * (n - (tx ? tx.toString().size() : 0).toInteger()).toInteger() + tx?.toString()
+    }
+
+    def numerosf(nmro, n) {
+        println nmro
+        def tx = nmro.toInteger().toString()
+        println tx
+
+        println "0" * (n - (tx ? tx.toString().size() : 0).toInteger()).toInteger() + tx?.toString()
+
+        return "0" * (n - (tx ? tx.toString().size() : 0).toInteger()).toInteger() + tx?.toString()
+    }
+
 
     def ventasReporte () {
 

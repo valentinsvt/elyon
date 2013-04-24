@@ -243,8 +243,18 @@ class Data implements Serializable {
         fechaRegistro(blank: true, nullable: true, attributes: [title: 'fechaRegistro'])
 
 
+    }
+
+    def beforeValidate() {
+        def nos = ["email"]
+        this.properties.each {prop ->
+            if (prop.value && prop.value.class == java.lang.String && !nos.contains(prop.key) ){
+                this[prop.key] = prop.value.toUpperCase()
+            }
+        }
 
     }
+
 
     String toString() {
         return this.nombre
