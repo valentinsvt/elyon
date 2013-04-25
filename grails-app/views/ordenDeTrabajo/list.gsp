@@ -136,18 +136,20 @@
             }
 
             function eliminar($btn) {
-                $btn.replaceWith(spinner);
-                var id = $btn.attr("id");
-                $.ajax({
-                    type    : "POST",
-                    url     : "${createLink(action:'delUsu')}",
-                    data    : {
-                        orden : id
-                    },
-                    success : function (msg) {
-                        $("#divUsuarios").html(msg);
-                    }
-                });
+                if (confirm("Está seguro de querer eliminar a este usuario de esta campaña?")) {
+                    $btn.replaceWith(spinner);
+                    var id = $btn.attr("id");
+                    $.ajax({
+                        type    : "POST",
+                        url     : "${createLink(action:'delUsu')}",
+                        data    : {
+                            orden : id
+                        },
+                        success : function (msg) {
+                            $("#divUsuarios").html(msg);
+                        }
+                    });
+                }
             }
 
             function ver($btn) {
