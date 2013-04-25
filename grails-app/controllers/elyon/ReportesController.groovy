@@ -81,7 +81,7 @@ class ReportesController {
             tx += sp + completa((d.bins__id ? Bins.get(d.bins__id).codigo : " "), 6)
             //tx += sp + completa((d.afnd__id ? Afinidad.get(d.afnd__id).codigo : " "), 3)
             tx += sp + "00 "   /** se pone siempre como afinidad '00 ' */
-            tx += sp + completa((d.datacupo ?: "0"), 7)
+            tx += sp + numerosf((d.datacupo *100 ?: "0"), 7)
             tx += sp + completa((d.datanmbr ?: " "), 19)
             tx += sp + completa((d.vend__id ? Vendedor.get(d.vend__id).codigo : " "), 5)
             tx += sp + completa((d.rfprtpid ? TipoDeIdentificacion.get(d.rfprtpid).codigo : " "), 1)

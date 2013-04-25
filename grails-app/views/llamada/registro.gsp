@@ -262,10 +262,10 @@
                                 </div>
 
 
-%{--
                                 <div class="span1">Cupo</div>
-                                <div class="span2"><g:textField name="cupo" class="span2 number" value="${data?.cupo}"/></div>
---}%
+                                <div class="span2"><g:textField name="cupo" class="span1 number" value="${g.formatNumber(number: data?.cupo ?: lote.cupoNormal, format='##', maxFractionDigits: 0, minFractionDigits: 0, locale: 'ec')}" readonly="true" /></div>
+                                %{--<div class="span2"><g:textField name="cupo" class="span1 number" value="${data?.cupo ?: lote.cupoNormal}" readonly="true" /></div>--}%
+
                             </div>
                         </div>
 
