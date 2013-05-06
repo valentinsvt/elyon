@@ -556,6 +556,207 @@ class ReportesController {
     }
 
 
+    def reporteDetallado () {
+
+        def campana = Campana.get(2);
+
+        def orden = OrdenDeTrabajo.findByCampana(campana)
+
+        def lote = Lote.findAllByCampana(campana)
+
+        def usuario = session.usuario
+
+        WorkbookSettings workbookSettings = new WorkbookSettings()
+        workbookSettings.locale = Locale.default
+
+        def file = File.createTempFile('myExcelDocument', '.xls')
+        file.deleteOnExit()
+        WritableWorkbook workbook = Workbook.createWorkbook(file, workbookSettings)
+
+        WritableFont font = new WritableFont(WritableFont.ARIAL, 12)
+        WritableCellFormat formatXls = new WritableCellFormat(font)
+
+        def row = 0
+        WritableSheet sheet = workbook.createSheet('MySheet', 0)
+
+        WritableFont times16font = new WritableFont(WritableFont.TIMES, 11, WritableFont.BOLD, true);
+        WritableCellFormat times16format = new WritableCellFormat(times16font);
+        sheet.setColumnView(0, 20)
+        sheet.setColumnView(1, 15)
+        sheet.setColumnView(2, 15)
+        sheet.setColumnView(3, 20)
+        sheet.setColumnView(4, 20)
+        sheet.setColumnView(5, 40)
+        sheet.setColumnView(6, 25)
+        sheet.setColumnView(7, 20)
+        sheet.setColumnView(8, 18)
+        sheet.setColumnView(9, 18)
+        sheet.setColumnView(10, 18)
+        sheet.setColumnView(11, 18)
+        sheet.setColumnView(12, 18)
+        sheet.setColumnView(13, 18)
+        sheet.setColumnView(14, 18)
+        sheet.setColumnView(15, 18)
+        sheet.setColumnView(16, 18)
+        sheet.setColumnView(17, 18)
+        sheet.setColumnView(18, 18)
+        sheet.setColumnView(19, 18)
+        sheet.setColumnView(20, 18)
+        sheet.setColumnView(21, 20)
+        sheet.setColumnView(22, 15)
+        sheet.setColumnView(23, 20)
+
+
+        def label
+        def number
+        def fila = 8;
+
+        label = new jxl.write.Label(2, 1, "Sistema de Gestión Telefónica".toUpperCase(), times16format); sheet.addCell(label);
+        label = new jxl.write.Label(2, 2, "Reporte Detallado", times16format); sheet.addCell(label);
+
+        label = new jxl.write.Label(1, 4, "", times16format); sheet.addCell(label);
+        label = new jxl.write.Label(4, 4, "", times16format); sheet.addCell(label);
+
+
+        label = new jxl.write.Label(0, 6, "CAMPAÑA", times16format); sheet.addCell(label);
+        label = new jxl.write.Label(1, 6, "ORDEN", times16format); sheet.addCell(label);
+        label = new jxl.write.Label(2, 6, "CANTIDAD", times16format); sheet.addCell(label);
+        label = new jxl.write.Label(3, 6, "OPERADOR", times16format); sheet.addCell(label);
+        label = new jxl.write.Label(4, 6, "CODIGO CLIENTE", times16format); sheet.addCell(label);
+        label = new jxl.write.Label(5, 6, "CLIENTE", times16format); sheet.addCell(label);
+        label = new jxl.write.Label(6, 6, "ESTADO DEL INTENTO", times16format); sheet.addCell(label);
+        label = new jxl.write.Label(7, 6, "FECHA", times16format); sheet.addCell(label);
+        label = new jxl.write.Label(8, 6, "TELÉFONO 1", times16format); sheet.addCell(label);
+        label = new jxl.write.Label(9, 6, "ESTADO TELÉFONO 1", times16format); sheet.addCell(label);
+        label = new jxl.write.Label(10, 6, "TELÉFONO 2", times16format); sheet.addCell(label);
+        label = new jxl.write.Label(11, 6, "ESTADO TELÉFONO 2", times16format); sheet.addCell(label);
+        label = new jxl.write.Label(12, 6, "TELÉFONO 3", times16format); sheet.addCell(label);
+        label = new jxl.write.Label(13, 6, "ESTADO TELÉFONO 3", times16format); sheet.addCell(label);
+        label = new jxl.write.Label(14, 6, "TELÉFONO 4", times16format); sheet.addCell(label);
+        label = new jxl.write.Label(15, 6, "ESTADO TELÉFONO 4", times16format); sheet.addCell(label);
+        label = new jxl.write.Label(16, 6, "TELÉFONO 5", times16format); sheet.addCell(label);
+        label = new jxl.write.Label(17, 6, "ESTADO TELÉFONO 5", times16format); sheet.addCell(label);
+        label = new jxl.write.Label(18, 6, "TELÉFONO 6", times16format); sheet.addCell(label);
+        label = new jxl.write.Label(19, 6, "ESTADO TELÉFONO 6", times16format); sheet.addCell(label);
+        label = new jxl.write.Label(20, 6, "OBSERVACIONES", times16format); sheet.addCell(label);
+        label = new jxl.write.Label(21, 6, "CIUDAD", times16format); sheet.addCell(label);
+        label = new jxl.write.Label(22, 6, "CUPO", times16format); sheet.addCell(label);
+        label = new jxl.write.Label(23, 6, "TIPO TARJETA", times16format); sheet.addCell(label);
+
+
+        lote.each {
+
+            label = new jxl.write.Label(0, fila, it?.campana?.descripcion.toString()); sheet.addCell(label);
+            label = new jxl.write.Label(1, fila, OrdenDeTrabajo.findByCampana(it?.campana).id.toString()); sheet.addCell(label);
+            label = new jxl.write.Label(2, fila, lote.size().toString()); sheet.addCell(label);
+            label = new jxl.write.Label(3, fila, usuario.toString()); sheet.addCell(label);
+            label = new jxl.write.Label(4, fila, it?.cedula); sheet.addCell(label);
+            label = new jxl.write.Label(5, fila, it?.nombre?.toString()); sheet.addCell(label);
+            label = new jxl.write.Label(6, fila, it?.estadoGestion?.descripcion.toString()); sheet.addCell(label);
+            if (it?.loteFecha){
+                label = new jxl.write.Label(7, fila, it?.loteFecha.format("dd-MM-yyyy")); sheet.addCell(label);
+
+            } else {
+
+                label = new jxl.write.Label(7, fila," "); sheet.addCell(label);
+            }
+            label = new jxl.write.Label(8, fila, it?.telefono1); sheet.addCell(label);
+
+            if(GestionTelefonica.findByLoteAndTelefono(it,it?.telefono1)?.estadoLlamada?.descripcion){
+                label = new jxl.write.Label(9, fila, GestionTelefonica.findByLoteAndTelefono(it,it?.telefono1)?.estadoLlamada?.descripcion.toString()); sheet.addCell(label);
+
+            } else {
+
+                label = new jxl.write.Label(9, fila," "); sheet.addCell(label);
+            }
+
+
+            label = new jxl.write.Label(10, fila, it?.telefono2); sheet.addCell(label);
+
+            if(GestionTelefonica.findByLoteAndTelefono(it,it?.telefono2)?.estadoLlamada?.descripcion){
+                label = new jxl.write.Label(11, fila, GestionTelefonica.findByLoteAndTelefono(it,it?.telefono2)?.estadoLlamada?.descripcion.toString()); sheet.addCell(label);
+            }   else {
+
+                label = new jxl.write.Label(11, fila, " "); sheet.addCell(label);
+            }
+
+
+            label = new jxl.write.Label(12, fila, it?.telefono3); sheet.addCell(label);
+
+            if( GestionTelefonica.findByLoteAndTelefono(it,it?.telefono3)?.estadoLlamada?.descripcion){
+
+                label = new jxl.write.Label(13, fila, GestionTelefonica.findByLoteAndTelefono(it,it?.telefono3)?.estadoLlamada?.descripcion.toString()); sheet.addCell(label);
+            } else {
+
+                label = new jxl.write.Label(13, fila, " "); sheet.addCell(label);
+            }
+
+
+            label = new jxl.write.Label(14, fila, it?.telefono4); sheet.addCell(label);
+
+            if(GestionTelefonica.findByLoteAndTelefono(it,it?.telefono4)?.estadoLlamada?.descripcion){
+
+                label = new jxl.write.Label(15, fila, GestionTelefonica.findByLoteAndTelefono(it,it?.telefono4)?.estadoLlamada?.descripcion.toString()); sheet.addCell(label);
+            }else {
+                label = new jxl.write.Label(15, fila, " "); sheet.addCell(label);
+
+            }
+
+            label = new jxl.write.Label(16, fila, it?.telefono5); sheet.addCell(label);
+
+            if(GestionTelefonica.findByLoteAndTelefono(it,it?.telefono5)?.estadoLlamada?.descripcion){
+                label = new jxl.write.Label(17, fila, GestionTelefonica.findByLoteAndTelefono(it,it?.telefono5)?.estadoLlamada?.descripcion.toString()); sheet.addCell(label);
+            } else {
+
+                label = new jxl.write.Label(17, fila, " "); sheet.addCell(label);
+            }
+
+
+            label = new jxl.write.Label(18, fila, it?.telefono6); sheet.addCell(label);
+
+            if(GestionTelefonica.findByLoteAndTelefono(it,it?.telefono6)?.estadoLlamada?.descripcion){
+
+                label = new jxl.write.Label(19, fila, GestionTelefonica.findByLoteAndTelefono(it,it?.telefono6)?.estadoLlamada?.descripcion.toString()); sheet.addCell(label);
+            } else {
+
+                label = new jxl.write.Label(19, fila, " "); sheet.addCell(label);
+            }
+
+            if(it?.observaciones){
+                label = new jxl.write.Label(20, fila, it?.observaciones.toString()); sheet.addCell(label);
+
+            }else {
+
+                label = new jxl.write.Label(20, fila, " "); sheet.addCell(label);
+            }
+            if(it?.ciudad){
+
+                label = new jxl.write.Label(21, fila, it?.ciudad.toString()); sheet.addCell(label);
+            }else {
+
+                label = new jxl.write.Label(21, fila, " "); sheet.addCell(label);
+            }
+
+            label = new jxl.write.Label(22, fila, it?.cupoNormal.toString()); sheet.addCell(label);
+            label = new jxl.write.Label(23, fila, it?.tipoTarjeta.toString()); sheet.addCell(label);
+
+
+            fila++
+
+        }
+
+
+        workbook.write();
+        workbook.close();
+        def output = response.getOutputStream()
+        def header = "attachment; filename=" + "reporteDetalladoExcel.xls";
+        response.setContentType("application/octet-stream")
+        response.setHeader("Content-Disposition", header);
+        output.write(file.getBytes());
+
+    }
+
+
     def ventasExcel () {
 
 

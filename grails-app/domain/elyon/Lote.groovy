@@ -23,6 +23,7 @@ class Lote implements Serializable {
     EstadoGestion estadoGestion
     String estado=""      /*N no mostrar en las listas... cualquier otra cosa si mostrar*/
     NoDesea noDesea
+    Date loteFecha = new Date()
 
 
     static mapping = {
@@ -56,6 +57,7 @@ class Lote implements Serializable {
             estadoGestion column: 'edgs__id'
             estado column: 'loteedto'
             noDesea column: 'nods__id'
+            loteFecha column: 'lotefcha'
         }
     }
     static constraints = {
@@ -83,6 +85,10 @@ class Lote implements Serializable {
         estado(blank: true,nullable: true,size: 1..1)
 
         noDesea(blank: true, nullable: true, attributes: [title: 'noDesea'])
+
+        loteFecha(blank: true, nullable: true, attributes: [title: 'loteFecha'])
+
+
 
     }
 
