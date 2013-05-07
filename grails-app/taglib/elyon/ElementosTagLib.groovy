@@ -31,7 +31,7 @@ class ElementosTagLib {
      *                                                                      For example, "+1m +7d" represents one month and seven days from today.
      */
     def datepicker = { attrs ->
-        println "+++++" + attrs
+//        println "+++++" + attrs
 
         def str = ""
         def clase = attrs.remove("class")
@@ -53,11 +53,11 @@ class ElementosTagLib {
         formatJs = formatJs.replaceAll("M", "m")
         formatJs = formatJs.replaceAll("yyyy", "yy")
 
-        println ">>>>" + attrs
+//        println ">>>>" + attrs
 
-        println value
-        println format
-        println g.formatDate(date: value, format: format)
+//        println value
+//        println format
+//        println g.formatDate(date: value, format: format)
 
         str += "<input type='text'  autocomplete='off' class='datepicker " + clase + "' name='" + name + "' id='" + id + "' value='" + g.formatDate(date: value, format: format) + "'"
         str += renderAttributes(attrs)

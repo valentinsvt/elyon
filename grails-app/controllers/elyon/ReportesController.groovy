@@ -16,7 +16,8 @@ import com.lowagie.text.Section;
 import com.lowagie.text.pdf.PdfPCell;
 import com.lowagie.text.pdf.PdfPTable;
 import com.lowagie.text.pdf.PdfWriter
-import com.lowagie.text.PageSize;
+import com.lowagie.text.PageSize
+import elyon.seguridad.Usro;
 import jxl.Workbook
 import jxl.WorkbookSettings
 import jxl.write.*
@@ -33,14 +34,14 @@ class ReportesController {
     def buscadorService
     def dbConnectionService
 
-    def crearTxt (tx_sql) {
+    def crearTxt(tx_sql) {
 
 
         def cn = dbConnectionService.getConnection()
         def tx = "";
         def sp = ";"
 
-        println tx_sql
+//        println tx_sql
         cn.eachRow(tx_sql.toString()) { d ->
             tx += d.tpidcdgo
             tx += sp + completa(d.datanmid, 10)
@@ -48,14 +49,14 @@ class ReportesController {
             tx += sp + completa(d.dataap02, 20)
             tx += sp + completa(d.datanb01, 20)
             tx += sp + completa(d.databn02, 20)
-            tx += sp + completa(((d.datadrrs != null)? d.datadrrs : " "), 150)
-            tx += sp + completa(((d.datadrtb != null) ? d.datadrtb: " "), 150)
+            tx += sp + completa(((d.datadrrs != null) ? d.datadrrs : " "), 150)
+            tx += sp + completa(((d.datadrtb != null) ? d.datadrtb : " "), 150)
             tx += sp + completa((d.ruta__id ? Ruta.get(d.ruta__id).codigo : " "), 1)
             tx += sp + completa((d.rutaedcn ? Ruta.get(d.rutaedcn).codigo : " "), 1)
-            tx += sp + completa(((d.datatelf != null) ? d.datatelf: " "), 20)
-            tx += sp + completa(((d.datatltr != null) ? d.datatltr: " "), 20)
+            tx += sp + completa(((d.datatelf != null) ? d.datatelf : " "), 20)
+            tx += sp + completa(((d.datatltr != null) ? d.datatltr : " "), 20)
             tx += sp + completa(((d.datacllr != null) ? d.datacllr : " "), 20)
-            tx += sp + completa(((d.datamail != null) ? d.datamail: " "), 50)
+            tx += sp + completa(((d.datamail != null) ? d.datamail : " "), 50)
             tx += sp + numeros((d.ofic__id ? Oficina.get(d.ofic__id).sucursal.codigo : "0"), 3)
             tx += sp + numeros((d.ofic__id ? Oficina.get(d.ofic__id).codigo : "0"), 3)
             tx += sp + completa((d.parr__id ? Parroquia.get(d.parr__id).ciudad.codigo : " "), 8)
@@ -74,14 +75,14 @@ class ReportesController {
             tx += sp + numerosf((d.datavlvv * 100 ?: "0"), 12)
             tx += sp + completa(((d.datafirs != null) ? new SimpleDateFormat("yyyyMMdd").format(d.datafirs) : " "), 8)
             tx += sp + completa((d.rldp__id ? RelacionDependenciaLaboral.get(d.rldp__id).codigo : " "), 2)
-            tx += sp + completa(((d.datafita != null )? new SimpleDateFormat("yyyyMMdd").format(d.datafita) : " "), 8)
+            tx += sp + completa(((d.datafita != null) ? new SimpleDateFormat("yyyyMMdd").format(d.datafita) : " "), 8)
             tx += sp + completa(((d.datafcit != null) ? new SimpleDateFormat("yyyyMMdd").format(d.datafcit) : " "), 8)
             tx += sp + completa(((d.datafcft != null) ? new SimpleDateFormat("yyyyMMdd").format(d.datafcft) : " "), 8)
             tx += sp + numeros((d.datacrga ?: "0"), 2)
             tx += sp + completa((d.bins__id ? Bins.get(d.bins__id).codigo : " "), 6)
             //tx += sp + completa((d.afnd__id ? Afinidad.get(d.afnd__id).codigo : " "), 3)
             tx += sp + "00 "   /** se pone siempre como afinidad '00 ' */
-            tx += sp + numerosf((d.datacupo *100 ?: "0"), 7)
+            tx += sp + numerosf((d.datacupo * 100 ?: "0"), 7)
             tx += sp + completa((d.datanmbr ?: " "), 19)
             tx += sp + completa((d.vend__id ? Vendedor.get(d.vend__id).codigo : " "), 5)
             tx += sp + completa((d.rfprtpid ? TipoDeIdentificacion.get(d.rfprtpid).codigo : " "), 1)
@@ -95,13 +96,9 @@ class ReportesController {
 
             tx += sp + completa((d.prnt__id ? Parentesco.get(d.prnt__id).codigo : " "), 2)
 
-
-
-
 //            tx += sp + completa((d.tptj__id ? TipoTarjeta.get(d.tptj__id).codigo : " "), 1)
 
             tx += sp + completa("P", 1)
-
 
 //            if (d.tptj__id != null) {
 //
@@ -130,7 +127,6 @@ class ReportesController {
 //
 //                    tx += sp + completa((d.prnt__id ? Parentesco.get(d.prnt__id).codigo : " "), 2)
 
-
 //                } else {
 
             tx += sp + completa(" ", 2)
@@ -142,7 +138,7 @@ class ReportesController {
         cn.close()
 
 
-      return tx
+        return tx
     }
 
 
@@ -167,8 +163,6 @@ class ReportesController {
 */
 
         def tx = crearTxt(tx_sql)
-
-
 
         /*println tx_sql
         cn.eachRow(tx_sql.toString()) { d ->
@@ -277,7 +271,7 @@ class ReportesController {
     }
 
 
-    def crearExcel (tx_sql) {
+    def crearExcel(tx_sql) {
 
 
         def cn = dbConnectionService.getConnection()
@@ -322,7 +316,7 @@ class ReportesController {
         def fila = 3;
 
         label = new jxl.write.Label(0, 2, "CÉDULA", times16format); sheet.addCell(label);
-        label = new jxl.write.Label(1,2, "NOMBRES", times16format); sheet.addCell(label);
+        label = new jxl.write.Label(1, 2, "NOMBRES", times16format); sheet.addCell(label);
 
 //        label = new jxl.write.Label(1, 2, "APELLIDO", times16format); sheet.addCell(label);
 //        label = new jxl.write.Label(2, 2, "APELLIDO 2", times16format); sheet.addCell(label);
@@ -342,83 +336,82 @@ class ReportesController {
 //              println("\t" + d)
 
 
-            if (d.datanmid){
+            if (d.datanmid) {
 
                 label = new jxl.write.Label(0, fila, d.datanmid.toString()); sheet.addCell(label);
-            }else {
+            } else {
 
                 label = new jxl.write.Label(0, fila, " "); sheet.addCell(label);
             }
-            if (d.datanb01 || d.databn02 || d.dataap01 || d.dataap02){
+            if (d.datanb01 || d.databn02 || d.dataap01 || d.dataap02) {
 
 
                 label = new jxl.write.Label(1, fila, d.datanb01.toString() + " " + d.databn02.toString() + " " + d.dataap01.toString() + " " + d.dataap02.toString()); sheet.addCell(label);
 
-            }else {
-
+            } else {
 
 
                 label = new jxl.write.Label(1, fila, " "); sheet.addCell(label);
             }
 
-            if (d.dataempr){
+            if (d.dataempr) {
 
                 label = new jxl.write.Label(2, fila, d.dataempr.toString()); sheet.addCell(label);
-            }else {
+            } else {
 
                 label = new jxl.write.Label(2, fila, " "); sheet.addCell(label);
             }
 
-            if (d.datadrrs){
+            if (d.datadrrs) {
 
                 label = new jxl.write.Label(3, fila, d.datadrrs.toString()); sheet.addCell(label);
-            }else {
+            } else {
 
                 label = new jxl.write.Label(3, fila, " "); sheet.addCell(label);
             }
 
-            if (d.datatelf){
+            if (d.datatelf) {
 
                 label = new jxl.write.Label(4, fila, d.datatelf.toString()); sheet.addCell(label);
-            }else {
+            } else {
 
                 label = new jxl.write.Label(4, fila, " "); sheet.addCell(label);
             }
-            if (d.datadrtb){
+            if (d.datadrtb) {
 
                 label = new jxl.write.Label(5, fila, d.datadrtb.toString()); sheet.addCell(label);
-            }else {
+            } else {
 
                 label = new jxl.write.Label(5, fila, " "); sheet.addCell(label);
             }
-            if (d.datatltr){
+            if (d.datatltr) {
 
                 label = new jxl.write.Label(6, fila, d.datatltr.toString()); sheet.addCell(label);
-            }else {
+            } else {
 
                 label = new jxl.write.Label(6, fila, " "); sheet.addCell(label);
             }
-            if (d.datacllr){
+            if (d.datacllr) {
 
                 label = new jxl.write.Label(7, fila, d.datacllr.toString()); sheet.addCell(label);
-            }else {
+            } else {
 
                 label = new jxl.write.Label(7, fila, " "); sheet.addCell(label);
             }
 
-            if (d.parr__id){
+            if (d.parr__id) {
 
                 label = new jxl.write.Label(8, fila, (Parroquia.get(d.parr__id).ciudad).toString()); sheet.addCell(label);
-            }else {
+            } else {
 
                 label = new jxl.write.Label(8, fila, " "); sheet.addCell(label);
             }
-            if(d.lote__id){
+            if (d.lote__id) {
 
                 label = new jxl.write.Label(9, fila, (Lote.get(d.lote__id).ordenDeTrabajo.usro.nombre.toString() + " " + Lote.get(d.lote__id).ordenDeTrabajo.usro.apellido.toString())); sheet.addCell(label);
 
 
-            }else {
+            } else {
 
                 label = new jxl.write.Label(9, fila, " "); sheet.addCell(label);
 
@@ -492,18 +485,18 @@ class ReportesController {
     }
 
 
-    def ventasReporte () {
+    def ventasReporte() {
 
-        def fechaInicio = new Date().parse("dd-MM-yyyy",params.fechaInicio).format("yyyy-MM-dd");
-        def fechaFin = new Date().parse("dd-MM-yyyy",params.fechaFin)
+        def fechaInicio = new Date().parse("dd-MM-yyyy", params.fechaInicio).format("yyyy-MM-dd");
+        def fechaFin = new Date().parse("dd-MM-yyyy", params.fechaFin)
 //        println "fecha "+fechaFin
-        fechaFin=fechaFin.plus(1)
-        fechaFin=fechaFin.format("yyyy-MM-dd")
+        fechaFin = fechaFin.plus(1)
+        fechaFin = fechaFin.format("yyyy-MM-dd")
 
 
 
-       def tx_sql = "select data.*, tpidcdgo from data, lote, tpid where tpid.tpid__id = data.tpid__id and lote.lote__id = data.lote__id and edgs__id=5 " +
-               " and datafcha >= '${fechaInicio}' and datafcha <= '${fechaFin}' " +
+        def tx_sql = "select data.*, tpidcdgo from data, lote, tpid where tpid.tpid__id = data.tpid__id and lote.lote__id = data.lote__id and edgs__id=5 " +
+                " and datafcha >= '${fechaInicio}' and datafcha <= '${fechaFin}' " +
                 "order by dataap01, dataap02"
 
         println tx_sql
@@ -519,17 +512,16 @@ class ReportesController {
         response.outputStream.flush()
 
 
-
     }
 
 
-    def ventasReporteExcel () {
+    def ventasReporteExcel() {
 
-        def fechaInicio = new Date().parse("dd-MM-yyyy",params.fechaInicio).format("yyyy-MM-dd");
-        def fechaFin = new Date().parse("dd-MM-yyyy",params.fechaFin);
+        def fechaInicio = new Date().parse("dd-MM-yyyy", params.fechaInicio).format("yyyy-MM-dd");
+        def fechaFin = new Date().parse("dd-MM-yyyy", params.fechaFin);
 
-        fechaFin=fechaFin.plus(1)
-        fechaFin=fechaFin.format("yyyy-MM-dd")
+        fechaFin = fechaFin.plus(1)
+        fechaFin = fechaFin.format("yyyy-MM-dd")
 
 
         def tx_sql = "select data.*, tpidcdgo from data, lote, tpid where tpid.tpid__id = data.tpid__id and lote.lote__id = data.lote__id and edgs__id = 5  " +
@@ -549,14 +541,195 @@ class ReportesController {
     }
 
 
-    def ventas () {
-
+    def ventas() {
 
 
     }
 
+    def reporteConsolidado() {
+        // El primer reporte es un consolidado de la gestión en donde se debe generar por
+        //          campaña,
+        //          operador, y
+        //          fecha inicio y
+        //          fecha fin
+        // este solo genera números para poder verificar la efectividad de la base.
 
-    def reporteDetallado () {
+        /*
+            REPORTE CONSOLIDADO                            
+                    VENTAS
+                                
+        Fecha Imp:    05/03/2013                        Hora Imp:    10:37
+                                        
+        Campaña:    959 - AUSTRO BDD 17_2(1000 REGISTROS)                            
+        Orden:    Todas las ordenes                            
+                                        
+        Fecha Desde:    01/05/2013        Fecha Hasta:    03/05/2013                
+                                        
+        Registros Contactados                           No.    %                                 Registros Efectivos                  No.
+        PA  - Registros Pendiente de Aprobacion          7    11.29 %                     PA  - Registros Pendiente de Aprobacion        7
+        VL  - Registros Volver a llamar                  7    11.29 %
+        ND  - Registros No Desea                        16    25.81 %                           Pendientes de Gestión        No.
+        NA  - Registros No Aplica                        0    0. %                          GP - Registros sin Gestión        38
+        AG  - Registros Agendamiento                     1    1.61 %
+        PE  - Registros Pendientes                      26    41.94 %
+        RN  - Registros No Localizables                  5    8.06 %
+        Total Contactados                               62    100. %
+
+         */
+
+//        params.camp = "2"
+//        params.op = "6"
+//        params.fi = new Date().minus(356).format("dd-MM-yyyy")
+//        params.ff = new Date().format("dd-MM-yyyy")
+
+        def campana, operador, ordenesList
+
+        if (params.camp != "-1") {
+            campana = Campana.findAllById(params.camp.toLong())
+        } else {
+            campana = Campana.list()
+        }
+        if (params.op != "-1") {
+            operador = Usro.findAllById(params.op.toLong())
+        } else {
+            operador = Usro.list()
+        }
+        def fechaIni = new Date().parse("dd-MM-yyyy", params.fi).format("yyyy-MM-dd")
+        def fechaFin = new Date().parse("dd-MM-yyyy", params.ff).format("yyyy-MM-dd")
+
+        if (params.camp == "-1" && params.op == "-1") {
+            ordenesList = OrdenDeTrabajo.list()
+        } else if (params.camp == "-1" && params.op != "-1") {
+            ordenesList = OrdenDeTrabajo.findAllByCampanaInList(campana)
+        } else if (params.camp != "-1" && params.op == "-1") {
+            ordenesList = OrdenDeTrabajo.findAllByUsroInList(operador)
+        } else if (params.camp != "-1" && params.op != "-1") {
+            ordenesList = OrdenDeTrabajo.findAllByCampanaInListAndUsroInList(campana, operador)
+        }
+
+        def campId = campana.id.join(",")
+        def opId = operador.id.join(",")
+
+        def campLbl, ordenLbl
+        if (params.camp == "-1") {
+            campLbl = "Todas"
+        } else {
+            campLbl = campana[0].descripcion
+        }
+        if (params.op == "-1") {
+            ordenLbl = "Todas"
+        } else {
+            ordenLbl = operador[0].nombre + " " + operador[0].apellido
+        }
+
+        def ordenesId = ordenesList.id.join(",")
+
+        def cn = dbConnectionService.getConnection()
+
+        def sql = "SELECT\n" +
+                "  count(*)         can,\n" +
+                "  edgscdgo         cod,\n" +
+                "  edgsdscr         des,\n" +
+                "  usronmbr         usu\n" +
+                "FROM lote, edgs, ortb, usro\n" +
+                "WHERE edgs.edgs__id = lote.edgs__id AND\n" +
+                "      ortb.ortb__id = lote.ortb__id AND\n" +
+                "      usro.usro__id = ortb.usro__id AND\n" +
+                "      lote.camp__id in (${campId}) AND lote.ortb__id in (${ordenesId}) AND\n" +
+                "      lotefcha BETWEEN '${fechaIni}' AND '${fechaFin}'\n" +
+                "GROUP BY edgsdscr, edgscdgo, usronmbr"
+
+        def sqlTotal = "SELECT\n" +
+                "  count(*) can\n" +
+                "FROM lote, edgs\n" +
+                "WHERE edgs.edgs__id = lote.edgs__id AND\n" +
+                "      lote.camp__id in (${campId}) AND lote.ortb__id in (${ordenesId}) AND\n" +
+                "      lotefcha BETWEEN '${fechaIni}' AND '${fechaFin}'"
+
+        WorkbookSettings workbookSettings = new WorkbookSettings()
+        workbookSettings.locale = Locale.default
+
+        def file = File.createTempFile('doc', '.xls')
+        file.deleteOnExit()
+        WritableWorkbook workbook = Workbook.createWorkbook(file, workbookSettings)
+
+        WritableSheet sheet = workbook.createSheet('Reporte', 0)
+
+        WritableFont times11boldFont = new WritableFont(WritableFont.TIMES, 11, WritableFont.BOLD, true);
+        WritableCellFormat times11bold = new WritableCellFormat(times11boldFont);
+        WritableCellFormat times11boldRight = new WritableCellFormat(times11boldFont);
+        times11bold.setAlignment(Alignment.CENTRE)
+        WritableFont times11Font = new WritableFont(WritableFont.TIMES, 11, WritableFont.NO_BOLD, true);
+        WritableCellFormat times11 = new WritableCellFormat(times11Font);
+        NumberFormat twodps = new NumberFormat("#.##");
+        WritableCellFormat twoDpsFormat = new WritableCellFormat(twodps);
+
+        def label, number
+
+        sheet.mergeCells(1, 1, 6, 1)
+        sheet.mergeCells(1, 2, 6, 2)
+
+        sheet.setColumnView(1, 30)
+        sheet.setColumnView(2, 15)
+        sheet.setColumnView(3, 15)
+        sheet.setColumnView(4, 15)
+        sheet.setColumnView(5, 15)
+        sheet.setColumnView(6, 15)
+
+        label = new jxl.write.Label(1, 1, "Sistema de Gestión Telefónica".toUpperCase(), times11bold); sheet.addCell(label);
+        label = new jxl.write.Label(1, 2, "Reporte consolidado de ventas", times11bold); sheet.addCell(label);
+
+        label = new jxl.write.Label(2, 4, "Fecha Imp.", times11bold); sheet.addCell(label);
+        label = new jxl.write.Label(3, 4, new Date().format("dd-MM-yyyy"), times11); sheet.addCell(label);
+
+        label = new jxl.write.Label(4, 4, "Hora Imp.", times11bold); sheet.addCell(label);
+        label = new jxl.write.Label(5, 4, new Date().format("HH:mm"), times11); sheet.addCell(label);
+
+        label = new jxl.write.Label(2, 5, "Campaña", times11bold); sheet.addCell(label);
+        label = new jxl.write.Label(3, 5, campLbl, times11); sheet.addCell(label);
+
+        label = new jxl.write.Label(2, 6, "Orden", times11bold); sheet.addCell(label);
+        label = new jxl.write.Label(3, 6, ordenLbl, times11); sheet.addCell(label);
+
+        label = new jxl.write.Label(2, 7, "Fecha Inicio", times11bold); sheet.addCell(label);
+        label = new jxl.write.Label(3, 7, fechaIni, times11); sheet.addCell(label);
+
+        label = new jxl.write.Label(4, 7, "Fecha Fin", times11bold); sheet.addCell(label);
+        label = new jxl.write.Label(5, 7, fechaFin, times11); sheet.addCell(label);
+
+        label = new jxl.write.Label(1, 9, "Registros contactados", times11bold); sheet.addCell(label);
+        label = new jxl.write.Label(2, 9, "No.", times11bold); sheet.addCell(label);
+        label = new jxl.write.Label(3, 9, "%", times11bold); sheet.addCell(label);
+        label = new jxl.write.Label(4, 9, "Usuario", times11bold); sheet.addCell(label);
+
+        def fila = 10
+
+        def t = cn.firstRow(sqlTotal.toString())
+        def total = t.can
+
+        cn.eachRow(sql.toString()) { row ->
+            label = new jxl.write.Label(1, fila, row.cod + " - " + row.des, times11); sheet.addCell(label);
+            number = new jxl.write.Number(2, fila, row.can, times11); sheet.addCell(number);
+            number = new jxl.write.Number(3, fila, 100 * row.can / total, twoDpsFormat); sheet.addCell(number);
+            label = new jxl.write.Label(4, fila, row.usu, times11); sheet.addCell(label);
+            fila++
+        }
+
+        label = new jxl.write.Label(1, fila, "TOTAL", times11bold); sheet.addCell(label);
+        number = new jxl.write.Number(2, fila, total, times11boldRight); sheet.addCell(number);
+        number = new jxl.write.Number(3, fila, 100, times11boldRight); sheet.addCell(number);
+
+        workbook.write();
+        workbook.close();
+        def output = response.getOutputStream()
+        def header = "attachment; filename=" + "reporteConsolidadoExcel.xls";
+        response.setContentType("application/octet-stream")
+        response.setHeader("Content-Disposition", header);
+        output.write(file.getBytes());
+
+    }
+
+    def reporteDetallado() {
 
         def campana = Campana.get(params.id);
 
@@ -653,29 +826,29 @@ class ReportesController {
             label = new jxl.write.Label(4, fila, it?.cedula); sheet.addCell(label);
             label = new jxl.write.Label(5, fila, it?.nombre?.toString()); sheet.addCell(label);
             label = new jxl.write.Label(6, fila, it?.estadoGestion?.descripcion.toString()); sheet.addCell(label);
-            if (it?.loteFecha){
+            if (it?.loteFecha) {
                 label = new jxl.write.Label(7, fila, it?.loteFecha.format("dd-MM-yyyy")); sheet.addCell(label);
 
             } else {
 
-                label = new jxl.write.Label(7, fila," "); sheet.addCell(label);
+                label = new jxl.write.Label(7, fila, " "); sheet.addCell(label);
             }
             label = new jxl.write.Label(8, fila, it?.telefono1); sheet.addCell(label);
 
-            if(GestionTelefonica.findByLoteAndTelefono(it,it?.telefono1)?.estadoLlamada?.descripcion){
-                label = new jxl.write.Label(9, fila, GestionTelefonica.findByLoteAndTelefono(it,it?.telefono1)?.estadoLlamada?.descripcion.toString()); sheet.addCell(label);
+            if (GestionTelefonica.findByLoteAndTelefono(it, it?.telefono1)?.estadoLlamada?.descripcion) {
+                label = new jxl.write.Label(9, fila, GestionTelefonica.findByLoteAndTelefono(it, it?.telefono1)?.estadoLlamada?.descripcion.toString()); sheet.addCell(label);
 
             } else {
 
-                label = new jxl.write.Label(9, fila," "); sheet.addCell(label);
+                label = new jxl.write.Label(9, fila, " "); sheet.addCell(label);
             }
 
 
             label = new jxl.write.Label(10, fila, it?.telefono2); sheet.addCell(label);
 
-            if(GestionTelefonica.findByLoteAndTelefono(it,it?.telefono2)?.estadoLlamada?.descripcion){
-                label = new jxl.write.Label(11, fila, GestionTelefonica.findByLoteAndTelefono(it,it?.telefono2)?.estadoLlamada?.descripcion.toString()); sheet.addCell(label);
-            }   else {
+            if (GestionTelefonica.findByLoteAndTelefono(it, it?.telefono2)?.estadoLlamada?.descripcion) {
+                label = new jxl.write.Label(11, fila, GestionTelefonica.findByLoteAndTelefono(it, it?.telefono2)?.estadoLlamada?.descripcion.toString()); sheet.addCell(label);
+            } else {
 
                 label = new jxl.write.Label(11, fila, " "); sheet.addCell(label);
             }
@@ -683,9 +856,9 @@ class ReportesController {
 
             label = new jxl.write.Label(12, fila, it?.telefono3); sheet.addCell(label);
 
-            if( GestionTelefonica.findByLoteAndTelefono(it,it?.telefono3)?.estadoLlamada?.descripcion){
+            if (GestionTelefonica.findByLoteAndTelefono(it, it?.telefono3)?.estadoLlamada?.descripcion) {
 
-                label = new jxl.write.Label(13, fila, GestionTelefonica.findByLoteAndTelefono(it,it?.telefono3)?.estadoLlamada?.descripcion.toString()); sheet.addCell(label);
+                label = new jxl.write.Label(13, fila, GestionTelefonica.findByLoteAndTelefono(it, it?.telefono3)?.estadoLlamada?.descripcion.toString()); sheet.addCell(label);
             } else {
 
                 label = new jxl.write.Label(13, fila, " "); sheet.addCell(label);
@@ -694,18 +867,18 @@ class ReportesController {
 
             label = new jxl.write.Label(14, fila, it?.telefono4); sheet.addCell(label);
 
-            if(GestionTelefonica.findByLoteAndTelefono(it,it?.telefono4)?.estadoLlamada?.descripcion){
+            if (GestionTelefonica.findByLoteAndTelefono(it, it?.telefono4)?.estadoLlamada?.descripcion) {
 
-                label = new jxl.write.Label(15, fila, GestionTelefonica.findByLoteAndTelefono(it,it?.telefono4)?.estadoLlamada?.descripcion.toString()); sheet.addCell(label);
-            }else {
+                label = new jxl.write.Label(15, fila, GestionTelefonica.findByLoteAndTelefono(it, it?.telefono4)?.estadoLlamada?.descripcion.toString()); sheet.addCell(label);
+            } else {
                 label = new jxl.write.Label(15, fila, " "); sheet.addCell(label);
 
             }
 
             label = new jxl.write.Label(16, fila, it?.telefono5); sheet.addCell(label);
 
-            if(GestionTelefonica.findByLoteAndTelefono(it,it?.telefono5)?.estadoLlamada?.descripcion){
-                label = new jxl.write.Label(17, fila, GestionTelefonica.findByLoteAndTelefono(it,it?.telefono5)?.estadoLlamada?.descripcion.toString()); sheet.addCell(label);
+            if (GestionTelefonica.findByLoteAndTelefono(it, it?.telefono5)?.estadoLlamada?.descripcion) {
+                label = new jxl.write.Label(17, fila, GestionTelefonica.findByLoteAndTelefono(it, it?.telefono5)?.estadoLlamada?.descripcion.toString()); sheet.addCell(label);
             } else {
 
                 label = new jxl.write.Label(17, fila, " "); sheet.addCell(label);
@@ -714,25 +887,25 @@ class ReportesController {
 
             label = new jxl.write.Label(18, fila, it?.telefono6); sheet.addCell(label);
 
-            if(GestionTelefonica.findByLoteAndTelefono(it,it?.telefono6)?.estadoLlamada?.descripcion){
+            if (GestionTelefonica.findByLoteAndTelefono(it, it?.telefono6)?.estadoLlamada?.descripcion) {
 
-                label = new jxl.write.Label(19, fila, GestionTelefonica.findByLoteAndTelefono(it,it?.telefono6)?.estadoLlamada?.descripcion.toString()); sheet.addCell(label);
+                label = new jxl.write.Label(19, fila, GestionTelefonica.findByLoteAndTelefono(it, it?.telefono6)?.estadoLlamada?.descripcion.toString()); sheet.addCell(label);
             } else {
 
                 label = new jxl.write.Label(19, fila, " "); sheet.addCell(label);
             }
 
-            if(it?.observaciones){
+            if (it?.observaciones) {
                 label = new jxl.write.Label(20, fila, it?.observaciones.toString()); sheet.addCell(label);
 
-            }else {
+            } else {
 
                 label = new jxl.write.Label(20, fila, " "); sheet.addCell(label);
             }
-            if(it?.ciudad){
+            if (it?.ciudad) {
 
                 label = new jxl.write.Label(21, fila, it?.ciudad.toString()); sheet.addCell(label);
-            }else {
+            } else {
 
                 label = new jxl.write.Label(21, fila, " "); sheet.addCell(label);
             }
@@ -757,8 +930,7 @@ class ReportesController {
     }
 
 
-    def ventasExcel () {
-
+    def ventasExcel() {
 
 
     }
@@ -806,7 +978,7 @@ class ReportesController {
         def fila = 3;
 
         label = new jxl.write.Label(0, 2, "CÉDULA", times16format); sheet.addCell(label);
-        label = new jxl.write.Label(1,2, "NOMBRES", times16format); sheet.addCell(label);
+        label = new jxl.write.Label(1, 2, "NOMBRES", times16format); sheet.addCell(label);
 
 //        label = new jxl.write.Label(1, 2, "APELLIDO", times16format); sheet.addCell(label);
 //        label = new jxl.write.Label(2, 2, "APELLIDO 2", times16format); sheet.addCell(label);
@@ -826,83 +998,82 @@ class ReportesController {
 //              println("\t" + d)
 
 
-            if (d.datanmid){
+            if (d.datanmid) {
 
                 label = new jxl.write.Label(0, fila, d.datanmid.toString()); sheet.addCell(label);
-            }else {
+            } else {
 
                 label = new jxl.write.Label(0, fila, " "); sheet.addCell(label);
             }
-             if (d.datanb01 || d.databn02 || d.dataap01 || d.dataap02){
+            if (d.datanb01 || d.databn02 || d.dataap01 || d.dataap02) {
 
 
-                 label = new jxl.write.Label(1, fila, d.datanb01.toString() + " " + d.databn02.toString() + " " + d.dataap01.toString() + " " + d.dataap02.toString()); sheet.addCell(label);
+                label = new jxl.write.Label(1, fila, d.datanb01.toString() + " " + d.databn02.toString() + " " + d.dataap01.toString() + " " + d.dataap02.toString()); sheet.addCell(label);
 
-             }else {
+            } else {
 
 
+                label = new jxl.write.Label(1, fila, " "); sheet.addCell(label);
+            }
 
-                 label = new jxl.write.Label(1, fila, " "); sheet.addCell(label);
-             }
-
-            if (d.dataempr){
+            if (d.dataempr) {
 
                 label = new jxl.write.Label(2, fila, d.dataempr.toString()); sheet.addCell(label);
-            }else {
+            } else {
 
                 label = new jxl.write.Label(2, fila, " "); sheet.addCell(label);
             }
 
-            if (d.datadrrs){
+            if (d.datadrrs) {
 
                 label = new jxl.write.Label(3, fila, d.datadrrs.toString()); sheet.addCell(label);
-            }else {
+            } else {
 
                 label = new jxl.write.Label(3, fila, " "); sheet.addCell(label);
             }
 
-            if (d.datatelf){
+            if (d.datatelf) {
 
                 label = new jxl.write.Label(4, fila, d.datatelf.toString()); sheet.addCell(label);
-            }else {
+            } else {
 
                 label = new jxl.write.Label(4, fila, " "); sheet.addCell(label);
             }
-            if (d.datadrtb){
+            if (d.datadrtb) {
 
                 label = new jxl.write.Label(5, fila, d.datadrtb.toString()); sheet.addCell(label);
-            }else {
+            } else {
 
                 label = new jxl.write.Label(5, fila, " "); sheet.addCell(label);
             }
-            if (d.datatltr){
+            if (d.datatltr) {
 
                 label = new jxl.write.Label(6, fila, d.datatltr.toString()); sheet.addCell(label);
-            }else {
+            } else {
 
                 label = new jxl.write.Label(6, fila, " "); sheet.addCell(label);
             }
-            if (d.datacllr){
+            if (d.datacllr) {
 
                 label = new jxl.write.Label(7, fila, d.datacllr.toString()); sheet.addCell(label);
-            }else {
+            } else {
 
                 label = new jxl.write.Label(7, fila, " "); sheet.addCell(label);
             }
 
-            if (d.parr__id){
+            if (d.parr__id) {
 
                 label = new jxl.write.Label(8, fila, (Parroquia.get(d.parr__id).ciudad).toString()); sheet.addCell(label);
-            }else {
+            } else {
 
                 label = new jxl.write.Label(8, fila, " "); sheet.addCell(label);
             }
-            if(d.lote__id){
+            if (d.lote__id) {
 
                 label = new jxl.write.Label(9, fila, (Lote.get(d.lote__id).ordenDeTrabajo.usro.nombre.toString() + " " + Lote.get(d.lote__id).ordenDeTrabajo.usro.apellido.toString())); sheet.addCell(label);
 
 
-            }else {
+            } else {
 
                 label = new jxl.write.Label(9, fila, " "); sheet.addCell(label);
 
