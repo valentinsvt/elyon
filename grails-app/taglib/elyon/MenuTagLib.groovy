@@ -56,15 +56,15 @@ class MenuTagLib {
                 items.administracion.items.parametros.label = "Parámetros"
                 items.administracion.items.parametros.controller = "parametros"
                 items.administracion.items.parametros.action = "index"
-                items.administracion.items.reportes = [:]
-                items.administracion.items.reportes.label = "Ventas"
-                items.administracion.items.reportes.controller = "reportes"
-//                items.administracion.items.reportes.action = "archivo"
-                items.administracion.items.reportes.action = "ventas"
-                items.administracion.items.reportesXl = [:]
-                items.administracion.items.reportesXl.label = "Ventas Excel"
-                items.administracion.items.reportesXl.controller = "reportes"
-                items.administracion.items.reportesXl.action = "ventasExcel"
+//                items.administracion.items.reportes = [:]
+//                items.administracion.items.reportes.label = "Ventas"
+//                items.administracion.items.reportes.controller = "reportes"
+////                items.administracion.items.reportes.action = "archivo"
+//                items.administracion.items.reportes.action = "ventas"
+//                items.administracion.items.reportesXl = [:]
+//                items.administracion.items.reportesXl.label = "Ventas Excel"
+//                items.administracion.items.reportesXl.controller = "reportes"
+//                items.administracion.items.reportesXl.action = "ventasExcel"
 //                items.administracion.items.reportesXl.action = "aExcel"
 
                 items.campana = [:]
@@ -76,6 +76,11 @@ class MenuTagLib {
                 items.ordenDeTrabajo.controller = "ordenDeTrabajo"
                 items.ordenDeTrabajo.action = "list"
                 items.ordenDeTrabajo.label = "Orden de trabajo"
+
+                items.reportes = [:]
+                items.reportes.controller = "reportes"
+                items.reportes.action = "index"
+                items.reportes.label = "Reportes"
 
                 break;
             case "u":

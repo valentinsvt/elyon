@@ -558,7 +558,7 @@ class ReportesController {
 
     def reporteDetallado () {
 
-        def campana = Campana.get(2);
+        def campana = Campana.get(params.id);
 
         def orden = OrdenDeTrabajo.findByCampana(campana)
 
