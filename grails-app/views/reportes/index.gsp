@@ -115,12 +115,14 @@
         </div>
 
         <div id="reporteDetalladoDialog" class="hide">
-            <div>
+            Reporte detallado de la gestión se genera solo por campaña y fecha inicio y fecha fin.
+            <br/>
+            <div style="margin: 10px;">
                 Campaña:
                 <g:select name="campaña" id="campaña"
                           from="${elyon.Campana.list()}"
                           optionKey="id" optionValue="descripcion"
-                          class="ui-widget-content ui-corner-all" style="width: 300px;"/>
+                          class="ui-widget-content ui-corner-all" style="width: 250px; height: 30px;"/>
             </div>
         </div>
 
@@ -246,7 +248,7 @@
                     modal     : true,
                     draggable : false,
                     width     : 400,
-                    height    : 180,
+                    height    : 200,
                     position  : 'center',
                     title     : 'Seleccione la campaña',
                     buttons   : {
