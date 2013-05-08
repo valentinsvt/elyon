@@ -115,14 +115,12 @@
         </div>
 
         <div id="reporteDetalladoDialog" class="hide">
-            Reporte detallado de la gestión se genera solo por campaña y fecha inicio y fecha fin.
-            <br/>
-            <div style="margin: 10px;">
+            <div>
                 Campaña:
                 <g:select name="campaña" id="campaña"
                           from="${elyon.Campana.list()}"
                           optionKey="id" optionValue="descripcion"
-                          class="ui-widget-content ui-corner-all" style="width: 250px; height: 30px;"/>
+                          class="ui-widget-content ui-corner-all" style="width: 300px;"/>
             </div>
         </div>
 
@@ -160,6 +158,8 @@
             var fechaFin
             var fechaInicioExcel
             var fechaFinExcel
+            var fechaInicioDetallado
+            var fechaFinDetallado
             var campana
 
             $(function () {
@@ -247,19 +247,31 @@
                     resizable : false,
                     modal     : true,
                     draggable : false,
-                    width     : 400,
-                    height    : 200,
+                    width     : 350,
+                    height    : 300,
                     position  : 'center',
                     title     : 'Seleccione la campaña',
                     buttons   : {
                         "Aceptar"  : function () {
+
+                            fechaInicioDetallado = $("#fechaInicioDetallado").val();
+                            fechaFinDetallado = $("#fechaFinDetallado").val();
                             campana = $("#campaña").val()
+
+                            if(fechaInicioDetallado != '' && fechaFinDetallado != ''){
+
                             if (campana != '') {
-                                location.href = "${createLink(controller: 'reportes', action: 'reporteDetallado')}?id=" + campana
+                                location.href = "${createLink(controller: 'reportes', action: 'reporteDetallado')}?id=" + campana + "&fechaInicio=" + fechaInicioDetallado + "&fechaFin=" + fechaFinDetallado
                                 $("#reporteDetalladoDialog").dialog("close")
                             }
                             else {
                                 $("#reporteDetalladoDialog").dialog("close")
+                            }
+
+                            } else {
+
+
+
                             }
                         },
                         "Cancelar" : function () {

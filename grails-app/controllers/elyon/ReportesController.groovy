@@ -734,8 +734,10 @@ class ReportesController {
         def campana = Campana.get(params.id);
 
         def orden = OrdenDeTrabajo.findByCampana(campana)
+        def fechaInicio = new Date().parse("dd-MM-yyyy", params.fechaInicio)
+        def fechaFin = new Date().parse("dd-MM-yyyy", params.fechaFin)
 
-        def lote = Lote.findAllByCampana(campana)
+        def lote = Lote.findAllByCampanaAndLoteFechaBetween(campana, fechaInicio, fechaFin)
 
         def usuario = session.usuario
 
