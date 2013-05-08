@@ -124,7 +124,7 @@
                 Fecha Fin:    <elm:datepicker name="fechaFinDetallado" class="datepicker" style="width: 100px; margin-left: 20px;"/>
             </div>
 
-            <div class="span3" style="margin-bottom: 10px">
+            <div style="margin-bottom: 10px; margin-left: 30px">
                 Campaña:
                 <g:select name="campaña" id="campaña"
                           from="${elyon.Campana.list()}"
