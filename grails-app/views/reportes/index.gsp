@@ -115,12 +115,21 @@
         </div>
 
         <div id="reporteDetalladoDialog" class="hide">
-            <div>
+
+            <div class="span3" style="margin-bottom: 20px; margin-top: 20px;">
+                Fecha Inicio: <elm:datepicker name="fechaInicioDetallado" class="datepicker" style="width: 100px; margin-left: 6px;"/>
+            </div>
+
+            <div class="span3" style="margin-bottom: 10px">
+                Fecha Fin:    <elm:datepicker name="fechaFinDetallado" class="datepicker" style="width: 100px; margin-left: 20px;"/>
+            </div>
+
+            <div class="span3" style="margin-bottom: 10px">
                 Campaña:
                 <g:select name="campaña" id="campaña"
                           from="${elyon.Campana.list()}"
                           optionKey="id" optionValue="descripcion"
-                          class="ui-widget-content ui-corner-all" style="width: 300px;"/>
+                          class="ui-widget-content ui-corner-all" style="width: 180px; margin-left: 20px"/>
             </div>
         </div>
 
@@ -135,8 +144,8 @@
             </div>
 
             <div class="span3" style="margin-bottom: 10px;">
-                Campaña:
-                <g:select name="campanaCons"
+
+                Campaña:     <g:select name="campanaCons"
                           from="${elyon.Campana.list()}" noSelection="['-1': 'Todas']"
                           optionKey="id" optionValue="descripcion"
                           class="ui-widget-content ui-corner-all" style="width: 150px; margin-left: 20px;"/>
@@ -248,7 +257,7 @@
                     modal     : true,
                     draggable : false,
                     width     : 350,
-                    height    : 300,
+                    height    : 350,
                     position  : 'center',
                     title     : 'Seleccione la campaña',
                     buttons   : {
