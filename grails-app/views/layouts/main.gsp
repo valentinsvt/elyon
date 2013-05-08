@@ -65,6 +65,7 @@
 
         <mn:menu title="${g.layoutTitle(default: 'Elyon')}"/>
 
+        %{--<div class="container" style="background: url('../images/central2.jpeg') no-repeat center; width: 1000px; height: 600px;">--}%
         <div class="container">
 
             <g:layoutBody/>

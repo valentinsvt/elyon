@@ -115,16 +115,19 @@
         </div>
 
         <div id="reporteDetalladoDialog" class="hide">
-
-            <div class="span3" style="margin-bottom: 20px; margin-top: 20px;">
+            <p>
+            Reporte detallado de la gestión, se genera por campaña y para un rango de fechas:<br>
+            fecha inicio y fecha fin
+            </p>
+            <div class="span4" style="margin-bottom: 20px; margin-top: 20px;">
                 Fecha Inicio: <elm:datepicker name="fechaInicioDetallado" class="datepicker" style="width: 100px; margin-left: 6px;"/>
             </div>
 
-            <div class="span3" style="margin-bottom: 10px">
+            <div class="span4" style="margin-bottom: 10px">
                 Fecha Fin:    <elm:datepicker name="fechaFinDetallado" class="datepicker" style="width: 100px; margin-left: 20px;"/>
             </div>
 
-            <div style="margin-bottom: 10px; margin-left: 30px">
+            <div style="margin-bottom: 10px; margin-left: 20px">
                 Campaña:
                 <g:select name="campaña" id="campaña"
                           from="${elyon.Campana.list()}"
