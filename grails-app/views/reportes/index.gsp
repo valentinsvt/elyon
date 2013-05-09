@@ -88,6 +88,11 @@
                                 Reporte Consolidado
                             </a>
                         </li>
+                        <li text="auct">
+                            <a href="#" id="ventasDiarias" class="link">
+                                Ventas Diarias
+                            </a>
+                        </li>
                     </ul>
                 </div>
 
@@ -119,17 +124,17 @@
             Reporte detallado de la gestión, se genera por campaña y para un rango de fechas:<br>
             fecha inicio y fecha fin
             </p>
-            <div class="span4" style="margin-bottom: 20px; margin-top: 20px;">
+            <div class="span3" style="margin-bottom: 20px; margin-top: 20px;">
                 Fecha Inicio: <elm:datepicker name="fechaInicioDetallado" class="datepicker" style="width: 100px; margin-left: 6px;"/>
             </div>
 
-            <div class="span4" style="margin-bottom: 10px">
+            <div class="span3" style="margin-bottom: 10px">
                 Fecha Fin:    <elm:datepicker name="fechaFinDetallado" class="datepicker" style="width: 100px; margin-left: 20px;"/>
             </div>
 
-            <div style="margin-bottom: 10px; margin-left: 20px">
+            <div style="margin-bottom: 10px; margin-left: 30px">
                 Campaña:
-                <g:select name="campaña" id="campaña"
+                <g:select name="campana" id="campana"
                           from="${elyon.Campana.list()}"
                           optionKey="id" optionValue="descripcion"
                           class="ui-widget-content ui-corner-all" style="width: 180px; margin-left: 20px"/>
@@ -162,6 +167,25 @@
             </div>
         </div>
 
+    <div id="ventasDiariasDialog" class="hide">
+
+        <div class="span3" style="margin-bottom: 20px; margin-top: 20px;">
+            Fecha Inicio: <elm:datepicker name="fechaInicioVentas" class="datepicker" style="width: 100px; margin-left: 6px;"/>
+        </div>
+
+        <div class="span3" style="margin-bottom: 10px">
+            Fecha Fin:    <elm:datepicker name="fechaFinVentas" class="datepicker" style="width: 100px; margin-left: 20px;"/>
+        </div>
+
+        %{--<div style="margin-bottom: 10px; margin-left: 30px">--}%
+            %{--Campaña:--}%
+            %{--<g:select name="campanaVentas" id="campanaVentas"--}%
+                      %{--from="${elyon.Campana.list()}"--}%
+                      %{--optionKey="id" optionValue="descripcion"--}%
+                      %{--class="ui-widget-content ui-corner-all" style="width: 180px; margin-left: 20px"/>--}%
+        %{--</div>--}%
+    </div>
+
 
 
         <script type="text/javascript">
@@ -172,6 +196,9 @@
             var fechaFinExcel
             var fechaInicioDetallado
             var fechaFinDetallado
+            var fechaInicioVentas
+            var fechaFinVentas
+
             var campana
 
             $(function () {
@@ -193,6 +220,12 @@
                 $("#consolidado").click(function () {
                     $("#dlgConsolidado").dialog("open");
                     return false;
+                });
+
+                $("#ventasDiarias").click(function () {
+                   $("#ventasDiariasDialog").dialog("open");
+                    return false;
+
                 });
 
                 $("#ventasDialog").dialog({
@@ -268,7 +301,7 @@
 
                             fechaInicioDetallado = $("#fechaInicioDetallado").val();
                             fechaFinDetallado = $("#fechaFinDetallado").val();
-                            campana = $("#campaña").val()
+                            campana = $("#campana").val()
 
                             if(fechaInicioDetallado != '' && fechaFinDetallado != ''){
 
@@ -321,6 +354,49 @@
                         }
                     }
                 });
+                //ventasDiarias
+
+                $("#ventasDiariasDialog").dialog({
+                    autoOpen  : false,
+                    resizable : false,
+                    modal     : true,
+                    draggable : false,
+                    width     : 350,
+                    height    : 250,
+                    position  : 'center',
+                    title     : 'Seleccione las fechas',
+                    buttons   : {
+                        "Aceptar"  : function () {
+
+                            fechaInicioVentas = $("#fechaInicioVentas").val();
+                            fechaFinVentas = $("#fechaFinVentas").val();
+                            var campanaVentas = $("#campanaVentas").val();
+
+                            if(fechaInicioVentas != '' && fechaFinVentas != ''){
+
+                                if (campanaVentas != '') {
+                                    location.href = "${createLink(controller: 'reportes', action: 'ventasDiarias')}?id=" + campanaVentas + "&fechaInicio=" + fechaInicioVentas + "&fechaFin=" + fechaFinVentas
+                                    $("#ventasDiariasDialog").dialog("close")
+                                }
+                                else {
+                                    $("#ventasDiariasDialog").dialog("close")
+                                }
+
+                            } else {
+
+
+
+                            }
+                        },
+                        "Cancelar" : function () {
+                            $("#ventasDiariasDialog").dialog("close");
+                        }
+                    }
+                });
+
+
+
+
 
             });
 

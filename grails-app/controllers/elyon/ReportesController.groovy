@@ -931,6 +931,111 @@ class ReportesController {
 
     }
 
+    def ventasDiarias () {
+
+//        def campana
+//        campana = params.id.join(",")
+
+        def fechaInicio = new Date().parse("dd-MM-yyyy", params.fechaInicio).format("yyyy-MM-dd")
+        def fechaFin = new Date().parse("dd-MM-yyyy", params.fechaFin).format("yyyy-MM-dd")
+
+
+
+        def cn = dbConnectionService.getConnection()
+
+        def sql = "SELECT\n" +
+                  "campdscr     camp,\n"  +
+                  "usronmbr      nmbr,\n" +
+                  "usroapll      apll,\n" +
+                  "count(*)       can\n" +
+                  "FROM lote, ortb, usro, camp\n" +
+                  "WHERE ortb.ortb__id = lote.ortb__id AND\n" +
+                  "      usro.usro__id = ortb.usro__id AND\n" +
+                  "      camp.camp__id = lote.camp__id AND\n" +
+                  "      edgs__id='${5}' AND\n" +
+                  "      lotefcha BETWEEN '${fechaInicio}' AND '${fechaFin}'\n" +
+                  "GROUP BY campdscr, usronmbr, usroapll"
+
+//        println("sql" + sql)
+
+//        select campdscr, usronmbr, usroapll, count(*)
+//        from lote, ortb, usro, camp
+//        where ortb.ortb__id = lote.ortb__id and
+//        usro.usro__id = ortb.usro__id and
+//        camp.camp__id = lote.camp__id and
+//        edgs__id = 5
+//        group by campdscr, usronmbr, usroapll;
+
+
+        WorkbookSettings workbookSettings = new WorkbookSettings()
+        workbookSettings.locale = Locale.default
+
+        def file = File.createTempFile('myExcelDocument', '.xls')
+        file.deleteOnExit()
+        WritableWorkbook workbook = Workbook.createWorkbook(file, workbookSettings)
+
+        WritableFont font = new WritableFont(WritableFont.ARIAL, 12)
+        WritableCellFormat formatXls = new WritableCellFormat(font)
+
+        def row = 0
+        WritableSheet sheet = workbook.createSheet('MySheet', 0)
+
+        WritableFont times16font = new WritableFont(WritableFont.TIMES, 11, WritableFont.BOLD, true);
+        WritableCellFormat times16format = new WritableCellFormat(times16font);
+        WritableFont times11boldFont = new WritableFont(WritableFont.TIMES, 11, WritableFont.BOLD, true);
+        WritableCellFormat times11bold = new WritableCellFormat(times11boldFont);
+        WritableCellFormat times11boldRight = new WritableCellFormat(times11boldFont);
+        times11bold.setAlignment(Alignment.CENTRE)
+        WritableFont times11Font = new WritableFont(WritableFont.TIMES, 11, WritableFont.NO_BOLD, true);
+        WritableCellFormat times11 = new WritableCellFormat(times11Font);
+        NumberFormat twodps = new NumberFormat("#.##");
+        WritableCellFormat twoDpsFormat = new WritableCellFormat(twodps);
+
+        sheet.setColumnView(0, 20)
+        sheet.setColumnView(1, 15)
+        sheet.setColumnView(2, 15)
+        sheet.setColumnView(3, 20)
+
+        def label
+        def number
+        def fila = 8;
+
+        label = new jxl.write.Label(2, 1, "Sistema de Gestión Telefónica".toUpperCase(), times16format); sheet.addCell(label);
+        label = new jxl.write.Label(2, 2, "Reporte de Ventas Diarias", times16format); sheet.addCell(label);
+
+        label = new jxl.write.Label(1, 4, "", times16format); sheet.addCell(label);
+        label = new jxl.write.Label(4, 4, "", times16format); sheet.addCell(label);
+
+        label = new jxl.write.Label(0, 6, "CAMPAÑA", times16format); sheet.addCell(label);
+        label = new jxl.write.Label(1, 6, "OPERADOR", times16format); sheet.addCell(label);
+        label = new jxl.write.Label(2, 6, "CANTIDAD", times16format); sheet.addCell(label);
+
+//        def t = cn.firstRow(sql.toString())
+//        def total = t.can
+
+        cn.eachRow(sql.toString()) { i ->
+
+        label = new jxl.write.Label(0, fila, i.camp, times11); sheet.addCell(label);
+        label = new jxl.write.Label(1, fila, i.nmbr + " " + i.apll, times11); sheet.addCell(label);
+        number = new jxl.write.Number(2, fila, i.can, twoDpsFormat); sheet.addCell(number);
+
+            fila++
+
+        }
+
+
+        workbook.write();
+        workbook.close();
+        def output = response.getOutputStream()
+        def header = "attachment; filename=" + "reporteVentasDiarias.xls";
+        response.setContentType("application/octet-stream")
+        response.setHeader("Content-Disposition", header);
+        output.write(file.getBytes());
+
+
+    }
+
+
 
     def ventasExcel() {
 
