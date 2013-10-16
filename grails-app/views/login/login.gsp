@@ -17,8 +17,10 @@
 
     <body>
 
-        <g:form class="well form-horizontal span" action="validarLogin" name="frmLogin">
-            <fieldset>
+    <div style="width: 800px;">
+    <img src="./images/central4.jpeg" alt="Sistema de Gestión Telefónica" height="263px;" width="240px;" style="margin-top:20px; ">
+        <g:form class="well form-horizontal span" action="validarLogin" name="frmLogin" style="position: fixed; margin-left: 260px; top: 50px;">
+            <fieldset >
                 <legend>Ingreso</legend>
 
                 <g:if test="${flash.message}">
@@ -53,7 +55,7 @@
             </fieldset>
             <div style="text-align: right; font-size: 10px;">Versión ${message(code: 'version', default: '0.1.0x')}</div>
         </g:form>
-
+    </div>
         <script type="text/javascript">
             $(function () {
 
