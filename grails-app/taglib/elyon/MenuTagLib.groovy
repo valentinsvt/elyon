@@ -30,7 +30,7 @@ class MenuTagLib {
     }
 
     def menu = { attrs ->
-
+        println "session "+session.usuario
         def usu = Usro.get(session.usuario.id)
 
 

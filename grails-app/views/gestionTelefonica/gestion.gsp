@@ -181,12 +181,13 @@
             </div>
         </g:each>
 
-        <div class="span2 btn-group" style="margin-top: 20px; margin-bottom: 20px; margin-left: 500px">
+        <div class="span2 btn-group" style="margin-top: 20px; margin-bottom: 20px; margin-left: 450px">
 
-            <g:link controller="gestionTelefonica" action="saveGestion" class="btn btn-guardar btn-primary"><i class="icon-save"></i>Guardar</g:link>
 
             <g:link controller="lote" action="busqueda" class="btn btn-salir"><i class="icon-hand-left"></i>Salir</g:link>
-
+            <g:link controller="gestionTelefonica" action="saveGestion" class="btn btn-guardar btn-primary"><i class="icon-save"></i>Guardar</g:link>
+            <g:link controller="gestionTelefonica" action="siguiente" class="btn btn-next btn-primary" params="[id:lote.id,orden:lote.ordenDeTrabajo.id]"><i class="icon-arrow-right"></i>Siguiente</g:link>
+            <g:link controller="gestionTelefonica" action="ingresoVenta" class="btn btn-venta btn-primary"><i class="icon-money"></i>Ingreso Venta</g:link>
         </div>
     </fieldset>
 </g:form>

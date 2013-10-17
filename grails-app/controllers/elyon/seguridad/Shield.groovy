@@ -43,7 +43,7 @@ class Shield {
         } else {
             def allowedUser = [:]
             allowedUser.lote = ["busqueda", "buscarLote", "busquedaRegistro", "buscarLoteRegistro"]
-            allowedUser.gestionTelefonica = ["gestion", "saveGestion"]
+            allowedUser.gestionTelefonica = ["gestion", "saveGestion","siguiente","ingresoVenta"]
             allowedUser.llamada = ["registro", "saveRegistro","cambiarParroquia","cambiarSucursal","cambiarOficina"]
             allowedUser.inicio = ["index"]
 
