@@ -200,6 +200,12 @@
             $("#frmGestion").submit();
             return false;
         });
+        $(".btn-venta").click(function () {
+            $(this).replaceWith(spinner);
+            $("#frmGestion").attr("action","${g.createLink(action: 'ingresoVenta')}")
+            $("#frmGestion").submit();
+            return false;
+        });
 
     });
 

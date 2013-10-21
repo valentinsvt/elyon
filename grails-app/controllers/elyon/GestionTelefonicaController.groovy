@@ -179,14 +179,14 @@ class GestionTelefonicaController extends elyon.seguridad.Shield {
 
         println(params)
 
-        println "save gestion?"
+//        println "save gestion? iv "
         def msg = "ok"
         def loteId = params.lote
         def estadoGestionId = params.estadoGestion
         def estadoGestion = EstadoGestion.get(estadoGestionId)
         def lote = Lote.get(loteId)
 
-        println("lote" + lote )
+//        println("lote " + lote )
 //
 //        def data = Data.findByLote(lote)
 //
