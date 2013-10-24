@@ -47,6 +47,10 @@
                     <i class="icon-trash"></i>
                     Eliminar
                 </a>
+                <a href="#" class="btn btn-sal">
+                    <i class="icon-arrow-left"></i>
+                    Salir
+                </a>
             </div>
 
             <fieldset class="form-horizontal">
@@ -359,7 +363,7 @@
 
                                 <div class="span1">Fecha ini res</div>
 
-                                <div class="span2"><elm:datepicker name="fechaInicioResidencia" class="span2" value="${data?.fechaInicioResidencia}"/></div>
+                                <div class="span2"><elm:datepicker name="fechaInicioResidencia" class="span2" value="${data?.fechaInicioResidencia}" yearRange="1990"/></div>
                             </div>
 
                             <div class="row">
@@ -386,15 +390,15 @@
                             <div class="row">
                                 <div class="span1 offset1">Fecha ini trab act</div>
 
-                                <div class="span2"><elm:datepicker name="fechaInicioTrabajoActual" class="span2" value="${data?.fechaInicioTrabajoActual}"/></div>
+                                <div class="span2"><elm:datepicker name="fechaInicioTrabajoActual" class="span2" value="${data?.fechaInicioTrabajoActual}" yearRange="1990"/></div>
 
                                 <div class="span1">Fecha ini ult trab</div>
 
-                                <div class="span2"><elm:datepicker name="fechaInicioTrabajoAnterior" class="span2" value="${data?.fechaInicioTrabajoAnterior}"/></div>
+                                <div class="span2"><elm:datepicker name="fechaInicioTrabajoAnterior" class="span2" value="${data?.fechaInicioTrabajoAnterior}" yearRange="1990"/></div>
 
                                 <div class="span1">Fecha fin ult trab</div>
 
-                                <div class="span2"><elm:datepicker name="fechaFinTrabajoAnterior" class="span2" value="${data?.fechaFinTrabajoAnterior}"/></div>
+                                <div class="span2"><elm:datepicker name="fechaFinTrabajoAnterior" class="span2" value="${data?.fechaFinTrabajoAnterior}" yearRange="1990"/></div>
                             </div>
                         </div>
 
@@ -512,7 +516,19 @@
             </div>
         </g:else>
 
-        <script>
+
+    <div id="salirRegistroDialog">
+        <fieldset>
+            <div class="span3">
+                Está seguro que desea salir de esta pantalla?
+                <br>Todos los datos <b>no guardados</b> se perderán!!</br>
+            </div>
+        </fieldset>
+    </div>
+
+
+
+    <script>
             $(function () {
                 $("#tabs").tabs({
                     heightStyle : "auto"
@@ -622,7 +638,45 @@
             });
 
 
-        </script>
+            $(".btn-sal").click(function () {
+
+             $("#salirRegistroDialog").dialog("open");
+
+            });
+
+
+            $("#salirRegistroDialog").dialog({
+
+                autoOpen: false,
+                resizable: false,
+                modal: true,
+                draggable: false,
+                width: 350,
+                height: 180,
+                position: 'center',
+                title: 'Salir de la pantalla de Registro',
+                buttons: {
+                    "Aceptar": function () {
+
+
+                        location.href="${g.createLink(controller: 'gestionTelefonica', action: 'gestion', id: lote?.id)}"
+                        $("#salirRegistroDialog").dialog("close");
+                        return false;
+                    },
+                    "Cancelar" : function () {
+
+                        $("#salirRegistroDialog").dialog("close");
+
+                    }
+                }
+
+
+
+            }) ;
+
+
+
+    </script>
 
     </body>
 </html>
