@@ -30,7 +30,7 @@ class MenuTagLib {
     }
 
     def menu = { attrs ->
-        println "session "+session.usuario
+//        println "session "+session.usuario
         def usu = Usro.get(session.usuario.id)
 
 
@@ -76,7 +76,10 @@ class MenuTagLib {
                 items.ordenDeTrabajo.controller = "ordenDeTrabajo"
                 items.ordenDeTrabajo.action = "list"
                 items.ordenDeTrabajo.label = "Orden de trabajo"
-
+                items.reproceso = [:]
+                items.reproceso.controller = "reproceso"
+                items.reproceso.action = "busqueda"
+                items.reproceso.label = "Reproceso"
                 items.reportes = [:]
                 items.reportes.controller = "reportes"
                 items.reportes.action = "index"

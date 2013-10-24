@@ -527,7 +527,7 @@ class ReportesController {
         def tx_sql = "select data.*, tpidcdgo from data, lote, tpid where tpid.tpid__id = data.tpid__id and lote.lote__id = data.lote__id and edgs__id = 5  " +
                 " and datafcha >= '${fechaInicio}' and datafcha <= '${fechaFin}' " +
                 "order by dataap01, dataap02"
-
+        println "sql "+tx_sql
         def tx = crearExcel(tx_sql)
 
         def output = response.getOutputStream()
